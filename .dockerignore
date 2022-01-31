@@ -1,0 +1,12 @@
+.cache
+.dockerignore
+.gitignore
+.git
+.env
+.pylintrc
+__pycache__
+*.pyc
+*.egg-info
+.idea/
+**/node_modules
+**/.env.local
