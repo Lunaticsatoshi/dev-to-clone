@@ -1,0 +1,5 @@
+node_modules/
+jest.config.js
+
+*.test.ts
+*.test.js
