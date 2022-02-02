@@ -39,3 +39,18 @@ class RegisterView(APIView):
             Utils.send_email(data)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         
+class VerifyEmailView(APIView):
+    permission_classes = (AllowAny,)
+    
+    def post(self, request):
+        pass
+        # token = request.GET.get('token')
+        # if token is None:
+        #     return Response({'error': 'Token not found'}, status=status.HTTP_400_BAD_REQUEST)
+        # try:
+        #     user = CustomUser.objects.get(refresh_token=token)
+        # except CustomUser.DoesNotExist:
+        #     return Response({'error': 'User does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+        # user.is_active = True
+        # user.save()
+        # return Response({'message': 'Email verified'}, status=status.HTTP_200_OK)
