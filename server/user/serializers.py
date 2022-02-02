@@ -4,15 +4,17 @@ from rest_framework import status
 from .models import CustomUser
 
 class RegisterSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(
-        max_length=68, min_length=6, write_only=True)
 
     default_error_messages = {
-        'username': 'The username should only contain alphanumeric characters'}
-
+        'username': 'The username should only contain alphanumeric characters',
+        'email_exists': 'User with this email already exists',
+        'username_exists': 'The username is already taken',
+    }
     class Meta:
         model = CustomUser
-        extra_kwargs = {'password': {'write_only': True}}
+        extra_kwargs = {'password': {'write_only': True, 'max_length': 68, 'min_length': 6, 'error_messages': {'blank': 'password cannot be empty'}},
+                        'email': {'validators': []},
+                        'username': {'validators': []}}
         fields = ['id', 'email', 'username', 'password', 'is_active', 'is_staff', 'is_superuser']
 
     def validate(self, attrs):
@@ -20,11 +22,11 @@ class RegisterSerializer(serializers.ModelSerializer):
         username = attrs.get('username', '')
 
         if not username.isalnum():
-            raise serializers.ValidationError({'username': 'The username should only contain alphanumeric characters'}, code=status.HTTP_400_BAD_REQUEST)
+            raise serializers.ValidationError({'username': self.default_error_messages['username']}, code=status.HTTP_400_BAD_REQUEST)
         if CustomUser.objects.filter(email=email).exists():
-            raise serializers.ValidationError({'email': 'User with this email already exists'}, code=status.HTTP_400_BAD_REQUEST)
+            raise serializers.ValidationError({'email': self.default_error_messages['email_exists']}, code=status.HTTP_400_BAD_REQUEST)
         if CustomUser.objects.filter(username__iexact=username).exists():
-            raise serializers.ValidationError({'username': 'The username is already taken'}, code=status.HTTP_400_BAD_REQUEST)
+            raise serializers.ValidationError({'username': self.default_error_messages['username_exists']}, code=status.HTTP_400_BAD_REQUEST)
         return attrs
 
     def create(self, validated_data):
