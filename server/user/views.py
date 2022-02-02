@@ -1,12 +1,16 @@
 from django.shortcuts import render
+from django.contrib.sites.shortcuts import get_current_site
+from django.urls import reverse
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
+from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import AllowAny
 
 from .serializers import RegisterSerializer
 from .models import CustomUser, UserProfile
+from .utils import Utils
 
 # Create your views here.
 
@@ -22,5 +26,16 @@ class RegisterView(APIView):
             user_data = serializer.data
             user = CustomUser.objects.get(email=user_data['email'])
             UserProfile.objects.create(user=user, username=user.username)
+            token = RefreshToken.for_user(user).access_token
+            current_site = get_current_site(request).domain
+            relativeLink = reverse('email-verify')
+            abs_url = f'http://{current_site}{relativeLink}?token={token}'
+            email_body = f'Hi {user.username},\n\n Please use this link to verify your email\n: {abs_url}'
+            data = {
+                'email': user.email,
+                'subject': 'Verify your email',
+                'body': email_body
+            }
+            Utils.send_email(data)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         
