@@ -5,7 +5,7 @@ type LayoutProps = {
   title: string;
   description?: string;
   keywords?: string;
-  children: ReactNode,
+  children: ReactNode;
 };
 
 const Layout: FC<LayoutProps> = ({
