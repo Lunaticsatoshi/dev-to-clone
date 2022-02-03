@@ -3,7 +3,3 @@ jest.config.js
 
 *.test.ts
 *.test.js
-
-*.spec.tsx
-*.spec.tsx.snap
-src/generated/
