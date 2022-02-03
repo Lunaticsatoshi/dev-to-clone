@@ -1,6 +1,8 @@
 import { FC, ReactNode } from "react";
 import Head from "next/head";
 
+import Header from "./Header";
+
 type LayoutProps = {
   title: string;
   description?: string;
@@ -21,7 +23,8 @@ const Layout: FC<LayoutProps> = ({
         <meta name="description" content={description} />
         <meta name="keywords" content={keywords} />
       </Head>
-      {children}
+      <Header />
+      <div className="main-content">{children}</div>
     </>
   );
 };
