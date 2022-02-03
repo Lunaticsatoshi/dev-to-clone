@@ -6,7 +6,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Layout title="Home">
-        <h1>Welcome to Dev.to clone</h1>
+        <h1 className="text-3xl font-bold">Welcome to Dev.to clone</h1>
       </Layout>
     </>
   );
