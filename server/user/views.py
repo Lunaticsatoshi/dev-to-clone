@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
+import os
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -20,6 +21,7 @@ class RegisterView(APIView):
     
     def post(self, request):
         data = request.data
+        print(os.environ)
         serializer = self.serializer_class(data=data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
