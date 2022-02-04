@@ -33,7 +33,6 @@ ROLE_CHOICES = (
     )
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     username = models.CharField(max_length=100, unique=True)
     email = models.EmailField(max_length=255, unique=True)
     role = models.CharField(max_length=100, choices=ROLE_CHOICES, default='User')
