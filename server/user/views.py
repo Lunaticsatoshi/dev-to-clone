@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
-import os
+from django.conf import settings
+import jwt
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -21,7 +22,6 @@ class RegisterView(APIView):
     
     def post(self, request):
         data = request.data
-        print(os.environ)
         serializer = self.serializer_class(data=data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
@@ -39,20 +39,27 @@ class RegisterView(APIView):
                 'body': email_body
             }
             Utils.send_email(data)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(user_data, status=status.HTTP_201_CREATED)
         
 class VerifyEmailView(APIView):
     permission_classes = (AllowAny,)
     
     def post(self, request):
-        pass
-        # token = request.GET.get('token')
-        # if token is None:
-        #     return Response({'error': 'Token not found'}, status=status.HTTP_400_BAD_REQUEST)
-        # try:
-        #     user = CustomUser.objects.get(refresh_token=token)
-        # except CustomUser.DoesNotExist:
-        #     return Response({'error': 'User does not exist'}, status=status.HTTP_400_BAD_REQUEST)
-        # user.is_active = True
-        # user.save()
-        # return Response({'message': 'Email verified'}, status=status.HTTP_200_OK)
+        token = request.GET.get('token')
+        if token is None:
+            return Response({'status': 'error', 'message': 'Token not found'}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            payload = jwt.decode(token, settings.SECRET_KEY)
+            user = CustomUser.objects.get(id=payload["user_id"])
+            if not user.email_verified:
+                user.email_verified = True
+                user.save()
+                return Response({'status': 'success', 'message': 'Email verified'}, status=status.HTTP_200_OK)
+        except jwt.ExpiredSignatureError as identifier:
+            return Response({'status': 'error', 'message': 'Activation Expired'}, status=status.HTTP_400_BAD_REQUEST)
+        except jwt.exceptions.DecodeError as identifier:
+            return Response({'status': 'error', 'message': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
+        except CustomUser.DoesNotExist:
+            return Response({'status': 'error', 'message': 'User does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({'status': 'error', 'message': 'Something went wrong'}, status=status.HTTP_400_BAD_REQUEST)
