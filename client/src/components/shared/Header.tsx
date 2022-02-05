@@ -5,6 +5,7 @@ import { FiSearch } from "react-icons/fi";
 
 import SearchBox from "../ui/SearchBox";
 import Button from "../ui/Button";
+import ThemeToggle from "../ui/ThemeToggle";
 
 const Header = () => {
   return (
@@ -31,12 +32,17 @@ const Header = () => {
           <i className="hidden-search">
             <FiSearch />
           </i>
+
+          <i>
+            <ThemeToggle />
+          </i>
+
           <i>
             <RiNotificationLine />
           </i>
 
           <span>
-            <img src="https://picsum.photos/200" alt="Profile Pictrure" />
+            <img src="https://picsum.photos/200" alt="Profile Picture" />
           </span>
         </div>
       </div>
