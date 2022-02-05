@@ -8,19 +8,19 @@ type ToggleProps = {
 
 const ThemeToggle: FC<ToggleProps> = ({ className }) => {
   const { theme, setTheme } = useTheme();
-  if (theme === "light") {
-    return (
-      <div className={className} onClick={() => setTheme("dark")}>
-        <BsMoonStarsFill />
-      </div>
-    );
-  } else {
-    return (
-      <div className={className} onClick={() => setTheme("light")}>
-        <BsSunFill />
-      </div>
-    );
-  }
+  return (
+    <div>
+      {theme === "dark" ? (
+        <div className={className} onClick={() => setTheme("light")}>
+          <BsSunFill />
+        </div>
+      ) : (
+        <div className={className} onClick={() => setTheme("dark")}>
+          <BsMoonStarsFill />
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default ThemeToggle;
