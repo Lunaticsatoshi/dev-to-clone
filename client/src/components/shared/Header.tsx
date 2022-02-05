@@ -1,14 +1,16 @@
 import Link from "next/link";
 import { FaDev } from "react-icons/fa";
-import { BiMessageRoundedCheck } from "react-icons/bi";
 import { RiNotificationLine } from "react-icons/ri";
 import { FiSearch } from "react-icons/fi";
 
+import SearchBox from "../ui/SearchBox";
+import Button from "../ui/Button";
+
 const Header = () => {
   return (
-    <header className="header">
-      <div className="header-container">
-        <div className="header-container-left">
+    <header className="flex header">
+      <div className="flex justify-between items-center header-container">
+        <div className="flex items-center header-container-left">
           <Link href="/" passHref>
             <div className="header-container-left__logo">
               <FaDev size="3.125rem" />
@@ -16,23 +18,26 @@ const Header = () => {
           </Link>
 
           <div className="header-container-left__searchBox">
-            <form>
-              <input type="text" placeholder="Search..." aria-label="search" />
-            </form>
+            <SearchBox className="flex search">
+              <Button>
+                <FiSearch />
+              </Button>
+            </SearchBox>
           </div>
         </div>
 
-        <div className="header-container-right">
-          <button className="post-button">Write a post</button>
+        <div className="flex items-center header-container-right">
+          <Button className="btn">Write a post</Button>
           <i className="hidden-search">
             <FiSearch />
           </i>
           <i>
-            <BiMessageRoundedCheck />
-          </i>
-          <i>
             <RiNotificationLine />
           </i>
+
+          <span>
+            <img src="https://picsum.photos/200" alt="Profile Pictrure" />
+          </span>
         </div>
       </div>
     </header>
