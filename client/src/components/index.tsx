@@ -4,5 +4,6 @@ import ListingBar from "./navigation/ListingBar";
 import Feed from "./feed/Feed";
 import Button from "./ui/Button";
 import SearchBox from "./ui/SearchBox";
+import ThemeToggle from "./ui/ThemeToggle";
 
-export { Layout, Sidebar, ListingBar, Feed, Button, SearchBox };
+export { Layout, Sidebar, ListingBar, Feed, Button, SearchBox, ThemeToggle };
