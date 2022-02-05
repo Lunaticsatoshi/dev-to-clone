@@ -1,27 +1,83 @@
 .header {
-    max-width: 100%;
-    background-color: var(--header-bg);
+  max-width: 100%;
+  background-color: var(--header-bg);
 
-    display: flex;
-  
-    height: var(--header-height);
+  height: var(--header-height);
 
-    .header-container {
-        width: 80%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin: 0 auto;
+  .header-container {
+    width: 80%;
+    max-width: var(--site-width);
+    margin: 0 auto;
 
-        .header-container-left {
-            display: flex;
-            align-items: center;
+    .header-container-left {
+      &__logo {
+        color: #000;
+        background-color: #fff;
+        border-radius: 0.5rem;
+      }
+
+      &__searchBox {
+        width: 100%;
+        flex: 1 auto;
+        margin: 0 1rem;
+
+        .search {
+          background-color: var(--main-0);
+          border-radius: 5px;
+          border: 1px solid var(--main-3);
+
+          input {
+            padding: 0.6rem;
+            border-radius: 5px;
+          }
         }
 
-        .header-container-right {
-            display: flex;
-            align-items: center;
-            margin-left: auto;
+        .focus {
+          border: 1px solid var(--main-theme);
         }
+      }
     }
+
+    .header-container-right {
+      margin-left: auto;
+
+      .hidden-search {
+        display: none;
+      }
+
+      i {
+        margin: 0 1rem;
+        font-size: 1.6rem;
+        display: flex;
+        align-items: center;
+        color: var(--main-8);
+        border-radius: 50%;
+        cursor: pointer;
+
+        &:hover {
+          box-shadow: 0 0 0 10px rgba($color: #000000, $alpha: 0.05);
+          background-color: rgba($color: #000000, $alpha: 0.05);
+          color: var(--font-color);
+          z-index: 1;
+        }
+      }
+
+      span {
+        height: 2rem;
+        width: 2rem;
+        margin: 0 1rem;
+
+        img {
+          border-radius: 50%;
+          width: 100%;
+          height: 100%;
+          display: inline-block;
+          cursor: pointer;
+          &:hover {
+            box-shadow: 0 0 0 5px rgba($color: #000000, $alpha: 0.05);
+          }
+        }
+      }
+    }
+  }
 }
