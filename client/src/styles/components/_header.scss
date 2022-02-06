@@ -66,6 +66,7 @@
         height: 2rem;
         width: 2rem;
         margin: 0 1rem;
+        position: relative;
 
         img {
           border-radius: 50%;
@@ -76,6 +77,20 @@
           &:hover {
             box-shadow: 0 0 0 5px rgba($color: #000000, $alpha: 0.05);
           }
+        }
+      }
+
+      .header-dropdown {
+        position: absolute;
+        top: var(--header-height);
+        right: -0.5rem;
+        left: auto;
+
+        .dropdown-break {
+          background-color: var(--border-color);
+          width: 95%;
+          height: 1.2px;
+          margin: 0 auto;
         }
       }
     }
