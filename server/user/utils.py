@@ -15,5 +15,8 @@ class Utils():
     
     @staticmethod
     def send_email(data):
-        email = EmailMessage(subject=data['subject'], body=data['body'], to=[data['email']])
-        EmailThread(email).start()
+        try:
+            email = EmailMessage(subject=data['subject'], body=data['body'], from_email="redlolicon99@gmail.com", to=[data['email']])
+            EmailThread(email).start()
+        except Exception as e:
+            print(e)

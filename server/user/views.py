@@ -48,12 +48,12 @@ class LoginView(TokenObtainPairView):
 class VerifyEmailView(APIView):
     permission_classes = (AllowAny,)
     
-    def post(self, request):
+    def get(self, request):
         token = request.GET.get('token')
         if token is None:
             return Response({'status': 'error', 'message': 'Token not found'}, status=status.HTTP_400_BAD_REQUEST)
         try:
-            payload = jwt.decode(token, settings.SECRET_KEY)
+            payload = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
             user = CustomUser.objects.get(id=payload["user_id"])
             if not user.email_verified:
                 user.email_verified = True
@@ -62,6 +62,7 @@ class VerifyEmailView(APIView):
         except jwt.ExpiredSignatureError as identifier:
             return Response({'status': 'error', 'message': 'Activation Expired'}, status=status.HTTP_400_BAD_REQUEST)
         except jwt.exceptions.DecodeError as identifier:
+            print(identifier)
             return Response({'status': 'error', 'message': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
         except CustomUser.DoesNotExist:
             return Response({'status': 'error', 'message': 'User does not exist'}, status=status.HTTP_400_BAD_REQUEST)
