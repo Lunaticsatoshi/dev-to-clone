@@ -1,0 +1,30 @@
+.dropdown-menu {
+  background: var(--header-bg);
+  border: 0.5px solid var(--border-color);
+  border-radius: 5px;
+
+  min-width: 250px;
+  z-index: 4;
+
+  ul {
+    li {
+      padding: 0.5rem;
+      cursor: pointer;
+      line-height: 1.6;
+      transition: all 0.2s;
+      margin: 0.6rem 0.6rem;
+      border-radius: 0.4rem;
+      small {
+        color: var(--main-5);
+      }
+    }
+    li:hover {
+      background-color: var(--hover-background);
+      color: var(--main-theme-darker);
+    }
+  }
+}
+
+.dropdown-menu-close {
+  display: none;
+}
