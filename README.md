@@ -80,28 +80,33 @@ Make sure you have Python and django installed on your machine.
 
 > **_NOTE:_**
 >
->_The project was made with python version 3.9._
+>_The project was made with python version 3.9._ and requires pipenv
 
-1. Create a virtual environment where all the required python packages will be installed
+### Install pipenv globally
+```bash
+pip install pipenv
+```
+
+1. Create a virtual environment using pipenv where all the required python packages will be installed
 
 ```bash
 # Use this on Windows
-python -m venv env
+py -m pipenv shell
 # Use this on Linux and Mac
-python -m venv env
+python -m pipenv shell
 ```
-2. Activate the virtual environment
+2. Install pipenv
 
 ```bash
 # Windows
-.\env\Scripts\activate
+pip install pipenv
 # Linux and Mac
-source env/bin/activate
+pip install pipenv
 ```
 
 3. Install all the project Requirements
 ```bash
-pip install -r requirements.txt
+pipenv install 
 ```
 -Apply migrations and create your superuser (follow the prompts)
 
