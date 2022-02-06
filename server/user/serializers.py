@@ -18,7 +18,11 @@ class RegisterSerializer(serializers.ModelSerializer):
         model = CustomUser
         extra_kwargs = {'password': {'write_only': True, 'max_length': 68, 'min_length': 6, 'error_messages': {'blank': 'password cannot be empty'}},
                         'email': {'validators': []},
-                        'username': {'validators': []}}
+                        'username': {'validators': []},
+                        'is_staff': {'read_only': True},
+                        'is_superuser': {'read_only': True},
+                        'is_active': {'read_only': True},
+        }
         fields = ['id', 'email', 'username', 'password', 'is_active', 'is_staff', 'is_superuser']
 
     def validate(self, attrs):
