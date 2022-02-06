@@ -21,7 +21,7 @@ const Header = () => {
 
           <div className="header-container-left__searchBox">
             <SearchBox className="flex search">
-              <Button>
+              <Button className="search__button flex justify-center items-center">
                 <FiSearch />
               </Button>
             </SearchBox>

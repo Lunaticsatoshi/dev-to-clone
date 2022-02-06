@@ -19,16 +19,20 @@
       &__searchBox {
         width: 100%;
         flex: 1 auto;
-        margin: 0 1rem;
+        margin: 0.2rem 1rem;
 
         .search {
           background-color: var(--main-0);
           border-radius: 5px;
-          border: 1px solid var(--main-3);
+          border: 1px solid var(--border-color);
 
           input {
             padding: 0.6rem;
+            width: 350px;
             border-radius: 5px;
+          }
+          .search__button{
+            width: 38px;
           }
         }
 
