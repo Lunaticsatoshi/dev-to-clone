@@ -6,9 +6,21 @@
   <h2 align="center">Dev.to Clone</h2>
 
   <p align="center">
-    A Django backend for dev to clone
+    A Django backend api for dev to clone
   </p>  
 </p>
+
+## Database Diagram
+
+--> *Preview :*
+
+<div align="center">
+  <a href="https://drawsql.app/otakustan/diagrams/dev-to-clone">
+<img width="80%" align="center" src="./docs/dev-to-clone.png"/>
+  </a>
+</div>
+
+<br/>
 
 ### Steps to start the server
 
