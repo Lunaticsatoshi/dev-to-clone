@@ -13,6 +13,7 @@ tzdata = "==2021.5"
 yapf = "==0.32.0"
 Django = "==4.0.1"
 PyJWT = "==2.3.0"
+drf-yasg = "*"
 
 [dev-packages]
 
