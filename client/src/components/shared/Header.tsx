@@ -14,8 +14,8 @@ const Header = () => {
       <div className="flex justify-between items-center header-container">
         <div className="flex items-center header-container-left">
           <Link href="/" passHref>
-            <div className="header-container-left__logo">
-              <FaDev size="3.125rem" />
+            <div className="header-container-left__logo flex justify-center items-center">
+              <FaDev size="2.6rem" />
             </div>
           </Link>
 
