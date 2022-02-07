@@ -7,7 +7,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Layout title="Home">
-        <LeftSidebar />
+        <LeftSidebar sidebarOpen={true} closeSidebar={() => {}} />
         <Feed />
         <ListingBar />
       </Layout>
