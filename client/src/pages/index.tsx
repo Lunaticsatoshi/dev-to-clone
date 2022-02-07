@@ -1,12 +1,13 @@
 import type { NextPage } from "next";
 
-import { Layout, Sidebar, ListingBar, Feed } from "src/components";
+import { LeftSidebar } from "src/modules";
+import { Layout, ListingBar, Feed } from "src/components";
 
 const Home: NextPage = () => {
   return (
     <>
       <Layout title="Home">
-        <Sidebar />
+        <LeftSidebar />
         <Feed />
         <ListingBar />
       </Layout>
