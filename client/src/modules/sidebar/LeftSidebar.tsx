@@ -14,11 +14,10 @@ import {
   FcBusinessContact,
 } from "react-icons/fc";
 import { AiFillAudio } from "react-icons/ai";
-import { FaTags, FaDev } from "react-icons/fa";
+import { FaDev } from "react-icons/fa";
 import { IoLogoTwitter, IoLogoFacebook, IoLogoGithub } from "react-icons/io";
 import { RiInstagramFill, RiTwitchLine } from "react-icons/ri";
 import { CgShapeHexagon } from "react-icons/cg";
-import { GrFormClose } from "react-icons/gr";
 
 import { Sidebar, SidebarItem } from "src/components";
 
@@ -46,7 +45,7 @@ const tags = [
   "aws",
 ];
 
-const LeftSidebar: FC<LeftSidebarProps> = ({}) => {
+const LeftSidebar: FC<LeftSidebarProps> = () => {
   return (
     <div>
       <Sidebar className="sidebar-left">
