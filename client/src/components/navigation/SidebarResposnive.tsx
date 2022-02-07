@@ -13,6 +13,7 @@ const SidebarResponsive: FC<SidebarResponsiveProps> = ({
   return (
     <div className="sidebar-responsive">
       <div className={className}>{children}</div>
+      <div className="sidebar-responsive overlay"></div>
     </div>
   );
 };
