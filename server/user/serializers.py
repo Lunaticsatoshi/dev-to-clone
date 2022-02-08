@@ -82,7 +82,7 @@ class UserSerializerWithToken(UserSerializer):
 
     class Meta:
         model = CustomUser
-        exclude = ['password']
+        exclude = ['password', 'id']
 
     def get_access(self, obj):
         token = RefreshToken.for_user(obj)
