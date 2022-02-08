@@ -12,7 +12,10 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-from .serializers import RegisterSerializer, LoginSerializerWithToken
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
+
+from .serializers import RegisterSerializer, LoginSerializerWithToken, EmailVerificationSerializer
 from .models import CustomUser, UserProfile
 from .utils import Utils
 
@@ -48,7 +51,12 @@ class LoginView(TokenObtainPairView):
         
 class VerifyEmailView(APIView):
     permission_classes = (AllowAny,)
+    serializer_class = EmailVerificationSerializer
     
+    token_param_config = openapi.Parameter(
+        'token', in_=openapi.IN_QUERY, description='Description', type=openapi.TYPE_STRING)
+    
+    @swagger_auto_schema(manual_parameters=[token_param_config])
     def get(self, request):
         token = request.GET.get('token')
         if token is None:

@@ -96,3 +96,10 @@ class UserSerializerWithToken(UserSerializer):
     def get_refresh(self, obj):
         token = RefreshToken.for_user(obj)
         return str(token)
+    
+    
+class EmailVerificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['token']
+        extra_kwargs = {'token': {'write_only': True, 'max_length': 555}}
