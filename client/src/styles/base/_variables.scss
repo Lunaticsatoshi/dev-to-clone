@@ -23,7 +23,7 @@
     --header-bg: #fff;
 
     --hover-background: rgba(8, 9, 10, 0.05);
-    --border-color: rgb(47, 47, 47);
+    --border-color: rgb(222, 222, 222);
   }
 
   [data-theme='dark'] {
@@ -36,4 +36,5 @@
     --sidebar-background: rgb(23, 23, 23);
 
     --main-0: rgb(0, 0, 0);
+    --border-color: rgb(47, 47, 47);
   }
