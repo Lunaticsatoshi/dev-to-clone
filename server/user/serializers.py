@@ -66,10 +66,10 @@ class UserProfileSerializer(serializers.ModelSerializer):
         fields = '__all__'
         
 class UserSerializer(serializers.ModelSerializer):
+    profile = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = CustomUser
         fields = ['id', 'profile', 'username', 'is_superuser', 'is_staff']
-        extra_kwargs ={'profile': {'read_only': True}}
 
     def get_profile(self, obj):
         profile = obj.userprofile
