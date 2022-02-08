@@ -1,8 +1,8 @@
+import uuid
 from django.db import models
 
 from api.models import BaseModel
 from user.models import CustomUser
-import uuid
 
 # Create your models here.
 class Article(BaseModel):
