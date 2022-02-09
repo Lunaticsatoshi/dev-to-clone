@@ -59,7 +59,7 @@ const InputField: FC<InputFieldProps> = ({
         {...field}
         {...props}
       />
-      {error && <div className="text-red-500 text-xs italic">{error}</div>}
+      {error && <div className="text-red-500 text-xs italic mt-2">{error}</div>}
     </div>
   );
 };
