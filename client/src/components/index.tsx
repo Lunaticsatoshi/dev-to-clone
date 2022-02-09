@@ -7,8 +7,8 @@ import Feed from "./feed/Feed";
 import Button from "./ui/Button";
 import SearchBox from "./ui/SearchBox";
 import ThemeToggle from "./ui/ThemeToggle";
-import DropDown from "./Dropdown/DropDown";
-import DropDownItem from "./Dropdown/DropDownItem";
+import DropDown from "./dropdown/DropDown";
+import DropDownItem from "./dropdown/DropDownItem";
 
 export {
   Layout,
