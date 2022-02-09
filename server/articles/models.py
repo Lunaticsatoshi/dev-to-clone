@@ -8,9 +8,9 @@ from user.models import CustomUser
 class Article(BaseModel):
     id = models.UUIDField(default=uuid.uuid4,  unique=True, primary_key=True, editable=False)
     user = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, blank=True)
-    title = models.CharField(max_length=700)
+    title = models.CharField(max_length=700, db_index=True)
     content = models.TextField(max_length=10000)
-    slug = models.SlugField(max_length=700, unique=True)
+    slug = models.SlugField(max_length=700, unique=True, db_index=True)
     clap_count = models.IntegerField(null=True, default=0)
     comment_count = models.IntegerField(null=True, default=0)
     
