@@ -10,6 +10,8 @@ import ThemeToggle from "./ui/ThemeToggle";
 import DropDown from "./dropdown/DropDown";
 import DropDownItem from "./dropdown/DropDownItem";
 
+import InputField from "./ui/form/InputField";
+
 export {
   Layout,
   Sidebar,
@@ -22,4 +24,5 @@ export {
   DropDownItem,
   SidebarResponsive,
   SidebarItem,
+  InputField,
 };
