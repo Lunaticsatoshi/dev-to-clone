@@ -46,14 +46,14 @@ const InputField: FC<InputFieldProps> = ({
 }) => {
   const [field, { error }] = useField(props);
   return (
-    <div>
+    <div className="mb-2">
       {label && <Label {...labelProps}>{label}</Label>}
       <input
         id={field.name}
         className={classNames(
           error
-            ? "shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3"
-            : "shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker",
+            ? "appearance-none border border-red rounded-md w-full py-2 px-3 text-grey-darker"
+            : "appearance-none border rounded-md w-full py-2 px-3 text-grey-darker",
           className,
         )}
         {...field}
