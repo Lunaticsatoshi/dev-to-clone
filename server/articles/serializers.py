@@ -1,13 +1,41 @@
+from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
-from .models import Article
+from user.serializers import UserProfileSerializer
+from .models import Article, ArticleClap, ArticleComment
 
 
-class PostSerializer(ModelSerializer):
-
+class ArticleSerializer(ModelSerializer):
+    user = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = Article
-        fields = [
-            'id', 'title', 'content', 'slug', 'clap_count', 'comment_count'
-            'created_at', 'updated_at'
-        ]
+        fields = '__all__'
+        
+    def get_user(self, obj):
+        user = obj.user.userprofile
+        serializer = UserProfileSerializer(user, many=False)
+        return serializer.data
+    
+class ArticleClapSerializer(ModelSerializer):
+    user = serializers.SerializerMethodField(read_only=True)
+    class Meta:
+        model = ArticleClap
+        fields = '__all__'
+        
+    def get_user(self, obj):
+        user = obj.user.userprofile
+        serializer = UserProfileSerializer(user, many=False)
+        return serializer.data
+    
+class ArticleCommentSerializer(ModelSerializer):
+    user = serializers.SerializerMethodField(read_only=True)
+    class Meta:
+        model = ArticleComment
+        fields = '__all__'
+        
+    def get_user(self, obj):
+        user = obj.user.userprofile
+        serializer = UserProfileSerializer(user, many=False)
+        return serializer.data
+    
+        
