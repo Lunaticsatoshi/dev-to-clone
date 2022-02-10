@@ -26,12 +26,10 @@ const InnerLoginForm = (props: OtherProps & FormikProps<FormValues>) => {
   const { isSubmitting, message } = props;
   return (
     <Form>
-      <h1>{message}</h1>
-      <InputField
-        type="email"
-        name="email"
-        label="Email"
-      />
+      <div className="actions-hr flex justify-center items-center">
+        <span className="actions-hr__label">{message}</span>
+      </div>
+      <InputField type="email" name="email" label="Email" />
 
       <InputField
         name="password"
