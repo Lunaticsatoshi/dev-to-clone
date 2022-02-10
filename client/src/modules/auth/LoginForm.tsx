@@ -31,7 +31,6 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
         type="email"
         name="email"
         label="Email"
-        // className="border-rounded w-full py-2 px-4 outline-none leading-tight text-gray-700 shadow appearance-none focus:outline-none focus:shadow-outline"
       />
 
       <InputField
@@ -39,7 +38,6 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
         placeholder="*******"
         label="Password"
         type="password"
-        // className="border-rounded w-full py-2 px-4 outline-none leading-tight text-gray-700 shadow appearance-none focus:outline-none focus:shadow-outline"
       />
 
       <Button
