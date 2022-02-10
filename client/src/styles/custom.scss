@@ -84,14 +84,43 @@ ul {
         border: 0.5px solid var(--border-color);
         border-radius: 0.5rem;
         overflow-wrap: anywhere;
+
+        .actions {
+          .actions-email {
+            .actions-hr {
+              color: var(--font-color);
+              &__label {
+                font-size: 0.7rem;
+                position: relative;
+                z-index: 999;
+
+                &::before {
+                  content: "";
+                  width: 100%;
+                  border: 1px solid var(--border-color);
+                  display: flex;
+                  position: absolute;
+                  top: 50%;
+                  right: 50%;
+                }
+
+                &::after {
+                  content: "";
+                  width: 100%;
+                  border: 1px solid var(--border-color);
+                  display: flex;
+                  position: absolute;
+                  top: 50%;
+                  left: 110%;
+                }
+              }
+            }
+          }
+        } 
     }
 
     .registration {
       width: 640px;
       padding: 3rem;
-    }
-
-    .header {
-
     }
 }
