@@ -44,10 +44,19 @@ class RegisterView(CreateAPIView):
                 'body': email_body
             }
             Utils.send_email(data)
-            return Response(user_data, status=status.HTTP_201_CREATED)
+            return Response({'status': True, 'message': 'User created successfully', 'data': user_data}, status=status.HTTP_201_CREATED)
         
 class LoginView(TokenObtainPairView):
     serializer_class = LoginSerializerWithToken
+    
+    def post(self, request):
+        data = request.data
+        try:
+            serializer = self.serializer_class(data=data)
+            serializer.is_valid(raise_exception=True)
+            return Response({'status': True, 'message': 'User logged in sucessfully', 'data': serializer.validated_data}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'status': False, 'message': str(e)}, status=status.HTTP_400_BAD_REQUEST)
         
 class VerifyEmailView(APIView):
     permission_classes = (AllowAny,)
