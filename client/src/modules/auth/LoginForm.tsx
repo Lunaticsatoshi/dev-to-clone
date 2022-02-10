@@ -22,7 +22,7 @@ const inputValidationSchema = Yup.object({
     .required("Password is required"),
 });
 
-const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
+const InnerLoginForm = (props: OtherProps & FormikProps<FormValues>) => {
   const { isSubmitting, message } = props;
   return (
     <Form>
@@ -52,12 +52,12 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
 };
 
 // The type of props MyForm receives
-interface MyFormProps {
+interface LoginFormProps {
   initialEmail?: string;
   message: string; // if this passed all the way through you might do this or make a union type
 }
 
-const LoginForm = withFormik<MyFormProps, FormValues>({
+const LoginForm = withFormik<LoginFormProps, FormValues>({
   mapPropsToValues: (props) => {
     return {
       email: props.initialEmail || "",
@@ -70,6 +70,6 @@ const LoginForm = withFormik<MyFormProps, FormValues>({
     // do submitting things
     console.log(values);
   },
-})(InnerForm);
+})(InnerLoginForm);
 
 export default LoginForm;
