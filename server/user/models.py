@@ -50,12 +50,23 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def __str__(self) -> str:
         return f"{self.username} | {self.id}"
     
+class Interests(models.Model):
+    interest = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self) -> str:
+        return f"{self.id} | {self.interest}"
+    
 class UserProfile(models.Model):
     id = models.UUIDField(default=uuid.uuid4,  unique=True, primary_key=True, editable=False)
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     username = models.CharField(max_length=100, unique=True)
-    profile_pic = models.CharField(max_length=255, default='https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y')
+    profile_pic = models.CharField(max_length=755, default='https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y')
     bio = models.TextField(null=True)
+    interests = models.ManyToManyField(Interests, related_name='topic_interests', blank=True)
+    follower_count = models.IntegerField(default=0, null=True, blank=True)
+    followers = models.ManyToManyField(CustomUser, related_name='followers', blank=True)
     is_verified = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
