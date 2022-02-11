@@ -88,32 +88,45 @@ ul {
         .actions {
           .actions-email {
             .actions-hr {
-              color: var(--font-color);
               &__label {
                 font-size: 0.7rem;
                 position: relative;
-                z-index: 999;
+                z-index: 1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
 
-                &::before {
-                  content: "";
-                  width: 100%;
-                  border: 1px solid var(--border-color);
-                  display: flex;
-                  position: absolute;
-                  top: 50%;
-                  right: 50%;
+                .form-header {
+                  font-size: 0.7rem;
+                  color: var(--font-color);
+                  background-color: var(--header-bg);
+                  padding: 0.5rem;
+                  z-index: 1;
                 }
+
+                // &::before {
+                //   content: "";
+                //   width: 100%;
+                //   border: 1px solid var(--border-color);
+                //   display: flex;
+                //   position: absolute;
+                //   top: 50%;
+                //   right: 50%;
+                // }
 
                 &::after {
                   content: "";
                   width: 100%;
                   border: 1px solid var(--border-color);
-                  display: flex;
                   position: absolute;
                   top: 50%;
-                  left: 110%;
                 }
               }
+            }
+
+            a {
+              font-size: 0.8rem;
+              color: var(--main-theme);
             }
           }
         } 
