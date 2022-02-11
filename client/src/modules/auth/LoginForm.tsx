@@ -1,7 +1,8 @@
+import Link from "next/link";
 import * as Yup from "yup";
 import { withFormik, FormikProps, Form } from "formik";
 
-import { InputField, Button } from "src/components";
+import { InputField, Button, CheckBox } from "src/components";
 
 // Shape of form values
 interface FormValues {
@@ -25,27 +26,36 @@ const inputValidationSchema = Yup.object({
 const InnerLoginForm = (props: OtherProps & FormikProps<FormValues>) => {
   const { isSubmitting, message } = props;
   return (
-    <Form>
-      <div className="actions-hr flex justify-center items-center">
-        <span className="actions-hr__label">{message}</span>
+    <>
+      <div className="actions-hr mb-20">
+        <div className="actions-hr__label">
+          <div className="form-header">{message}</div>
+        </div>
       </div>
-      <InputField type="email" name="email" label="Email" />
+      <Form>
+        <InputField type="email" name="email" label="Email" />
 
-      <InputField
-        name="password"
-        placeholder="*******"
-        label="Password"
-        type="password"
-      />
+        <InputField
+          name="password"
+          placeholder="*******"
+          label="Password"
+          type="password"
+        />
 
-      <Button
-        type="submit"
-        className="w-full btn px-4 py-2 my-2 font-bold rounded-full focus:outline-none focus:shadow-outline"
-        disabled={isSubmitting}
-      >
-        Login
-      </Button>
-    </Form>
+        <CheckBox name="label" label="Remember me" />
+
+        <Button
+          type="submit"
+          className="w-full btn login-btn font-bold rounded-full focus:outline-none focus:shadow-outline"
+          disabled={isSubmitting}
+        >
+          Login
+        </Button>
+      </Form>
+      <div className="pt-6 mt-20 text-center">
+        <Link href="/"><a>I forgot my passed</a></Link>
+      </div>
+    </>
   );
 };
 
