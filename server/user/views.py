@@ -11,13 +11,13 @@ from rest_framework.generics import CreateAPIView
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.decorators import api_view
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 
-from .serializers import RegisterSerializer, LoginSerializerWithToken, EmailVerificationSerializer, UserSerializer, AuthUserSerializer
+from .serializers import RegisterSerializer, LoginSerializerWithToken, EmailVerificationSerializer, UserSerializer, AuthUserSerializer, UserProfileSerializer
 from .models import CustomUser, UserProfile, Interests
 from .utils import Utils
 
@@ -98,6 +98,30 @@ class VerifyEmailView(APIView):
         
         except Exception as e:
             return Response({'status': 'error', 'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+        
+class ProfileUpdateView(APIView):
+    permission_classes = (AllowAny, IsAuthenticated)
+    serializer_class = UserProfileSerializer
+    
+    def patch(self, request):
+        profile = request.user.userprofile
+        try:
+            serializer = self.serializer_class(profile, data=request.data, partial=True)
+            if serializer.is_valid(raise_exception=True):
+                user = serializer.save().user
+                new_email = request.data.get('email')
+                user = request.user
+                if new_email is not None:
+                    user.email = new_email
+                    profile.emai_verified = False
+                    
+                    user.save()
+                    profile.save()
+                return Response({'status': True, 'message': 'Profile updated successfully', 'data': UserSerializer(user).data}, status=status.HTTP_200_OK)
+            
+        except Exception as e:
+            return Response({'status': False, 'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
 
 @api_view(['GET'])
