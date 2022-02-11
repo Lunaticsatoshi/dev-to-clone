@@ -35,7 +35,6 @@ class RegisterView(CreateAPIView):
             serializer.save()
             user_data = serializer.data
             user = CustomUser.objects.get(email=user_data['email'])
-            UserProfile.objects.create(user=user, username=user.username)
             token = RefreshToken.for_user(user).access_token
             current_site = get_current_site(request).domain
             relativeLink = reverse('email-verify')
