@@ -29,7 +29,7 @@ const Header = () => {
         </div>
 
         <div className="flex items-center header-container-right">
-          <Button className="btn">Write a post</Button>
+          <Button className="btn post-btn">Write a post</Button>
           <i className="hidden-search">
             <FiSearch />
           </i>
