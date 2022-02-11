@@ -11,6 +11,7 @@ import DropDown from "./dropdown/DropDown";
 import DropDownItem from "./dropdown/DropDownItem";
 
 import InputField from "./ui/form/InputField";
+import CheckBox from "./ui/form/Checkbox";
 
 export {
   Layout,
@@ -25,4 +26,5 @@ export {
   SidebarResponsive,
   SidebarItem,
   InputField,
+  CheckBox,
 };
