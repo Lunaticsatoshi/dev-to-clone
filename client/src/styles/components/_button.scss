@@ -15,11 +15,14 @@ button {
   color: var(--main-theme);
   padding: 0.5rem 1rem;
   border-radius: 5px;
-  margin-right: 0.5rem;
   border: 1px solid var(--main-theme);
 
   &:hover {
     background-color: var(--main-theme-darker);
     color: #ffffff;
   }
+}
+
+.post-btn {
+  margin-right: 0.5rem;
 }
