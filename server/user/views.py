@@ -7,7 +7,7 @@ import jwt
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView, UpdateAPIView
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.decorators import api_view
@@ -18,7 +18,7 @@ from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 
 from .serializers import RegisterSerializer, LoginSerializerWithToken, EmailVerificationSerializer, UserSerializer, AuthUserSerializer, UserProfileSerializer
-from .models import CustomUser, UserProfile, Interests
+from .models import CustomUser, Interests
 from .utils import Utils
 
 # Create your views here.
@@ -63,7 +63,6 @@ class LoginView(TokenObtainPairView):
             return Response({'status': 'error', 'message': 'User does not exist'}, status=status.HTTP_400_BAD_REQUEST)
         
         except Exception as e:
-            print(e)
             return Response({'status': False, 'message': 'Invalid email or password'}, status=status.HTTP_400_BAD_REQUEST)
         
 class VerifyEmailView(APIView):
@@ -100,7 +99,7 @@ class VerifyEmailView(APIView):
             return Response({'status': 'error', 'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
         
-class ProfileUpdateView(APIView):
+class ProfileUpdateView(UpdateAPIView):
     permission_classes = (AllowAny, IsAuthenticated)
     serializer_class = UserProfileSerializer
     
