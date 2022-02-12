@@ -1,5 +1,4 @@
 import LeftSidebar from "./sidebar";
-import { LoginForm } from "./auth";
+import { LoginForm, RegisterForm } from "./auth";
 
-
-export { LeftSidebar, LoginForm };
+export { LeftSidebar, LoginForm, RegisterForm };
