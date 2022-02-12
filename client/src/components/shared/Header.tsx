@@ -13,6 +13,7 @@ const Header = () => {
     <header className="flex header">
       <div className="flex justify-between items-center header-container">
         <div className="flex items-center header-container-left">
+          <div className="header-container-left__hamburgerMenu"></div>
           <Link href="/" passHref>
             <div className="header-container-left__logo flex justify-center items-center">
               <FaDev size="2.6rem" />
@@ -54,25 +55,17 @@ const Header = () => {
               </DropDownItem>
               <div className="dropdown-break"></div>
               <DropDownItem onClick={toggle}>
-                <div>
-                  Dashboard
-                </div>
+                <div>Dashboard</div>
               </DropDownItem>
               <DropDownItem onClick={toggle}>
-                <div>
-                  Create Post
-                </div>
+                <div>Create Post</div>
               </DropDownItem>
               <DropDownItem onClick={toggle}>
-                <div>
-                  Reading List
-                </div>
+                <div>Reading List</div>
               </DropDownItem>
               <div className="dropdown-break"></div>
               <DropDownItem onClick={toggle}>
-                <div>
-                  Sign Out
-                </div>
+                <div>Sign Out</div>
               </DropDownItem>
             </DropDown>
           </span>
