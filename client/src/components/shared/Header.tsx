@@ -6,14 +6,20 @@ import { FiSearch } from "react-icons/fi";
 
 import { SearchBox, Button, ThemeToggle, DropDown, DropDownItem } from "..";
 
+import { useSidebarToggle } from "src/hooks";
+
 const Header = () => {
   const [open, setOpen] = useState(false);
+  const [_, sidebarToggle] = useSidebarToggle();
   const toggle = () => setOpen(!open);
   return (
     <header className="flex header">
       <div className="flex justify-between items-center header-container">
         <div className="flex items-center header-container-left">
-          <div className="header-container-left__hamburgerMenu"></div>
+          <div
+            className="header-container-left__hamburgerMenu"
+            onClick={() => sidebarToggle()}
+          ></div>
           <Link href="/" passHref>
             <div className="header-container-left__logo flex justify-center items-center">
               <FaDev size="2.6rem" />
