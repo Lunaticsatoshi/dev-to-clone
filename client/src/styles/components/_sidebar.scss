@@ -1,8 +1,5 @@
 .sidebar {
   flex-grow: 1;
-  .hidden {
-    display: none;
-  }
 }
 
 .sidebar-left {
@@ -23,14 +20,6 @@
         background-color: var(--hover-background);
         color: var(--main-theme-darker);
         border-radius: 5px;
-      }
-    }
-
-    .more {
-      font-size: 0.875rem;
-      a {
-        color: var(--main-7);
-        padding-left: 2rem;
       }
     }
   }
@@ -100,10 +89,7 @@
   right: 0;
   bottom: 0;
   z-index: 500;
-
-  .hidden {
-    display: none;
-  }
+  display: none;
 }
 
 .sidebar-responsive-menu {
@@ -150,9 +136,11 @@
 }
 
 @media screen and (max-width: 768px) {
-  .sidebar {
+  .left-bar {
     display: none;
   }
+
+  .sidebar-responsive {
+    display: block;
+  }
 }
-
-
