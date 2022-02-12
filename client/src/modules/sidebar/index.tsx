@@ -1,20 +1,23 @@
 import { FC } from "react";
+import { useSidebarToggle } from "src/hooks";
 
 import LeftSidebar from "./LeftSidebar";
 import LeftSidebarResponsive from "./LeftSidebarResponsive";
 
 type LeftSidebarProps = {
-    className?: string;
-    sidebarOpen: boolean;
-    closeSidebar: () => void;
-  };
-
-const index: FC<LeftSidebarProps> = ({ sidebarOpen, closeSidebar }) => {
-  return <div>
-      {
-          sidebarOpen ? <LeftSidebarResponsive closeSidebar={closeSidebar} /> : <LeftSidebar />
-      }
-  </div>;
+  className?: string;
 };
 
-export default index;
+const Index: FC<LeftSidebarProps> = () => {
+  const [sidebarOpen, sidebarToggle] = useSidebarToggle();
+  return (
+    <>
+      <LeftSidebar />
+      {sidebarOpen && (
+        <LeftSidebarResponsive closeSidebar={() => sidebarToggle()} />
+      )}
+    </>
+  );
+};
+
+export default Index;

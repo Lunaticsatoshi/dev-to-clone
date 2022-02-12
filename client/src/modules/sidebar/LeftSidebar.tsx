@@ -47,7 +47,7 @@ const tags = [
 
 const LeftSidebar: FC<LeftSidebarProps> = () => {
   return (
-    <div>
+    <div className="left-bar">
       <Sidebar className="sidebar-left">
         <SidebarItem className="sidebar-left__items">
           <Link href="/home" passHref>
