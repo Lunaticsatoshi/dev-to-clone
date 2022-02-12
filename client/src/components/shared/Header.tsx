@@ -17,9 +17,11 @@ const Header = () => {
       <div className="flex justify-between items-center header-container">
         <div className="flex items-center header-container-left">
           <div
-            className="header-container-left__hamburgerMenu"
+            className="header-container-left__hamburger"
             onClick={() => sidebarToggle()}
-          ></div>
+          >
+            <div className="hamburger-menu"></div>
+          </div>
           <Link href="/" passHref>
             <div className="header-container-left__logo flex justify-center items-center">
               <FaDev size="2.6rem" />
