@@ -31,7 +31,7 @@ const InnerRegisterForm = (props: OtherProps & FormikProps<FormValues>) => {
     <>
       <div className="actions-hr mb-20">
         <div className="actions-hr__label">
-          <div className="form-header">{message}<Link href="/login" passHref><span>Login</span></Link></div>
+          <div className="form-header">{message}<Link href="/login" passHref><span>Login.</span></Link></div>
         </div>
       </div>
       <Form>
