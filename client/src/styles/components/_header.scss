@@ -10,30 +10,39 @@
     margin: 0 auto;
 
     .header-container-left {
-      &__hamburgerMenu {
+      &__hamburger {
         display: none;
-        background-color: var(--font-color);
-        height: 2px;
-        width: 1.2rem;
-        cursor: pointer;
+        height: 100%;
+        padding: 1.2rem 0.7rem;
         margin: 0 0.5rem;
-
-        &::before,
-        &::after {
-          content: "";
+        border-radius: 0.4rem;
+        cursor: pointer;
+        .hamburger-menu {
           background-color: var(--font-color);
           height: 2px;
           width: 1.2rem;
-          cursor: pointer;
-          display: block;
+
+          &::before,
+          &::after {
+            content: "";
+            background-color: var(--font-color);
+            height: 2px;
+            width: 1.2rem;
+            cursor: pointer;
+            display: block;
+          }
+
+          &::before {
+            transform: translateY(-7px);
+          }
+
+          &::after {
+            transform: translateY(5px);
+          }
         }
 
-        &::before {
-          transform: translateY(-7px);
-        }
-
-        &::after {
-          transform: translateY(5px);
+        &:hover {
+          background-color: var(--hover-background);
         }
       }
       &__logo {
@@ -133,7 +142,7 @@
     .header-container {
       width: 100%;
       .header-container-left {
-        &__hamburgerMenu {
+        &__hamburger {
           display: block;
         }
         &__searchBox {

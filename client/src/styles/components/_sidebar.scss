@@ -113,13 +113,15 @@
     }
 
     button {
-      border-radius: 50%;
+      border-radius: 0.3rem;
+      padding: 0.3rem;
       font-size: 1.5rem;
       cursor: pointer;
+      color: var(--font-color);
 
       &:hover {
-        box-shadow: 0 0 0 5px rgba($color: #000000, $alpha: 0.05);
-        background-color: rgba($color: #000000, $alpha: 0.05);
+        // box-shadow: 0 0 0 5px rgba($color: #000000, $alpha: 0.05);
+        background-color: var(--hover-background);
         color: var(--font-color);
         z-index: 1;
       }
