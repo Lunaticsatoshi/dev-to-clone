@@ -3,6 +3,7 @@ import Head from "next/head";
 
 import Header from "./Header";
 
+import { SidebarContextProvider } from "src/contexts";
 type LayoutProps = {
   title: string;
   description?: string;
@@ -23,8 +24,10 @@ const Layout: FC<LayoutProps> = ({
         <meta name="description" content={description} />
         <meta name="keywords" content={keywords} />
       </Head>
-      <Header />
-      <div className="main-content">{children}</div>
+      <SidebarContextProvider>
+        <Header />
+        <div className="main-content">{children}</div>
+      </SidebarContextProvider>
     </>
   );
 };
