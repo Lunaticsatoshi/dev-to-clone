@@ -31,7 +31,7 @@ const InnerRegisterForm = (props: OtherProps & FormikProps<FormValues>) => {
     <>
       <div className="actions-hr mb-20">
         <div className="actions-hr__label">
-          <div className="form-header">{message}</div>
+          <div className="form-header">{message}<Link href="/login" passHref><span>Login</span></Link></div>
         </div>
       </div>
       <Form>
@@ -52,14 +52,9 @@ const InnerRegisterForm = (props: OtherProps & FormikProps<FormValues>) => {
           className="w-full btn login-btn font-bold rounded-full focus:outline-none focus:shadow-outline"
           disabled={isSubmitting}
         >
-          Login
+          Register
         </Button>
       </Form>
-      <div className="pt-6 mt-20 text-center">
-        <Link href="/">
-          <a>I forgot my passed</a>
-        </Link>
-      </div>
     </>
   );
 };
