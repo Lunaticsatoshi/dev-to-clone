@@ -3,8 +3,8 @@ import { OPEN_SIDEBAR, CLOSE_SIDEBAR } from "src/constants/actionTypes";
 // An interface for our actions
 
 export type SidebarAction = {
-  type: any;
-  payload: any;
+  type: string;
+  payload: boolean;
 };
 
 // An interface for our state
