@@ -48,92 +48,90 @@ ul {
 }
 
 .main-content {
-    height: 100vh;
-    width: 80%;
-    max-width: 100vw;
-    margin: 1.2rem auto;
+  height: 100vh;
+  width: 80%;
+  max-width: 100vw;
+  margin: 1.2rem auto;
 
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .main-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-grow: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 2;
 }
 
 .listing {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
 }
 
 .auth-container {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 
-    &__content {
-        margin: 2rem auto;
-        background-color: var(--header-bg);
-        color: var(--font-color);
-        border: 0.5px solid var(--border-color);
-        border-radius: 0.5rem;
-        overflow-wrap: anywhere;
+  &__content {
+    margin: 2rem auto;
+    background-color: var(--header-bg);
+    color: var(--font-color);
+    border: 0.5px solid var(--border-color);
+    border-radius: 0.5rem;
+    overflow-wrap: anywhere;
 
-        .actions {
-          .actions-email {
-            .actions-hr {
-              &__label {
-                font-size: 0.7rem;
-                position: relative;
-                z-index: 1;
-                display: flex;
-                justify-content: center;
-                align-items: center;
+    .actions {
+      .actions-email {
+        .actions-hr {
+          &__label {
+            font-size: 0.7rem;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
-                .form-header {
-                  font-size: 0.7rem;
-                  color: var(--font-color);
-                  background-color: var(--header-bg);
-                  padding: 0.5rem;
-                  z-index: 1;
-                }
-
-                // &::before {
-                //   content: "";
-                //   width: 100%;
-                //   border: 1px solid var(--border-color);
-                //   display: flex;
-                //   position: absolute;
-                //   top: 50%;
-                //   right: 50%;
-                // }
-
-                &::after {
-                  content: "";
-                  width: 100%;
-                  border: 1px solid var(--border-color);
-                  position: absolute;
-                  top: 50%;
-                }
-              }
+            .form-header {
+              font-size: 0.7rem;
+              color: var(--font-color);
+              background-color: var(--header-bg);
+              padding: 0.5rem;
+              z-index: 1;
             }
 
-            a {
-              font-size: 0.8rem;
-              color: var(--main-theme);
+            &::after {
+              content: "";
+              width: 100%;
+              border: 1px solid var(--border-color);
+              position: absolute;
+              top: 50%;
             }
           }
-        } 
-    }
+        }
 
-    .registration {
-      width: 640px;
-      padding: 3rem;
+        a {
+          font-size: 0.8rem;
+          margin-left: 0.2rem;
+          color: var(--main-theme);
+        }
+
+        span {
+          font-size: 0.8rem;
+          margin-left: 0.2rem;
+          color: var(--main-theme);
+          cursor: pointer;
+        }
+      }
     }
+  }
+
+  .registration {
+    width: 640px;
+    padding: 3rem;
+  }
 }
