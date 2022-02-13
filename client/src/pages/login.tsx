@@ -3,7 +3,7 @@ import type { NextPage } from "next";
 import { LoginForm } from "src/modules";
 import { Layout } from "src/components";
 
-const Login: NextPage = () => {
+const LoginPage: NextPage = () => {
   return (
     <>
       <Layout title="Login">
@@ -29,4 +29,4 @@ const Login: NextPage = () => {
   );
 };
 
-export default Login;
+export default LoginPage;

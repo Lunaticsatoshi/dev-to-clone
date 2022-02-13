@@ -3,7 +3,7 @@ import type { NextPage } from "next";
 import { LeftSidebar } from "src/modules";
 import { Layout, ListingBar, Feed } from "src/components";
 
-const Home: NextPage = () => {
+const HomePage: NextPage = () => {
   return (
     <>
       <Layout title="Home">
@@ -15,4 +15,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default HomePage;
