@@ -1,7 +1,7 @@
 import { DetailedHTMLProps, InputHTMLAttributes, FC } from "react";
 import { useField } from "formik";
 
-import { classNames } from "src/lib";
+import { classNames } from "src/utils";
 
 export const Label = (props: JSX.IntrinsicElements["label"]) => {
   return (
