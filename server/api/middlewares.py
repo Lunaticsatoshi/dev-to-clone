@@ -5,6 +5,6 @@ from rest_framework.exceptions import NotAuthenticated
 
 def custom_exception_handler(exc, context):
     if isinstance(exc, NotAuthenticated):
-        return Response({ 'status': False, 'message': 'User not authenticated'}, status=status.HTTP_401_UNAUTHORIZED)
+        return Response({'message': 'User not authenticated'}, status=status.HTTP_401_UNAUTHORIZED)
 
     return exception_handler(exc, context)
