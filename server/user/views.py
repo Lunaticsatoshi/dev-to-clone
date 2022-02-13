@@ -10,7 +10,7 @@ from rest_framework.views import APIView
 from rest_framework.generics import CreateAPIView, UpdateAPIView
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
 
@@ -159,7 +159,7 @@ def get_user(request, username):
         user = CustomUser.objects.get(username=username)
         
         if request.user.username == user.username:
-            serializer = AuthUserSerializer(user, many=False)
+            serializer = UserSerializer(user, many=False)
             
             return Response({'message': 'User found', 'data': serializer.data}, status=status.HTTP_200_OK)
         
@@ -169,5 +169,17 @@ def get_user(request, username):
     except CustomUser.DoesNotExist as e:
         return Response({'message': 'User does not exist'}, status=status.HTTP_400_BAD_REQUEST)
     
+    except Exception as e:
+        return Response({'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+    
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_profile(request):
+    user = request.user
+    try:
+        serializer = AuthUserSerializer(user, many=False)
+        return Response({'message': 'User found', 'data': serializer.data}, status=status.HTTP_200_OK)
+        
     except Exception as e:
         return Response({'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
