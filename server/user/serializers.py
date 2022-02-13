@@ -75,7 +75,7 @@ class UserSerializer(serializers.ModelSerializer):
     profile = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = CustomUser
-        fields = ['id', 'profile', 'username', 'is_superuser', 'is_staff']
+        fields = ['id', 'profile', 'username', 'email', 'is_superuser', 'is_staff']
 
     def get_profile(self, obj):
         profile = obj.userprofile
@@ -86,7 +86,7 @@ class AuthUserSerializer(serializers.ModelSerializer):
     profile = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = CustomUser
-        fields = ['id', 'profile', 'username', 'email', 'is_superuser', 'is_staff']
+        exclude = ['password', 'id']
 
     def get_profile(self, obj):
         profile = obj.userprofile
