@@ -158,18 +158,19 @@ def get_user(request, username):
     try:
         user = CustomUser.objects.get(username=username)
         
-        if request.user.username == user.username:
-            serializer = UserSerializer(user, many=False)
+        if request.user.username == username:
+            serializer = AuthUserSerializer(user, many=False)
             
             return Response({'message': 'User found', 'data': serializer.data}, status=status.HTTP_200_OK)
         
-        serializer = UserSerializer(user, many=True)
+        serializer = UserSerializer(user, many=False)
         return Response({'message': 'Users found with username', 'data': serializer.data}, status=status.HTTP_200_OK)
     
     except CustomUser.DoesNotExist as e:
         return Response({'message': 'User does not exist'}, status=status.HTTP_400_BAD_REQUEST)
     
     except Exception as e:
+        print(e)
         return Response({'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
     
