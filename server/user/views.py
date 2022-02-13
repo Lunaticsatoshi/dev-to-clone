@@ -47,7 +47,7 @@ class RegisterView(CreateAPIView):
             }
             Utils.send_email(data)
             
-            return Response({'status': True, 'message': 'User created successfully', 'data': user_data}, status=status.HTTP_201_CREATED)
+            return Response({'message': 'User created successfully', 'data': user_data}, status=status.HTTP_201_CREATED)
         
 class LoginView(TokenObtainPairView):
     serializer_class = LoginSerializerWithToken
@@ -57,13 +57,13 @@ class LoginView(TokenObtainPairView):
         try:
             serializer = self.serializer_class(data=data)
             if serializer.is_valid(raise_exception=True):
-                return Response({'status': True, 'message': 'User logged in sucessfully', 'data': serializer.validated_data}, status=status.HTTP_200_OK)
+                return Response({'message': 'User logged in sucessfully', 'data': serializer.validated_data}, status=status.HTTP_200_OK)
         
         except CustomUser.DoesNotExist as e:
-            return Response({'status': 'error', 'message': 'User does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': 'User does not exist'}, status=status.HTTP_400_BAD_REQUEST)
         
         except Exception as e:
-            return Response({'status': False, 'message': 'Invalid email or password'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': 'Invalid email or password'}, status=status.HTTP_400_BAD_REQUEST)
         
 class VerifyEmailView(APIView):
     permission_classes = (AllowAny,)
@@ -76,30 +76,30 @@ class VerifyEmailView(APIView):
     def get(self, request):
         token = request.GET.get('token')
         if token is None:
-            return Response({'status': 'error', 'message': 'Token not found'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': 'Token not found'}, status=status.HTTP_400_BAD_REQUEST)
         try:
             payload = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
             user = CustomUser.objects.get(id=payload["user_id"])
             if not user.email_verified:
                 user.email_verified = True
                 user.save()
-                return Response({'status': 'success', 'message': 'Email verified'}, status=status.HTTP_200_OK)
+                return Response({'message': 'Email verified'}, status=status.HTTP_200_OK)
             
         except jwt.ExpiredSignatureError as identifier:
-            return Response({'status': 'error', 'message': 'Activation Expired'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': 'Activation Expired'}, status=status.HTTP_400_BAD_REQUEST)
         
         except jwt.exceptions.DecodeError as identifier:
             print(identifier)
-            return Response({'status': 'error', 'message': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
         
         except CustomUser.DoesNotExist:
-            return Response({'status': 'error', 'message': 'User does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': 'User does not exist'}, status=status.HTTP_400_BAD_REQUEST)
         
         except Exception as e:
-            return Response({'status': 'error', 'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
         
-class ProfileUpdateView(UpdateAPIView):
+class ProfileUpdateView(APIView):
     permission_classes = (AllowAny, IsAuthenticated)
     serializer_class = UserProfileSerializer
     
@@ -117,10 +117,10 @@ class ProfileUpdateView(UpdateAPIView):
                     
                     user.save()
                     profile.save()
-                return Response({'status': True, 'message': 'Profile updated successfully', 'data': UserSerializer(user).data}, status=status.HTTP_200_OK)
+                return Response({'message': 'Profile updated successfully', 'data': UserSerializer(user).data}, status=status.HTTP_200_OK)
             
         except Exception as e:
-            return Response({'status': False, 'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
 
 @api_view(['GET'])
@@ -130,13 +130,13 @@ def get_users(request):
         users = CustomUser.objects.filter(username__icontains=query)
         serializer = UserSerializer(users, many=True)
         
-        return Response({'status': True, 'message': 'Users found', 'data': serializer.data}, status=status.HTTP_200_OK)
+        return Response({'message': 'Users found', 'data': serializer.data}, status=status.HTTP_200_OK)
     
     except CustomUser.DoesNotExist as e:
-        return Response({'status': 'error', 'message': 'User does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'message': 'User does not exist'}, status=status.HTTP_400_BAD_REQUEST)
     
     except Exception as e:
-        return Response({'status': 'error', 'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
 @api_view(['GET'])
 def get_users_by_interest(request, interest):
@@ -145,13 +145,13 @@ def get_users_by_interest(request, interest):
         users = CustomUser.objects.filter(Q(userprofile__interests__in=[interest])).order_by('-userprofile__follower_count')
         serializer = UserSerializer(users, many=True)
         
-        return Response({'status': True, 'message': 'Users found', 'data': serializer.data}, status=status.HTTP_200_OK)
+        return Response({'message': 'Users found', 'data': serializer.data}, status=status.HTTP_200_OK)
     
     except CustomUser.DoesNotExist as e:
-        return Response({'status': 'error', 'message': 'User does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'message': 'User does not exist'}, status=status.HTTP_400_BAD_REQUEST)
     
     except Exception as e:
-        return Response({'status': 'error', 'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['GET'])
 def get_user(request, username):
@@ -161,13 +161,13 @@ def get_user(request, username):
         if request.user.username == user.username:
             serializer = AuthUserSerializer(user, many=False)
             
-            return Response({'status': True, 'message': 'User found', 'data': serializer.data}, status=status.HTTP_200_OK)
+            return Response({'message': 'User found', 'data': serializer.data}, status=status.HTTP_200_OK)
         
         serializer = UserSerializer(user, many=True)
-        return Response({'status': True, 'message': 'Users found with username', 'data': serializer.data}, status=status.HTTP_200_OK)
+        return Response({'message': 'Users found with username', 'data': serializer.data}, status=status.HTTP_200_OK)
     
     except CustomUser.DoesNotExist as e:
-        return Response({'status': 'error', 'message': 'User does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'message': 'User does not exist'}, status=status.HTTP_400_BAD_REQUEST)
     
     except Exception as e:
-        return Response({'status': 'error', 'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
