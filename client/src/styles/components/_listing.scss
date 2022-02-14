@@ -1,7 +1,7 @@
 .listing-sidebar {
   display: flex;
   flex-direction: column;
-
+  flex-grow: 1;
   &__header {
     background-color: var(--main-0);
     padding: 1rem;
