@@ -1,4 +1,5 @@
 import { sidebarReducer, SidebarAction, SidebarState } from "./sidebarReducer";
+import { authReducer, AuthAction, AuthState } from "./authReducer";
 
-export { sidebarReducer };
-export type { SidebarAction, SidebarState };
+export { sidebarReducer, authReducer };
+export type { SidebarAction, SidebarState, AuthAction, AuthState };
