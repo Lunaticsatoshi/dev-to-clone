@@ -71,7 +71,7 @@ class UserProfile(models.Model):
     location = models.CharField(max_length=255, null=True, blank=True)
     website_url = models.CharField(max_length=500, null=True, blank=True)
     skills = models.TextField(null=True, blank=True)
-    followers = models.ManyToManyField(CustomUser, related_name='followers', blank=True)
+    followers = models.ManyToManyField(CustomUser, related_name='following', blank=True)
     diplay_email = models.BooleanField(default=False)
     is_verified = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
