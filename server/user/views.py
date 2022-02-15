@@ -185,3 +185,51 @@ def get_current_user(request):
         
     except Exception as e:
         return Response({'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+    
+@api_view(['Post'])
+@permission_classes((IsAuthenticated,))
+def add_interests(request):
+    user_profile = request.user.userprofile
+    try:
+        interests = request.data
+        if not interests:
+            return Response({'message': 'No Interests found'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        user_profile.interests.set(Interests.objects.get_or_create(interest=interest['interest'])[0] for interest in interests)
+        user_profile.save()
+        serializer = UserProfileSerializer(user_profile, many=False)
+        return Response({'message': 'Interests added successfully', 'data': serializer.data}, status=status.HTTP_200_OK)
+    
+    except Exception as e:
+        return Response({'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+
+@api_view(['POST'])
+@permission_classes((IsAuthenticated,))
+def follow_user(request, username):
+    user = request.user
+    try:
+        user_to_follow = CustomUser.objects.get(username=username)
+        user_profile_to_follow = user_to_follow.userprofile
+        
+        if user == user_profile_to_follow:
+            return Response({'message': 'You cannot follow yourself'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        if user in user_profile_to_follow.followers.filter(user__id=user.id):
+            user_profile_to_follow.followers.remove(user)
+            user_profile_to_follow.follower_count = user_profile_to_follow.followers.count()
+            user_profile_to_follow.save()
+            return Response({'message': 'User unfollowed sucessfully'}, status=status.HTTP_200_OK)
+        
+        else:
+            user_profile_to_follow.followers.add(user)
+            user_profile_to_follow.follower_count = user_profile_to_follow.followers.count()
+            user_profile_to_follow.save()
+            return Response({'message': 'User followed sucessfully'}, status=status.HTTP_200_OK)
+            
+    except CustomUser.DoesNotExist as e:
+        return Response({'message': 'User does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    except Exception as e:
+        return Response({'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
