@@ -95,7 +95,10 @@ const index: FC<ListingbarProps> = ({}) => {
       <ListingBar>
         <ListingHeader>
           <p>
-            <img src="https://picsum.photos/200/300" alt="" />
+            <img
+              src="https://res.cloudinary.com/practicaldev/image/fetch/s--KSi8rL3T--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_350/https://res.cloudinary.com/practicaldev/image/fetch/s--3GWkSFQs--/c_fill%2Cf_auto%2Cfl_progressive%2Ch_420%2Cq_auto%2Cw_420/https://dev-to-uploads.s3.amazonaws.com/uploads/podcast/image/346/5b0bd095-4a8c-4449-a43d-9e9b154b9d09.png"
+              alt="header-image"
+            />
           </p>
           <h2>
             <Link href="/#" passHref>
@@ -112,9 +115,9 @@ const index: FC<ListingbarProps> = ({}) => {
           </p>
         </ListingHeader>
 
-        <ListingCard header="Listings" articles={listings}/>
-        <ListingCard header="#news" articles={news}/>
-        <ListingCard header="#help" articles={help}/>
+        <ListingCard header="Listings" articles={listings} />
+        <ListingCard header="#news" articles={news} />
+        <ListingCard header="#help" articles={help} />
       </ListingBar>
     </>
   );
