@@ -1,6 +1,5 @@
 .listing-card {
-  margin: 1rem 0;
-  padding: 0.4rem 0.7rem;
+  margin: 0.5rem 0;
   background-color: var(--header-bg);
 
   border-radius: 5px;
@@ -26,8 +25,7 @@
   li {
     display: block;
     padding: 1rem;
-    border-top: 1px solid var(--main-1);
-    border-bottom: 1px solid var(--main-1);
+    border-top: 1px solid var(--theme-background);
     cursor: pointer;
     transition: all 0.2s;
     &:hover {

@@ -24,3 +24,9 @@
     }
   }
 }
+
+@media screen and (max-width: 1026px) {
+  .listing-sidebar {
+    display: none;
+  }
+}
