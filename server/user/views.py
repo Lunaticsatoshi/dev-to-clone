@@ -100,7 +100,7 @@ class VerifyEmailView(APIView):
         
         
 class ProfileUpdateView(APIView):
-    permission_classes = (AllowAny, IsAuthenticated)
+    permission_classes = (AllowAny, IsAuthenticated,)
     serializer_class = UserProfileSerializer
     
     def patch(self, request):
@@ -176,16 +176,12 @@ def get_user(request, username):
     
 @api_view(['GET'])
 @permission_classes((IsAuthenticated,))
-def get_profile(request):
+def get_current_user(request):
     user = request.user
     print(user)
     try:
         serializer = AuthUserSerializer(user, many=False)
         return Response({'message': 'User found', 'data': serializer.data}, status=status.HTTP_200_OK)
-    
-    except CustomUser.DoesNotExist as e:
-        print(e)
-        return Response({'message': 'User does not exist'}, status=status.HTTP_400_BAD_REQUEST)
         
     except Exception as e:
         return Response({'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
