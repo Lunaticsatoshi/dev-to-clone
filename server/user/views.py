@@ -123,6 +123,7 @@ class ProfileUpdateView(APIView):
             return Response({'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
 @api_view(['POST'])
+@permission_classes((IsAuthenticated,))
 def logout(request):
     data = request.data
     refresh_token = data.get('refresh')
