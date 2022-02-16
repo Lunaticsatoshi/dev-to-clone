@@ -230,7 +230,7 @@ def follow_user(request, username):
         if user == user_profile_to_follow:
             return Response({'message': 'You cannot follow yourself'}, status=status.HTTP_400_BAD_REQUEST)
         
-        if user in user_profile_to_follow.followers.filter(user__id=user.id):
+        if user == user_profile_to_follow.followers.filter(username=user.username).first():
             user_profile_to_follow.followers.remove(user)
             user_profile_to_follow.follower_count = user_profile_to_follow.followers.count()
             user_profile_to_follow.save()
@@ -246,4 +246,5 @@ def follow_user(request, username):
         return Response({'message': 'User does not exist'}, status=status.HTTP_400_BAD_REQUEST)
     
     except Exception as e:
+        print(e)
         return Response({'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
