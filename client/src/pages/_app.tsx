@@ -2,11 +2,15 @@ import "src/styles/app.scss";
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "next-themes";
 
+import { AuthContextProvider } from "src/contexts";
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider>
-      <Component {...pageProps} />
-    </ThemeProvider>
+    <AuthContextProvider>
+      <ThemeProvider>
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </AuthContextProvider>
   );
 }
 
