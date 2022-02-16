@@ -1,8 +1,10 @@
+import { FC } from "react";
 import Link from "next/link";
 import * as Yup from "yup";
-import { withFormik, FormikProps, Form } from "formik";
+import { Form, useFormik, FormikProvider } from "formik";
 
 import { InputField, Button, CheckBox } from "src/components";
+import { useAuthState } from "src/hooks";
 
 // Shape of form values
 interface FormValues {
@@ -10,7 +12,7 @@ interface FormValues {
   password: string;
 }
 
-interface OtherProps {
+interface InnerLoginFormProps {
   message: string;
 }
 
@@ -23,8 +25,8 @@ const inputValidationSchema = Yup.object({
     .required("Password is required"),
 });
 
-const InnerLoginForm = (props: OtherProps & FormikProps<FormValues>) => {
-  const { isSubmitting, message } = props;
+const InnerLoginForm = (props: InnerLoginFormProps) => {
+  const { message } = props;
   return (
     <>
       <div className="actions-hr mb-20">
@@ -47,37 +49,43 @@ const InnerLoginForm = (props: OtherProps & FormikProps<FormValues>) => {
         <Button
           type="submit"
           className="w-full btn login-btn font-bold rounded-full focus:outline-none focus:shadow-outline"
-          disabled={isSubmitting}
         >
           Login
         </Button>
       </Form>
       <div className="pt-6 mt-20 text-center">
-        <Link href="/"><a>I forgot my passed</a></Link>
+        <Link href="/">
+          <a>I forgot my passed</a>
+        </Link>
       </div>
     </>
   );
 };
 
-// The type of props MyForm receives
+// The type of props LoginForm receives
 interface LoginFormProps {
   initialEmail?: string;
-  message: string; // if this passed all the way through you might do this or make a union type
+  message: string;
 }
 
-const LoginForm = withFormik<LoginFormProps, FormValues>({
-  mapPropsToValues: (props) => {
-    return {
-      email: props.initialEmail || "",
+const LoginForm: FC<LoginFormProps> = ({ initialEmail, message }) => {
+  const formik = useFormik({
+    initialValues: {
+      email: initialEmail || "",
       password: "",
-    };
-  },
-  validationSchema: inputValidationSchema,
-
-  handleSubmit: (values) => {
-    // do submitting things
-    console.log(values);
-  },
-})(InnerLoginForm);
+    },
+    validationSchema: inputValidationSchema,
+    onSubmit: (values, { resetForm }) => {
+      console.log(values);
+    },
+  });
+  return (
+    <div>
+      <FormikProvider value={formik}>
+        <InnerLoginForm message={message} />
+      </FormikProvider>
+    </div>
+  );
+};
 
 export default LoginForm;
