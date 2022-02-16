@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.generics import CreateAPIView, UpdateAPIView
 from rest_framework import status
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.tokens import RefreshToken, TokenError
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -121,6 +121,20 @@ class ProfileUpdateView(APIView):
             
         except Exception as e:
             return Response({'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+@api_view(['POST'])
+def logout(request):
+    data = request.data
+    refresh_token = data.get('refresh')
+    try:
+        RefreshToken(refresh_token).blacklist()
+        return Response({'message': 'Logged out successfully'}, status=status.HTTP_200_OK)
+    
+    except TokenError as identifier:
+        return Response({'message': 'Invalid or Expired Token'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    except Exception as e:
+        return Response({'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
 
 @api_view(['GET'])
