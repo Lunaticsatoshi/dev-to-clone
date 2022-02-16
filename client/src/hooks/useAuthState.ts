@@ -20,6 +20,7 @@ const useAuthState = () => {
   };
 
   return {
+    state,
     login,
     register,
   };
