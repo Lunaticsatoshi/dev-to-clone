@@ -137,7 +137,8 @@ def add_comment(request):
             article.comment_count = article.comment_set.all().count()
             article.save()
             
-        serializer = ArticleCommentSerializer(comment, many=False)
+        article_comments = article.comment_set.all()
+        serializer = ArticleCommentSerializer(article_comments, many=True)
         return Response({'messsage': 'Successfully commented on article', 'data': serializer.data}, status=status.HTTP_200_OK)
     
     except Article.DoesNotExist:
@@ -150,11 +151,17 @@ def add_comment(request):
 @permission_classes((IsAuthenticated,))
 def edit_comment(request, pk):
     user = request.user
+    data = request.data
+    content = data.get('content')
     
     try:
         article_comment = ArticleComment.objects.get(id=pk)
         if article_comment.user == user:
-            serializer = ArticleCommentSerializer(article_comment, many=False)
+            article = article_comment.article
+            article_comment.content = content
+            article_comment.save()
+            article_comments = article.comment_set.all()
+            serializer = ArticleCommentSerializer(article_comments, many=True)
             return Response({'messsage': 'Successfully edited comment', 'data': serializer.data}, status=status.HTTP_200_OK)
         else:
             return Response({'error': 'You are not authorized to edit this comment'}, status=status.HTTP_400_BAD_REQUEST)
@@ -174,8 +181,10 @@ def delete_comment(request, pk):
     try:
         article_comment = ArticleComment.objects.get(id=pk)
         if article_comment.user == user:
-            serializer = ArticleCommentSerializer(article_comment, many=False)
+            article = article_comment.article
             article_comment.delete()
+            article_comments = article.comment_set.all()
+            serializer = ArticleCommentSerializer(article_comments, many=True)
             return Response({'messsage': 'Successfully Deleted comment', 'data': serializer.data}, status=status.HTTP_200_OK)
         else:
             return Response({'error': 'You are not authorized to delete this comment'}, status=status.HTTP_400_BAD_REQUEST)
