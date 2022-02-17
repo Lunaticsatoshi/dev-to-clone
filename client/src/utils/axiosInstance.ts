@@ -29,7 +29,7 @@ const getAuthHeaders = async (): Promise<Partial<authHeader>> => {
     const user: any = jwt_decode(authTokens?.access || "");
     const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
 
-    if (!isExpired) return { Authorization: `Bearer ${authTokens!.access}` };
+    if (!isExpired) return { Authorization: `Bearer ${authTokens.access}` };
 
     const refreshedTokens = await axios.post(
       `${baseURL}/user/auth/token/refresh/`,
@@ -38,9 +38,9 @@ const getAuthHeaders = async (): Promise<Partial<authHeader>> => {
       },
     );
 
-    localStorage.setItem("authTokens", JSON.stringify(refreshedTokens!));
+    localStorage.setItem("authTokens", JSON.stringify(refreshedTokens));
 
-    return { Authorization: `Bearer ${authTokens!.access}` };
+    return { Authorization: `Bearer ${authTokens.access}` };
   }
 };
 
