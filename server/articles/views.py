@@ -7,7 +7,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 
-from .serializers import ArticleSerializer
+from .serializers import ArticleSerializer, ArticleCommentSerializer
 from .models import Article, HashTag, ArticleClap, ArticleComment
 from .utils import Utils
 from .permissions import IsOwner
@@ -110,5 +110,31 @@ def add_clap(request):
         article.save()
         serializer = ArticleSerializer(article, many=False)
         return Response({'messsage': 'Successfully clapped for article', 'data': serializer.data}, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    
+
+@api_view(['POST'])
+@permission_classes((IsAuthenticated,))
+def add_comment(request):
+    user = request.user
+    data = request.data
+    article_id = data.get('article_id')
+    comment_id = data.get('comment_id')
+    comment = data.get('comment')
+    
+    try:
+        article = Article.objects.get(id=article_id)
+        if comment_id:
+            parent_comment = ArticleComment.objects.get(id=comment_id)
+            comment = ArticleComment.objects.create(user=user, article=article, content=comment, parent=parent_comment)
+        else:
+            comment = ArticleComment.objects.create(user=user, article=article, content=comment)
+            article.comment_count = article.comment_set.all().count()
+            article.save()
+            
+        serializer = ArticleCommentSerializer(comment, many=False)
+        return Response({'messsage': 'Successfully commented on article', 'data': serializer.data}, status=status.HTTP_200_OK)
+    
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
