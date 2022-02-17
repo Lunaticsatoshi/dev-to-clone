@@ -2,6 +2,7 @@ import axios, { AxiosInstance } from "axios";
 import jwt_decode from "jwt-decode";
 import dayjs from "dayjs";
 import { __prod__ } from "src/constants/constants";
+import { userTokenPersistence } from "src/utils";
 
 const baseURL = __prod__
   ? process.env.NEXT_APP_PRODUCTION_API_ENDPOINT
@@ -19,8 +20,8 @@ let authTokens: authToken | null;
 let axiosInstance: AxiosInstance;
 
 const getAuthHeaders = async (): Promise<Partial<authHeader>> => {
-  authTokens = localStorage.getItem("authTokens")
-    ? JSON.parse(localStorage.getItem("authTokens")!)
+  authTokens = userTokenPersistence.get()
+    ? JSON.parse(userTokenPersistence.get()!)
     : null;
 
   if (!authTokens) {
@@ -38,7 +39,7 @@ const getAuthHeaders = async (): Promise<Partial<authHeader>> => {
       },
     );
 
-    localStorage.setItem("authTokens", JSON.stringify(refreshedTokens));
+    userTokenPersistence.set(JSON.stringify(refreshedTokens));
 
     return { Authorization: `Bearer ${authTokens.access}` };
   }
