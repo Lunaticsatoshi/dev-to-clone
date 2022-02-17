@@ -2,11 +2,17 @@ from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
 from user.serializers import UserProfileSerializer
-from .models import Article, ArticleClap, ArticleComment
+from .models import Article, ArticleClap, ArticleComment, HashTag
 
+
+class HashTagSerializer(ModelSerializer):
+    class Meta:
+        model = HashTag
+        fields = '__all__'
 
 class ArticleSerializer(ModelSerializer):
     user = serializers.SerializerMethodField(read_only=True)
+    tags = HashTagSerializer(many=True, read_only=True)
     class Meta:
         model = Article
         fields = '__all__'
