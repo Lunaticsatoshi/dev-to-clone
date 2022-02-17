@@ -111,8 +111,11 @@ def add_clap(request):
         serializer = ArticleSerializer(article, many=False)
         return Response({'messsage': 'Successfully clapped for article', 'data': serializer.data}, status=status.HTTP_200_OK)
     
+    except Article.DoesNotExist:
+        return Response({'error': 'Article does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+    
     except Exception as e:
-        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
 
 @api_view(['POST'])
@@ -137,5 +140,8 @@ def add_comment(request):
         serializer = ArticleCommentSerializer(comment, many=False)
         return Response({'messsage': 'Successfully commented on article', 'data': serializer.data}, status=status.HTTP_200_OK)
     
+    except Article.DoesNotExist:
+        return Response({'error': 'Article does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+    
     except Exception as e:
-        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
