@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'user.apps.UserConfig',
     'articles.apps.ArticlesConfig',
+    'communities.apps.CommunitiesConfig',
 ]
 
 SWAGGER_SETTINGS = {
