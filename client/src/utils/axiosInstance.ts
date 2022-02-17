@@ -1,8 +1,11 @@
 import axios, { AxiosInstance } from "axios";
 import jwt_decode from "jwt-decode";
 import dayjs from "dayjs";
+import { __prod__ } from "src/constants/constants";
 
-const baseURL = "http://127.0.0.1:8000/api/v1";
+const baseURL = __prod__
+  ? process.env.NEXT_APP_PRODUCTION_API_ENDPOINT
+  : process.env.NEXT_APP_DEVELOPMENT_API_ENDPOINT;
 
 type authToken = {
   access: string;
@@ -44,7 +47,7 @@ const getAuthHeaders = async (): Promise<Partial<authHeader>> => {
 if (typeof window !== "undefined") {
   axiosInstance = axios.create({
     baseURL,
-    headers: {}
+    headers: {},
   });
 
   axiosInstance.interceptors.request.use(async (req) => {
