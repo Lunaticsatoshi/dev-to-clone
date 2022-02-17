@@ -110,6 +110,7 @@ def add_clap(request):
         article.save()
         serializer = ArticleSerializer(article, many=False)
         return Response({'messsage': 'Successfully clapped for article', 'data': serializer.data}, status=status.HTTP_200_OK)
+    
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
     
