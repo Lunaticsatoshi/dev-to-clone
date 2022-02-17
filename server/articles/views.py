@@ -1,13 +1,14 @@
+from venv import create
 from django.shortcuts import render
 
 from rest_framework.response import Response
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 
 from .serializers import ArticleSerializer
-from .models import Article, HashTag
+from .models import Article, HashTag, ArticleClap, ArticleComment
 from .utils import Utils
 from .permissions import IsOwner
 
@@ -77,5 +78,37 @@ def get_article(request, slug):
         article = Article.objects.get(slug=slug)
         serializer = ArticleSerializer(article, many=False)
         return Response({'messsage': 'Success', 'data': serializer.data}, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(['POST'])
+@permission_classes((IsAuthenticated,))
+def add_clap(request):
+    user = request.user
+    data = request.data
+    article_id = data.get('article_id')
+    comment_id = data.get('comment_id')
+    
+    try:
+        article = Article.objects.get(id=article_id)
+        if comment_id:
+            comment = ArticleComment.objects.get(id=comment_id)
+            clap, created = ArticleClap.objects.get_or_create(user=user, article=article, comment=comment)
+            if not created:
+                clap.delete()
+            else:
+                article.clap_count = article.clap_set.all().count()
+                clap.save()
+        else:
+            clap, created = ArticleClap.objects.get_or_create(user=user, article=article)
+            if not created:
+                clap.delete()
+            else:
+                article.clap_count = article.clap_set.all().count()
+                clap.save()
+                
+        article.save()
+        serializer = ArticleSerializer(article, many=False)
+        return Response({'messsage': 'Successfully clapped for article', 'data': serializer.data}, status=status.HTTP_200_OK)
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
