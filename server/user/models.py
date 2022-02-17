@@ -51,7 +51,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         return f"{self.username} | {self.id}"
     
 class Interests(models.Model):
-    interest = models.CharField(max_length=100)
+    interest = models.CharField(max_length=100, db_index=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
