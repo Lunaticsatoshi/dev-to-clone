@@ -12,6 +12,12 @@ class HashTag(BaseModel):
     
     def __str__(self) -> str:
         return f"{self.id} | {self.tag}"
+    
+STATUS_CHOICES = (
+        ('Published', 'Published'),
+        ('Private', 'Private'),
+        ('Draft', 'Draft'),
+    )
 class Article(BaseModel):
     id = models.UUIDField(default=uuid.uuid4,  unique=True, primary_key=True, editable=False)
     user = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, blank=True)
@@ -21,7 +27,8 @@ class Article(BaseModel):
     slug = models.SlugField(max_length=700, unique=True, db_index=True)
     clap_count = models.IntegerField(null=True, default=0)
     comment_count = models.IntegerField(null=True, default=0)
-    tags=models.ManyToManyField(HashTag, related_name='article_tags', blank=True)
+    tags = models.ManyToManyField(HashTag, related_name='article_tags', blank=True)
+    status = models.CharField(max_length=100, choices=STATUS_CHOICES, default='Draft')
     
     def __str__(self) -> str:
         return f"{self.id} | {self.title}"
