@@ -145,3 +145,43 @@ def add_comment(request):
     
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+@api_view(['PUT'])
+@permission_classes((IsAuthenticated,))
+def edit_comment(request, pk):
+    user = request.user
+    
+    try:
+        article_comment = ArticleComment.objects.get(id=pk)
+        if article_comment.user == user:
+            serializer = ArticleCommentSerializer(article_comment, many=False)
+            return Response({'messsage': 'Successfully edited comment', 'data': serializer.data}, status=status.HTTP_200_OK)
+        else:
+            return Response({'error': 'You are not authorized to edit this comment'}, status=status.HTTP_400_BAD_REQUEST)
+        
+    except ArticleComment.DoesNotExist:
+        return Response({'error': 'Comment does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+
+@api_view(['DELETE'])
+@permission_classes((IsAuthenticated,))
+def delete_comment(request, pk):
+    user = request.user
+    
+    try:
+        article_comment = ArticleComment.objects.get(id=pk)
+        if article_comment.user == user:
+            serializer = ArticleCommentSerializer(article_comment, many=False)
+            article_comment.delete()
+            return Response({'messsage': 'Successfully Deleted comment', 'data': serializer.data}, status=status.HTTP_200_OK)
+        else:
+            return Response({'error': 'You are not authorized to delete this comment'}, status=status.HTTP_400_BAD_REQUEST)
+        
+    except ArticleComment.DoesNotExist:
+        return Response({'error': 'Comment does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
