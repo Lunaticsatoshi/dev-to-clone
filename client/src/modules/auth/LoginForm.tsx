@@ -6,14 +6,9 @@ import { Form, useFormik, FormikProvider } from "formik";
 import { InputField, Button, CheckBox } from "src/components";
 import { useAuthState } from "src/hooks";
 
-// Shape of form values
-interface FormValues {
-  email: string;
-  password: string;
-}
-
 interface InnerLoginFormProps {
   message: string;
+  handleSubmit: () => void;
 }
 
 const inputValidationSchema = Yup.object({
@@ -26,7 +21,7 @@ const inputValidationSchema = Yup.object({
 });
 
 const InnerLoginForm = (props: InnerLoginFormProps) => {
-  const { message } = props;
+  const { message, handleSubmit } = props;
   return (
     <>
       <div className="actions-hr mb-20">
@@ -34,7 +29,7 @@ const InnerLoginForm = (props: InnerLoginFormProps) => {
           <div className="form-header">{message}</div>
         </div>
       </div>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <InputField type="email" name="email" label="Email" />
 
         <InputField
@@ -44,7 +39,7 @@ const InnerLoginForm = (props: InnerLoginFormProps) => {
           type="password"
         />
 
-        <CheckBox name="label" label="Remember me" />
+        <CheckBox name="remember" label="Remember me" />
 
         <Button
           type="submit"
@@ -69,20 +64,24 @@ interface LoginFormProps {
 }
 
 const LoginForm: FC<LoginFormProps> = ({ initialEmail, message }) => {
+  const { login } = useAuthState();
   const formik = useFormik({
     initialValues: {
       email: initialEmail || "",
       password: "",
     },
     validationSchema: inputValidationSchema,
-    onSubmit: (values, { resetForm }) => {
+    onSubmit: async (values, { resetForm }) => {
       console.log(values);
+      await login(values.email, values.password);
+      resetForm();
     },
   });
+  const { handleSubmit } = formik;
   return (
     <div>
       <FormikProvider value={formik}>
-        <InnerLoginForm message={message} />
+        <InnerLoginForm message={message} handleSubmit={handleSubmit} />
       </FormikProvider>
     </div>
   );
