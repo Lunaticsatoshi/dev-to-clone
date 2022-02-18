@@ -16,6 +16,7 @@ PyJWT = "==2.3.0"
 drf-yasg = "*"
 django-cors-headers = "*"
 django-environ = "*"
+django-redis = "*"
 
 [dev-packages]
 
