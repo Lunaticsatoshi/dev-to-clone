@@ -24,6 +24,8 @@ services:
     volumes:
       - ./server:/app
       - ./docker:/app/docker
+    ports:
+      - "8000:8000"
     env_file:
       - ./server/.env
     networks:
