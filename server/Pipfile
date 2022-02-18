@@ -17,6 +17,7 @@ drf-yasg = "*"
 django-cors-headers = "*"
 django-environ = "*"
 django-redis = "*"
+psycopg2 = "*"
 
 [dev-packages]
 
