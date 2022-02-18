@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'drf_yasg',
     'corsheaders',
+    'reset_migrations',
     'user.apps.UserConfig',
     'articles.apps.ArticlesConfig',
     'communities.apps.CommunitiesConfig',
