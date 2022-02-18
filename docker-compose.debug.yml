@@ -17,7 +17,7 @@ services:
   server:
     build: 
       context: .
-      dockerfile: docker/server/Dockerfile
+      dockerfile: docker/server/Dockerfile.dev
     depends_on:
       - redis
       - postgres
@@ -29,12 +29,11 @@ services:
     networks:
       - devto-app
     restart: unless-stopped
-    command: ./docker/backend/run.dev.sh
+    command: ./docker/server/run.dev.sh
 
   redis:
     build: 
-      context: .
-      dockerfile: docker/redis/Dockerfile
+      context: docker/redis
     volumes:
       - ./redis-data:/data
     ports:
