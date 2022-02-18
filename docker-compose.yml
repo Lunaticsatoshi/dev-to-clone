@@ -1,0 +1,77 @@
+version: "3.8"
+
+services:
+  # client:
+  #   build: 
+  #     context: .
+  #     dockerfile: docker/client/Dockerfile
+  #   restart: always
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - /app/node_modules
+  #     - /app/.next
+  #     - ./client:/app
+  #   env_file: ./client/.env
+    
+  server:
+    build: 
+      context: .
+      dockerfile: docker/server/Dockerfile
+    depends_on:
+      - redis
+      - postgres
+    volumes:
+      - ./server:/app
+      - ./docker:/app/docker
+    environment:
+      USE_POSTGRES: 'True'
+      DATABASE_URL: psql://postgres:${POSTGRES_PASSWORD}@db:5432/postgres
+      REDIS_CACHE_URL: redis://redis:6379/1
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      EMAIL_HOST_USER: ${EMAIL_HOST_USER}
+      EMAIL_HOST_PASSWORD: ${EMAIL_HOST_PASSWORD}
+    restart: unless-stopped
+    command: ./docker/backend/run.dev.sh
+
+  redis:
+    build: 
+      context: .
+      dockerfile: docker/redis/Dockerfile
+    volumes:
+      - ./redis-data:/data
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:14.2-alpine3.15
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=devto
+    volumes:
+      - ./pg-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=pgadmin4@pgadmin.org
+      - PGADMIN_DEFAULT_PASSWORD=admin
+      - PGADMIN_CONFIG_SERVER_MODE=False
+    ports:
+      - "5050:80"
+    restart: unless-stopped
+
+
+volumes:
+  redis-data:
+    driver: local
+  pg-data:
+    driver: local
+  pg-admin:
+    driver: local
