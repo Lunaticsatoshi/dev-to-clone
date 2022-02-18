@@ -18,6 +18,7 @@ const buildApi = (setIsLoading: Dispatch<SetStateAction<boolean>>): any => {
       return data;
     } catch (e: any) {
       if (e.response && e.response.status) {
+        console.log(e.response);
         switch (e.response.status) {
           case 401:
             console.log("401");

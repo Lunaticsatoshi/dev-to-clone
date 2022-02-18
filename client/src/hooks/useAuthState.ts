@@ -9,8 +9,9 @@ const useAuthState = () => {
 
   const login = async (email: string, password: string) => {
     const user = await userLogin({ email, password });
-    const profile = user.profile;
-    dispatch({ type: "LOGIN_SUCCESS", payload: { user, profile } });
+    // const profile = user.profile;
+    console.log(user);
+    // dispatch({ type: "LOGIN_SUCCESS", payload: { user, profile } });
   };
 
   const register = async (username: string, email: string, password: string) => {

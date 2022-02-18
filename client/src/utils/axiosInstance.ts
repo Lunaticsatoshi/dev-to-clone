@@ -6,7 +6,7 @@ import { userTokenPersistence } from "src/utils";
 
 const baseURL = __prod__
   ? process.env.NEXT_APP_PRODUCTION_API_ENDPOINT
-  : process.env.NEXT_APP_DEVELOPMENT_API_ENDPOINT;
+  : "http://127.0.0.1:8000/api/v1";
 
 type authToken = {
   access: string;
