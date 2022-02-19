@@ -1,10 +1,23 @@
-import { useMemo, useState, Dispatch, SetStateAction } from "react";
+import {
+  useMemo,
+  useState,
+  useContext,
+  useCallback,
+  Dispatch,
+  SetStateAction,
+} from "react";
+import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import { Method, AxiosResponse } from "axios";
-import { axiosInstance } from "src/utils";
+
+import { axiosInstance, userTokenPersistence } from "src/utils";
+import { AuthContext } from "src/contexts";
 
 // Build Api Method
-const buildApi = (setIsLoading: Dispatch<SetStateAction<boolean>>): any => {
+const buildApi = (
+  setIsLoading: Dispatch<SetStateAction<boolean>>,
+  setLoggedOutState: () => void,
+): any => {
   const processResponse = async (
     callInstance: Promise<AxiosResponse<any, any>>,
   ) => {
@@ -19,10 +32,10 @@ const buildApi = (setIsLoading: Dispatch<SetStateAction<boolean>>): any => {
       return data;
     } catch (e: any) {
       if (e.response && e.response.status) {
-        console.log(e.response);
         switch (e.response.status) {
           case 401:
             console.log("401");
+            setLoggedOutState();
             break;
           default:
             toast.error(e.response.data.message, {
@@ -72,8 +85,20 @@ const buildApi = (setIsLoading: Dispatch<SetStateAction<boolean>>): any => {
 // Axios hook to get all axios api methods
 export const useAxios = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const { dispatch } = useContext(AuthContext);
+  const router = useRouter();
 
-  const api = useMemo(() => buildApi(setIsLoading), []);
+  // Set logged out state on 401 error
+  const setLoggedOutState = useCallback(() => {
+    userTokenPersistence.clear();
+    dispatch({ type: "LOGOUT", payload: {} });
+    router.push("/login");
+  }, [dispatch, router]);
+
+  const api = useMemo(
+    () => buildApi(setIsLoading, setLoggedOutState),
+    [setLoggedOutState],
+  );
 
   return {
     isLoading,
