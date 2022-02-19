@@ -1,4 +1,5 @@
 import { useMemo, useState, Dispatch, SetStateAction } from "react";
+import { toast } from "react-toastify";
 import { Method, AxiosResponse } from "axios";
 import { axiosInstance } from "src/utils";
 
@@ -24,6 +25,9 @@ const buildApi = (setIsLoading: Dispatch<SetStateAction<boolean>>): any => {
             console.log("401");
             break;
           default:
+            toast.error(e.response.data.message, {
+              icon: "⚠️",
+            });
         }
       }
 
@@ -33,14 +37,15 @@ const buildApi = (setIsLoading: Dispatch<SetStateAction<boolean>>): any => {
     }
   };
 
-  const callAxiosMethod = (methodName: Method, path: string, ...args: any[]) =>
-    processResponse(
+  const callAxiosMethod = (methodName: Method, path: string, ...args: any) => {
+    return processResponse(
       axiosInstance.request({
         method: methodName,
         url: path,
-        ...args,
+        data: args[1],
       }),
     );
+  };
 
   const requests = {
     get: (...args: any[]) => callAxiosMethod("get", args[0], ...args),
