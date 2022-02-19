@@ -1,8 +1,7 @@
 import {
   LOGIN_SUCCESS,
-  LOGIN_FAILURE,
+  LOGOUT,
   REGISTER_SUCCESS,
-  REGISTER_FAILURE,
   SET_USER,
 } from "src/constants/actionTypes";
 
@@ -30,23 +29,11 @@ export const authReducer = (state: AuthState, action: AuthAction) => {
         profile: action.payload.profile,
         error: null,
       };
-    case LOGIN_FAILURE:
-      return {
-        ...state,
-        isAuthenticated: false,
-        error: action.payload,
-      };
     case REGISTER_SUCCESS:
       return {
         ...state,
         isAuthenticated: true,
         error: null,
-      };
-    case REGISTER_FAILURE:
-      return {
-        ...state,
-        isAuthenticated: false,
-        error: action.payload,
       };
     case SET_USER:
       return {
@@ -54,6 +41,13 @@ export const authReducer = (state: AuthState, action: AuthAction) => {
         isAuthenticated: true,
         user: action.payload.user,
         profile: action.payload.profile,
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        isAuthenticated: false,
+        user: null,
+        profile: null,
       };
     default:
       return state;
