@@ -79,6 +79,10 @@ ul {
     border-radius: 0.5rem;
     overflow-wrap: anywhere;
 
+    .header {
+      margin: 1.5rem auto;
+    }
+
     .actions {
       .actions-email {
         .actions-hr {
@@ -126,6 +130,25 @@ ul {
 
   .registration {
     width: 640px;
+    height: 785px;
     padding: 3rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .main-content {
+    width: 100%;
+    margin: 0;
+  }
+
+  .auth-container {
+    &__content {
+      margin: 0;
+      border-radius: 0;
+    }
+  }
+
+  .registration {
+    height: 100%;
   }
 }
