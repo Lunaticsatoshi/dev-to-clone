@@ -7,7 +7,7 @@ import { userTokenPersistence } from "src/utils";
 
 const useAuthState = () => {
   const { state, dispatch } = useContext(AuthContext);
-  const { userLogin, userRegister, userLogout } = useAxios();
+  const { userLogin, userRegister, userLogout, getCurrentUser } = useAxios();
   const router = useRouter();
 
   const login = async (email: string, password: string) => {
@@ -42,10 +42,19 @@ const useAuthState = () => {
     router.push("/login");
   };
 
+  const currentUser = async () => {
+    const response = await getCurrentUser();
+    const { data } = response;
+    const user = [data].map(({ profile, ...rest }: any) => rest)[0];
+    const { profile } = data;
+    dispatch({ type: "SET_USER", payload: { user, profile } });
+  };
+
   return {
     state,
     login,
     register,
+    currentUser,
     logout,
   };
 };
