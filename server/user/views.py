@@ -105,8 +105,9 @@ class ProfileUpdateView(APIView):
     
     def patch(self, request):
         profile = request.user.userprofile
+        data = request.data
         try:
-            serializer = self.serializer_class(profile, data=request.data, partial=True)
+            serializer = self.serializer_class(profile, data=data, partial=True)
             if serializer.is_valid(raise_exception=True):
                 user = serializer.save().user
                 new_email = request.data.get('email')
@@ -206,8 +207,8 @@ def get_current_user(request):
 @permission_classes((IsAuthenticated,))
 def add_interests(request):
     user_profile = request.user.userprofile
+    interests = request.data.get('interests')
     try:
-        interests = request.data
         if not interests:
             return Response({'message': 'No Interests found'}, status=status.HTTP_400_BAD_REQUEST)
         
