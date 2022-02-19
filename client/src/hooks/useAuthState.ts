@@ -7,7 +7,7 @@ import { userTokenPersistence } from "src/utils";
 
 const useAuthState = () => {
   const { state, dispatch } = useContext(AuthContext);
-  const { userLogin, userRegister } = useAxios();
+  const { userLogin, userRegister, userLogout } = useAxios();
   const router = useRouter();
 
   const login = async (email: string, password: string) => {
@@ -32,10 +32,21 @@ const useAuthState = () => {
     dispatch({ type: "REGISTER_SUCCESS", payload: { user, profile } });
   };
 
+  const logout = async () => {
+    const authTokens = userTokenPersistence.get()
+      ? JSON.parse(userTokenPersistence.get()!)
+      : null;
+    userTokenPersistence.clear();
+    await userLogout({ refresh: authTokens.refresh });
+    dispatch({ type: "LOGOUT", payload: {} });
+    router.push("/login");
+  };
+
   return {
     state,
     login,
     register,
+    logout,
   };
 };
 
