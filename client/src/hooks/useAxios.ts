@@ -73,11 +73,13 @@ const buildApi = (
     requests.post("user/auth/register/", data);
   const userLogout = () => requests.post("user/auth/logout/");
   const getAllUsers = () => requests.get("user/all/");
+  const getCurrentUser = () => requests.get("user/profile/current/");
 
   return {
     userLogin,
     userRegister,
     getAllUsers,
+    getCurrentUser,
     userLogout,
   };
 };
