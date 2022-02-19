@@ -1,5 +1,7 @@
 import { FC, ReactNode } from "react";
 import Head from "next/head";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import Header from "./Header";
 
@@ -26,6 +28,18 @@ const Layout: FC<LayoutProps> = ({
       </Head>
       <SidebarContextProvider>
         <Header />
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
         <div className="main-content">{children}</div>
       </SidebarContextProvider>
     </>
