@@ -44,7 +44,7 @@ const InnerLoginForm = (props: InnerLoginFormProps) => {
 
         <Button
           type="submit"
-          className="w-full btn login-btn font-bold rounded-full focus:outline-none focus:shadow-outline"
+          className="w-full btn auth-btn font-bold rounded-full focus:outline-none focus:shadow-outline"
           disabled={isSubmitting}
         >
           Login
