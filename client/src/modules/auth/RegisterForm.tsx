@@ -1,18 +1,15 @@
+import { FC } from "react";
 import Link from "next/link";
 import * as Yup from "yup";
-import { withFormik, FormikProps, Form } from "formik";
+import { Form, useFormik, FormikProvider } from "formik";
 
-import { InputField, Button, CheckBox } from "src/components";
+import { InputField, Button } from "src/components";
+import { useAuthState } from "src/hooks";
 
-// Shape of form values
-interface FormValues {
-  username: string;
-  email: string;
-  password: string;
-}
-
-interface OtherProps {
+interface InnerRegisterFormProps {
   message: string;
+  handleSubmit: () => void;
+  isSubmitting: boolean;
 }
 
 const inputValidationSchema = Yup.object({
@@ -25,16 +22,21 @@ const inputValidationSchema = Yup.object({
     .required("Password is required"),
 });
 
-const InnerRegisterForm = (props: OtherProps & FormikProps<FormValues>) => {
-  const { isSubmitting, message } = props;
+const InnerRegisterForm = (props: InnerRegisterFormProps) => {
+  const { message, handleSubmit, isSubmitting } = props;
   return (
     <>
       <div className="actions-hr mb-20">
         <div className="actions-hr__label">
-          <div className="form-header">{message}<Link href="/login" passHref><span>Login.</span></Link></div>
+          <div className="form-header">
+            {message}
+            <Link href="/login" passHref>
+              <span>Login.</span>
+            </Link>
+          </div>
         </div>
       </div>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <InputField type="text" name="username" label="Username" />
         <InputField type="email" name="email" label="Email" />
 
@@ -44,8 +46,6 @@ const InnerRegisterForm = (props: OtherProps & FormikProps<FormValues>) => {
           label="Password"
           type="password"
         />
-
-        <CheckBox name="label" label="Remember me" />
 
         <Button
           type="submit"
@@ -59,27 +59,39 @@ const InnerRegisterForm = (props: OtherProps & FormikProps<FormValues>) => {
   );
 };
 
-// The type of props MyForm receives
+// The type of props RegisterForm receives
 interface RegisterFormProps {
   initialEmail?: string;
-  initialUsername?: string;
-  message: string; // if this passed all the way through you might do this or make a union type
+  message: string;
 }
 
-const RegisterForm = withFormik<RegisterFormProps, FormValues>({
-  mapPropsToValues: (props) => {
-    return {
-      username: props.initialUsername || "",
-      email: props.initialEmail || "",
+const RegisterForm: FC<RegisterFormProps> = ({ initialEmail, message }) => {
+  const { register } = useAuthState();
+  const formik = useFormik({
+    initialValues: {
+      username: initialEmail || "",
+      email: initialEmail || "",
       password: "",
-    };
-  },
-  validationSchema: inputValidationSchema,
-
-  handleSubmit: (values) => {
-    // do submitting things
-    console.log(values);
-  },
-})(InnerRegisterForm);
+    },
+    validationSchema: inputValidationSchema,
+    onSubmit: async (values, { resetForm }) => {
+      console.log(values);
+      await register(values.username, values.email, values.password);
+      resetForm();
+    },
+  });
+  const { handleSubmit, isSubmitting } = formik;
+  return (
+    <div>
+      <FormikProvider value={formik}>
+        <InnerRegisterForm
+          message={message}
+          handleSubmit={handleSubmit}
+          isSubmitting={isSubmitting}
+        />
+      </FormikProvider>
+    </div>
+  );
+};
 
 export default RegisterForm;
