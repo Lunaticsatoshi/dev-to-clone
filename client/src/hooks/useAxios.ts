@@ -57,13 +57,15 @@ const buildApi = (setIsLoading: Dispatch<SetStateAction<boolean>>): any => {
 
   const userLogin = (data: any) => requests.post("user/auth/login/", data);
   const userRegister = (data: any) =>
-    requests.post("user/auth/createuser/", data);
+    requests.post("user/auth/register/", data);
+  const userLogout = () => requests.post("user/auth/logout/");
   const getAllUsers = () => requests.get("user/all/");
 
   return {
     userLogin,
     userRegister,
     getAllUsers,
+    userLogout,
   };
 };
 
