@@ -9,6 +9,7 @@ import { useAuthState } from "src/hooks";
 interface InnerLoginFormProps {
   message: string;
   handleSubmit: () => void;
+  isSubmitting: boolean;
 }
 
 const inputValidationSchema = Yup.object({
@@ -21,7 +22,7 @@ const inputValidationSchema = Yup.object({
 });
 
 const InnerLoginForm = (props: InnerLoginFormProps) => {
-  const { message, handleSubmit } = props;
+  const { message, handleSubmit, isSubmitting } = props;
   return (
     <>
       <div className="actions-hr mb-20">
@@ -44,6 +45,7 @@ const InnerLoginForm = (props: InnerLoginFormProps) => {
         <Button
           type="submit"
           className="w-full btn login-btn font-bold rounded-full focus:outline-none focus:shadow-outline"
+          disabled={isSubmitting}
         >
           Login
         </Button>
@@ -77,11 +79,15 @@ const LoginForm: FC<LoginFormProps> = ({ initialEmail, message }) => {
       resetForm();
     },
   });
-  const { handleSubmit } = formik;
+  const { handleSubmit, isSubmitting } = formik;
   return (
     <div>
       <FormikProvider value={formik}>
-        <InnerLoginForm message={message} handleSubmit={handleSubmit} />
+        <InnerLoginForm
+          message={message}
+          handleSubmit={handleSubmit}
+          isSubmitting={isSubmitting}
+        />
       </FormikProvider>
     </div>
   );
