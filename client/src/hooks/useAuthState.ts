@@ -36,8 +36,8 @@ const useAuthState = () => {
     const authTokens = userTokenPersistence.get()
       ? JSON.parse(userTokenPersistence.get()!)
       : null;
-    userTokenPersistence.clear();
     await userLogout({ refresh: authTokens.refresh });
+    userTokenPersistence.clear();
     dispatch({ type: "LOGOUT", payload: {} });
     router.push("/login");
   };
