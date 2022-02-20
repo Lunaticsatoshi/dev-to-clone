@@ -30,3 +30,16 @@ button {
 .auth-btn {
   margin-top: 2rem;
 }
+
+.login-btn {
+  margin-right: 0.5rem;
+  background-color: transparent;
+  color: var(--font-color);
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: var(--main-theme-lighter);
+    color: var(--main-theme);
+  }
+}
