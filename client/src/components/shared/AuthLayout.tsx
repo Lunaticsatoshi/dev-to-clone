@@ -17,7 +17,7 @@ const AuthLayout: FC<AuthLayoutProps> = ({ children }) => {
     if (authTokens) {
       router.push("/");
       currentUser();
-    } else router.push("/login");
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
