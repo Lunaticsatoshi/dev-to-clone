@@ -6,11 +6,12 @@ import { FiSearch } from "react-icons/fi";
 
 import { SearchBox, Button, ThemeToggle, DropDown, DropDownItem } from "..";
 
-import { useSidebarToggle } from "src/hooks";
+import { useSidebarToggle, useAuthState } from "src/hooks";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
   const [_, sidebarToggle] = useSidebarToggle();
+  const { state, logout } = useAuthState();
   const toggle = () => setOpen(!open);
   return (
     <header className="flex header">
@@ -38,45 +39,54 @@ const Header = () => {
         </div>
 
         <div className="flex items-center header-container-right">
-          <Button className="btn post-btn">Write a post</Button>
-          <i className="hidden-search">
-            <FiSearch />
-          </i>
+          {state.isAuthenticated ? (
+            <>
+              <Button className="btn post-btn">Write a post</Button>
+              <i className="hidden-search">
+                <FiSearch />
+              </i>
 
-          <i>
-            <ThemeToggle />
-          </i>
+              <i>
+                <ThemeToggle />
+              </i>
 
-          <i>
-            <RiNotificationLine />
-          </i>
+              <i>
+                <RiNotificationLine />
+              </i>
 
-          <span onClick={toggle}>
-            <img src="https://picsum.photos/200" alt="Profile Picture" />
+              <span onClick={toggle}>
+                <img src={state.profile?.profile_pic} alt="Profile Picture" />
 
-            <DropDown open={open} className="header-dropdown">
-              <DropDownItem onClick={toggle}>
-                <div>
-                  <div className="u-name">Lunaticsatoshi</div>
-                  <small className="u-name-id">@lunaticsatoshi</small>
-                </div>
-              </DropDownItem>
-              <div className="dropdown-break"></div>
-              <DropDownItem onClick={toggle}>
-                <div>Dashboard</div>
-              </DropDownItem>
-              <DropDownItem onClick={toggle}>
-                <div>Create Post</div>
-              </DropDownItem>
-              <DropDownItem onClick={toggle}>
-                <div>Reading List</div>
-              </DropDownItem>
-              <div className="dropdown-break"></div>
-              <DropDownItem onClick={toggle}>
-                <div>Sign Out</div>
-              </DropDownItem>
-            </DropDown>
-          </span>
+                <DropDown open={open} className="header-dropdown">
+                  <DropDownItem onClick={toggle}>
+                    <div>
+                      <div className="u-name">Lunaticsatoshi</div>
+                      <small className="u-name-id">@lunaticsatoshi</small>
+                    </div>
+                  </DropDownItem>
+                  <div className="dropdown-break"></div>
+                  <DropDownItem onClick={toggle}>
+                    <div>Dashboard</div>
+                  </DropDownItem>
+                  <DropDownItem onClick={toggle}>
+                    <div>Create Post</div>
+                  </DropDownItem>
+                  <DropDownItem onClick={toggle}>
+                    <div>Reading List</div>
+                  </DropDownItem>
+                  <div className="dropdown-break"></div>
+                  <DropDownItem onClick={toggle}>
+                    <div onClick={() => logout()}>Sign Out</div>
+                  </DropDownItem>
+                </DropDown>
+              </span>
+            </>
+          ) : (
+            <>
+              <div className="login-btn">Login</div>
+              <Button className="btn post-btn">Create Account</Button>
+            </>
+          )}
         </div>
       </div>
     </header>
