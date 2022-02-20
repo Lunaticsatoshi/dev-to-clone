@@ -1,4 +1,5 @@
 import Layout from "./shared/Layout";
+import AuthLayout from "./shared/AuthLayout";
 import Sidebar from "./navigation/Sidebar";
 import SidebarResponsive from "./navigation/SidebarResposnive";
 import SidebarItem from "./navigation/SidebarItem";
@@ -17,6 +18,7 @@ import CheckBox from "./ui/form/Checkbox";
 
 export {
   Layout,
+  AuthLayout,
   Sidebar,
   ListingBar,
   ListingHeader,
