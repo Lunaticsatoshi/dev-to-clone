@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import Head from "next/head";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -10,7 +10,7 @@ type LayoutProps = {
   title: string;
   description?: string;
   keywords?: string;
-  children: JSX.Element;
+  children: JSX.Element | ReactNode;
 };
 
 const Layout: FC<LayoutProps> = ({
