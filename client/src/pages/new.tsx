@@ -1,11 +1,12 @@
 import type { NextPage } from "next";
 
-import { EditorLayout, Feed } from "src/components";
+import { ArticleEditor } from "src/modules";
+import { EditorLayout } from "src/components";
 
 const NewArticlePage: NextPage = () => {
   return (
     <EditorLayout title="New Article">
-      <Feed />
+      <ArticleEditor />
     </EditorLayout>
   );
 };
