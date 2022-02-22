@@ -1,8 +1,9 @@
 from venv import create
 from django.shortcuts import render
+from drf_yasg.utils import swagger_auto_schema
 
 from rest_framework.response import Response
-from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView, RetrieveDestroyAPIView, GenericAPIView
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
@@ -21,15 +22,13 @@ class UserArticleListApiView(ListAPIView):
     def get_queryset(self):
         user = self.request.user
         return self.queryset.filter(user=user).order_by('-created_at')
-    
-class UserArticleCreateAPIView(CreateAPIView):
+
+class UserArticleCreateApiView(GenericAPIView):
     serializer_class = ArticleSerializer
-    queryset = Article.objects.all()
     permission_classes = (IsAuthenticated,)
-    
-    def perform_create(self, serializer):
-        user = self.request.user
-        data = self.request.data
+    def post(self, request):
+        user = request.user
+        data = request.data
         title = data.get('title')
         content = data.get('content')
         tags = data.get('tags')
@@ -43,16 +42,19 @@ class UserArticleCreateAPIView(CreateAPIView):
             article = Article.objects.create(title=title, content=content, slug=slug, user=user, status=status)
             
             if tags is not None:
-                article.tags.set(HashTag.objects.get_or_create(tags=tag_name)[0] for tag_name in tags)
+                article.tags.set(HashTag.objects.get_or_create(tag=tag_name)[0] for tag_name in tags)
                 
             article.save()
-            serializer = ArticleSerializer(article, many=False)
-            return Response({ 'message': 'Article created successfully', 'article': serializer.data }, status=status.HTTP_201_CREATED)
+            serializer = self.serializer_class(article, many=False)
+
+            return Response({ 'message': 'Article created successfully', 'article': serializer.data })
         
         except Exception as e:
-            return Response({ 'message': str(e) }, status=status.HTTP_400_BAD_REQUEST)
+            print(e)
+            return Response({ 'message': 'something went wrong' })
     
-class UserArticleDetailApiView(RetrieveUpdateDestroyAPIView):
+    
+class UserArticleDetailApiView(RetrieveDestroyAPIView):
     serializer_class = ArticleSerializer
     queryset = Article.objects.all()
     permission_classes = (IsAuthenticated, IsOwner)
