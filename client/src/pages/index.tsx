@@ -5,13 +5,11 @@ import { Layout } from "src/components";
 
 const HomePage: NextPage = () => {
   return (
-    <>
-      <Layout title="Home">
-        <LeftSidebar />
-        <ArticleFeed />
-        <ListingBar />
-      </Layout>
-    </>
+    <Layout title="Home">
+      <LeftSidebar />
+      <ArticleFeed />
+      <ListingBar />
+    </Layout>
   );
 };
 
