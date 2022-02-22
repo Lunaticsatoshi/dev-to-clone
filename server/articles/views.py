@@ -99,15 +99,15 @@ def add_clap(request):
             if not created:
                 clap.delete()
             else:
-                article.clap_count = article.clap_set.all().count()
                 clap.save()
+                article.clap_count = article.articleclap_set.all().count()
         else:
             clap, created = ArticleClap.objects.get_or_create(user=user, article=article)
             if not created:
                 clap.delete()
             else:
-                article.clap_count = article.clap_set.all().count()
                 clap.save()
+                article.clap_count = article.articleclap_set.all().count()
                 
         article.save()
         serializer = ArticleSerializer(article, many=False)
