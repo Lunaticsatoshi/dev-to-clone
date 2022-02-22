@@ -137,6 +137,32 @@
   }
 }
 
+.article-header {
+  max-width: 100%;
+  background-color: transparent;
+
+  height: var(--header-height);
+
+  .article-header-container {
+    width: 50%;
+    max-width: var(--site-width);
+    margin: 0 auto;
+
+    .article-header-container-left {
+      &__logo {
+        color: #000;
+        background-color: #fff;
+        border-radius: 0.5rem;
+        height: 2.5rem;
+      }
+
+      &__head{
+        margin-left: 1.2rem;
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 768px) {
   .header {
     .header-container {
