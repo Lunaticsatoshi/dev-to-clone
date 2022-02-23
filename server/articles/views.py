@@ -35,7 +35,7 @@ class UserArticleCreateApiView(GenericAPIView):
         status = data.get('status')
         try:
             if not title or not content:
-                raise Exception('Title or Content is required')
+                return Response({'message': 'title and content is required'}, status=status.HTTP_400_BAD_REQUEST)
             
             slug = Utils.generate_slug(title)
             
@@ -47,11 +47,47 @@ class UserArticleCreateApiView(GenericAPIView):
             article.save()
             serializer = self.serializer_class(article, many=False)
 
-            return Response({ 'message': 'Article created successfully', 'article': serializer.data })
+            return Response({ 'message': 'Article created successfully', 'article': serializer.data }, status=status.HTTP_201_CREATED)
         
         except Exception as e:
             print(e)
-            return Response({ 'message': 'something went wrong' })
+            return Response({ 'message': 'something went wrong' }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+class UserArticleUpdateApiView(GenericAPIView):
+    serializer_class = ArticleSerializer
+    permission_classes = (IsAuthenticated,)
+    
+    def put(self, request, pk):
+        user = request.user
+        data = request.data
+        try:
+            title = data.get('title')
+            content = data.get('content')
+            tags = data.get('tags')
+            status = data.get('status')
+            if title:
+                slug = Utils.generate_slug(title)
+            
+            article = Article.objects.get(pk=pk)
+            if article.user == user:
+                article.title = title
+                article.slug = slug
+                article.content = content
+                article.status = status
+                if tags is not None:
+                    article.tags.set(HashTag.objects.get_or_create(tag=tag_name)[0] for tag_name in tags)
+                    
+                article.save()
+                serializer = self.serializer_class(article, many=False)
+
+                return Response({ 'message': 'Article created successfully', 'article': serializer.data }, status=status.HTTP_200_OK)
+            
+            else:
+                return Response({ 'message': 'You are not authorized to update this article' }, status=status.HTTP_403_FORBIDDEN)
+        
+        except Exception as e:
+            print(e)
+            return Response({ 'message': 'something went wrong' }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
     
 class UserArticleDetailApiView(RetrieveDestroyAPIView):
