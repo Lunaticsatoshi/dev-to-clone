@@ -1,4 +1,3 @@
-from venv import create
 from django.shortcuts import render
 from drf_yasg.utils import swagger_auto_schema
 
