@@ -57,7 +57,7 @@ class UserArticleUpdateApiView(GenericAPIView):
     serializer_class = ArticleSerializer
     permission_classes = (IsAuthenticated,)
     
-    def put(self, request, pk):
+    def put(self, request, id):
         user = request.user
         data = request.data
         try:
@@ -68,7 +68,7 @@ class UserArticleUpdateApiView(GenericAPIView):
             if title:
                 slug = Utils.generate_slug(title)
             
-            article = Article.objects.get(pk=pk)
+            article = Article.objects.get(pk=id)
             if article.user == user:
                 article.title = title
                 article.slug = slug
