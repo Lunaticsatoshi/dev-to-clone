@@ -130,19 +130,31 @@ def add_clap(request):
         article = Article.objects.get(id=article_id)
         if comment_id:
             comment = ArticleComment.objects.get(id=comment_id)
-            clap, created = ArticleClap.objects.get_or_create(user=user, article=article, comment=comment)
-            if not created:
-                clap.delete()
-            else:
-                clap.save()
+            clapped_comment = ArticleClap.objects.filter(user=user, comment=comment)
+            if clapped_comment:
+                clapped_comment.delete()
                 article.clap_count = article.articleclap_set.all().count()
+            else:
+                clap, created = ArticleClap.objects.get_or_create(user=user, article=article, comment=comment)
+                if not created:
+                    clap.delete()
+                else:
+                    clap.save()
+                    article.clap_count = article.articleclap_set.all().count()
         else:
-            clap, created = ArticleClap.objects.get_or_create(user=user, article=article)
-            if not created:
-                clap.delete()
-            else:
-                clap.save()
+            clapped_article = ArticleClap.objects.filter(user=user, article=article)
+            if clapped_article:
+                clapped_article.delete()
                 article.clap_count = article.articleclap_set.all().count()
+                article.save()
+                return Response({'message': 'Article clap removed successfully'}, status=status.HTTP_200_OK)
+            else:
+                clap, created = ArticleClap.objects.get_or_create(user=user, article=article)
+                if not created:
+                    clap.delete()
+                else:
+                    clap.save()
+                    article.clap_count = article.articleclap_set.all().count()
                 
         article.save()
         serializer = ArticleSerializer(article, many=False)
