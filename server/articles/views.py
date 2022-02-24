@@ -50,17 +50,17 @@ class UserArticleCreateApiView(GenericAPIView):
                 article.tags.set(HashTag.objects.get_or_create(tag=tag_name)[0] for tag_name in tags)
                 
             article.save()
-            serializer = self.serializer_class(article, many=False)
+            serializer = ArticleSerializer(article, many=False)
 
             return Response({ 'message': 'Article created successfully', 'article': serializer.data })
         
         except Exception as e:
             print(e)
-            return Response({ 'message': 'something went wrong' }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({ 'message': 'Something went wrong' }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
 class UserArticleUpdateApiView(GenericAPIView):
-    serializer_class = ArticleSerializer
     permission_classes = (IsAuthenticated,)
+    serializer_class = ArticleSerializer
 
     def put(self, request, id):
         user = request.user
@@ -83,8 +83,7 @@ class UserArticleUpdateApiView(GenericAPIView):
                     article.tags.set(HashTag.objects.get_or_create(tag=tag_name)[0] for tag_name in tags)
                     
                 article.save()
-                serializer = self.serializer_class(article, many=False)
-
+                serializer = ArticleSerializer(article, many=False)
                 return Response({ 'message': 'Article created successfully', 'article': serializer.data })
             
             else:
