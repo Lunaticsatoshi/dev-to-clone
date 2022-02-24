@@ -23,7 +23,7 @@ class UserArticleListApiView(GenericAPIView):
         try:
             articles = Article.objects.filter(user=user)
             serializer = ArticleSerializer(articles, many=True)
-            return Response({ 'message': 'Articles retrieved sucessfully', 'data': serializer.data}, status=status.HTTP_200_OK)
+            return Response({ 'message': 'Articles retrieved sucessfully', 'data': serializer.data }, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'message': 'Something went wrong'}, status=status.HTTP_400_BAD_REQUEST)
 
