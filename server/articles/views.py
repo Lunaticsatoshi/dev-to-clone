@@ -46,7 +46,7 @@ class UserArticleCreateApiView(GenericAPIView):
             article.save()
             serializer = self.serializer_class(article, many=False)
 
-            return Response({ 'message': 'Article created successfully', 'article': serializer.data }, status=status.HTTP_201_CREATED)
+            return Response({ 'message': 'Article created successfully', 'article': serializer.data })
         
         except Exception as e:
             print(e)
@@ -55,7 +55,7 @@ class UserArticleCreateApiView(GenericAPIView):
 class UserArticleUpdateApiView(GenericAPIView):
     serializer_class = ArticleSerializer
     permission_classes = (IsAuthenticated,)
-    
+
     def put(self, request, id):
         user = request.user
         data = request.data
@@ -79,7 +79,7 @@ class UserArticleUpdateApiView(GenericAPIView):
                 article.save()
                 serializer = self.serializer_class(article, many=False)
 
-                return Response({ 'message': 'Article created successfully', 'article': serializer.data }, status=status.HTTP_200_OK)
+                return Response({ 'message': 'Article created successfully', 'article': serializer.data })
             
             else:
                 return Response({ 'message': 'You are not authorized to update this article' }, status=status.HTTP_403_FORBIDDEN)
