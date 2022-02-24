@@ -2,7 +2,7 @@ from django.shortcuts import render
 from drf_yasg.utils import swagger_auto_schema
 
 from rest_framework.response import Response
-from rest_framework.generics import ListAPIView, RetrieveDestroyAPIView, GenericAPIView
+from rest_framework.generics import GenericAPIView
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
@@ -13,18 +13,24 @@ from .utils import Utils
 from .permissions import IsOwner
 
 # Create your views here.
-class UserArticleListApiView(ListAPIView):
+class UserArticleListApiView(GenericAPIView):
     serializer_class = ArticleSerializer
     queryset = Article.objects.all()
     permission_classes = (IsAuthenticated,)
     
-    def get_queryset(self):
-        user = self.request.user
-        return self.queryset.filter(user=user).order_by('-created_at')
+    def get(self, request):
+        user = request.user
+        try:
+            articles = Article.objects.filter(user=user)
+            serializer = ArticleSerializer(articles, many=True)
+            return Response({ 'message': 'Articles retrieved sucessfully', 'data': serializer.data}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'message': 'Something went wrong'}, status=status.HTTP_400_BAD_REQUEST)
 
 class UserArticleCreateApiView(GenericAPIView):
     serializer_class = ArticleSerializer
     permission_classes = (IsAuthenticated,)
+    
     def post(self, request):
         user = request.user
         data = request.data
