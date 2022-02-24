@@ -91,18 +91,43 @@ class UserArticleUpdateApiView(GenericAPIView):
         
         except Exception as e:
             print(e)
-            return Response({ 'message': 'something went wrong' }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({ 'message': 'Something went wrong' }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
     
-class UserArticleDetailApiView(RetrieveDestroyAPIView):
+class UserArticleDetailApiView(GenericAPIView):
     serializer_class = ArticleSerializer
     queryset = Article.objects.all()
     permission_classes = (IsAuthenticated, IsOwner)
-    lookup_field = 'id'
     
-    def get_queryset(self):
-        user = self.request.user
-        return self.queryset.filter(user=user)
+    def get(self, request, id):
+        user = request.user
+        try:
+            article = Article.objects.get(pk=id)
+            serializer = ArticleSerializer(article, many=False)
+            return Response({'message': 'Article retrieved sucessfully', 'article': serializer.data })
+        except Article.DoesNotExist:
+            return Response({ 'message': 'Article does not exist' }, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({ 'message': 'Something went wrong' }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+class UserArticleDeleteApiView(GenericAPIView):
+    serializer_class = ArticleSerializer
+    permission_classes = (IsAuthenticated,)
+    def delete(self, request, id):
+        user = request.user
+        try:
+            article = Article.objects.get(pk=id)
+            if article.user == user:
+                article.delete()
+                articles = Article.objects.all()
+                serializer = ArticleSerializer(articles, many=True)
+                return Response({ 'message': 'Article deleted successfully', 'data': serializer.data }, status=status.HTTP_200_OK)
+            
+            else:
+                return Response({ 'message': 'You are not authorized to delete this article' }, status=status.HTTP_403_FORBIDDEN)
+        except Exception as e:
+            print(e)
+            return Response({ 'message': 'something went wrong' }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
     
 @api_view(['GET'])
