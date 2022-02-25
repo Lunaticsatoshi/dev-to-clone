@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from drf_yasg.utils import swagger_auto_schema
 
 from rest_framework.response import Response
 from rest_framework.generics import GenericAPIView
@@ -137,7 +136,7 @@ def get_articles(request):
         serializer = ArticleSerializer(articles, many=True)
         return Response({'messsage': 'Success', 'data': serializer.data}, status=status.HTTP_200_OK)
     except Exception as e:
-        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
 @api_view(['GET'])
 def get_article(request, slug):
@@ -146,7 +145,7 @@ def get_article(request, slug):
         serializer = ArticleSerializer(article, many=False)
         return Response({'messsage': 'Success', 'data': serializer.data}, status=status.HTTP_200_OK)
     except Exception as e:
-        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
 @api_view(['GET'])
 def get_comments(request, slug):
@@ -156,7 +155,7 @@ def get_comments(request, slug):
         serializer = ArticleCommentSerializer(comments, many=True)
         return Response({'messsage': 'Success', 'data': serializer.data}, status=status.HTTP_200_OK)
     except Exception as e:
-        return Response({'message': 'Something went wrong'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))
@@ -201,10 +200,10 @@ def add_clap(request):
         return Response({'messsage': 'Successfully clapped for article', 'data': serializer.data}, status=status.HTTP_200_OK)
     
     except Article.DoesNotExist:
-        return Response({'error': 'Article does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'message': 'Article does not exist'}, status=status.HTTP_400_BAD_REQUEST)
     
     except Exception as e:
-        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
 
 @api_view(['POST'])
@@ -231,10 +230,10 @@ def add_comment(request):
         return Response({'messsage': 'Successfully commented on article', 'data': serializer.data}, status=status.HTTP_200_OK)
     
     except Article.DoesNotExist:
-        return Response({'error': 'Article does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'message': 'Article does not exist'}, status=status.HTTP_400_BAD_REQUEST)
     
     except Exception as e:
-        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
 @api_view(['PUT'])
 @permission_classes((IsAuthenticated,))
@@ -253,13 +252,13 @@ def edit_comment(request, pk):
             serializer = ArticleCommentSerializer(article_comments, many=True)
             return Response({'messsage': 'Successfully edited comment', 'data': serializer.data}, status=status.HTTP_200_OK)
         else:
-            return Response({'error': 'You are not authorized to edit this comment'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': 'You are not authorized to edit this comment'}, status=status.HTTP_400_BAD_REQUEST)
         
     except ArticleComment.DoesNotExist:
-        return Response({'error': 'Comment does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'message': 'Comment does not exist'}, status=status.HTTP_400_BAD_REQUEST)
     
     except Exception as e:
-        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
 
 @api_view(['DELETE'])
@@ -276,10 +275,10 @@ def delete_comment(request, pk):
             serializer = ArticleCommentSerializer(article_comments, many=True)
             return Response({'messsage': 'Successfully Deleted comment', 'data': serializer.data}, status=status.HTTP_200_OK)
         else:
-            return Response({'error': 'You are not authorized to delete this comment'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': 'You are not authorized to delete this comment'}, status=status.HTTP_400_BAD_REQUEST)
         
     except ArticleComment.DoesNotExist:
-        return Response({'error': 'Comment does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'message': 'Comment does not exist'}, status=status.HTTP_400_BAD_REQUEST)
     
     except Exception as e:
-        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
