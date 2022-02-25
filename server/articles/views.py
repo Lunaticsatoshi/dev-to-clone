@@ -16,7 +16,7 @@ from .permissions import IsOwner
 class UserArticleListApiView(GenericAPIView):
     serializer_class = ArticleSerializer
     queryset = Article.objects.all()
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, IsOwner)
     
     def get(self, request):
         user = request.user
@@ -29,7 +29,7 @@ class UserArticleListApiView(GenericAPIView):
 
 class UserArticleCreateApiView(GenericAPIView):
     serializer_class = ArticleSerializer
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, IsOwner)
     
     def post(self, request):
         user = request.user
@@ -59,7 +59,7 @@ class UserArticleCreateApiView(GenericAPIView):
             return Response({ 'message': 'Something went wrong' }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
 class UserArticleUpdateApiView(GenericAPIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, IsOwner)
     serializer_class = ArticleSerializer
 
     def put(self, request, id):
@@ -112,7 +112,7 @@ class UserArticleDetailApiView(GenericAPIView):
     
 class UserArticleDeleteApiView(GenericAPIView):
     serializer_class = ArticleSerializer
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, IsOwner)
     def delete(self, request, id):
         user = request.user
         try:
