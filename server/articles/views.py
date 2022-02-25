@@ -148,6 +148,16 @@ def get_article(request, slug):
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
     
+@api_view(['GET'])
+def get_comments(request, slug):
+    try:
+        article = Article.objects.get(slug=slug)
+        comments = ArticleComment.objects.filter(article=article)
+        serializer = ArticleCommentSerializer(comments, many=True)
+        return Response({'messsage': 'Success', 'data': serializer.data}, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response({'message': 'Something went wrong'}, status=status.HTTP_400_BAD_REQUEST)
+    
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))
 def add_clap(request):
