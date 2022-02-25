@@ -237,13 +237,13 @@ def add_comment(request):
     
 @api_view(['PUT'])
 @permission_classes((IsAuthenticated,))
-def edit_comment(request, pk):
+def edit_comment(request, id):
     user = request.user
     data = request.data
     comment = data.get('comment')
     
     try:
-        article_comment = ArticleComment.objects.get(id=pk)
+        article_comment = ArticleComment.objects.get(id=id)
         if article_comment.user == user:
             article = article_comment.article
             article_comment.content = comment
@@ -263,11 +263,11 @@ def edit_comment(request, pk):
 
 @api_view(['DELETE'])
 @permission_classes((IsAuthenticated,))
-def delete_comment(request, pk):
+def delete_comment(request, id):
     user = request.user
     
     try:
-        article_comment = ArticleComment.objects.get(id=pk)
+        article_comment = ArticleComment.objects.get(id=id)
         if article_comment.user == user:
             article = article_comment.article
             article_comment.delete()
