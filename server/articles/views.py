@@ -84,7 +84,7 @@ class UserArticleUpdateApiView(GenericAPIView):
                     
                 article.save()
                 serializer = ArticleSerializer(article, many=False)
-                return Response({ 'message': 'Article created successfully', 'article': serializer.data })
+                return Response({ 'message': 'Article updated successfully', 'article': serializer.data })
             
             else:
                 return Response({ 'message': 'You are not authorized to update this article' }, status=status.HTTP_403_FORBIDDEN)
