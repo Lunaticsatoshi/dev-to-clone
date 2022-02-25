@@ -4,5 +4,5 @@ from .views import CommunityListApiView, CommunityDetailApiView, CommunityCreate
 urlpatterns = [
     path('user/all/', CommunityListApiView.as_view(), name='community-list'),
     path('user/<str:id>/', CommunityDetailApiView.as_view(), name='community-detail'),
-    path('user/create/', CommunityCreateApiView.as_view(), name='community-create'),
+    path('create/', CommunityCreateApiView.as_view(), name='community-create'),
 ]
