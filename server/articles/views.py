@@ -262,7 +262,7 @@ def delete_comment(request, pk):
         if article_comment.user == user:
             article = article_comment.article
             article_comment.delete()
-            article_comments = article.comment_set.all()
+            article_comments = article.articlecomment_set.all()
             serializer = ArticleCommentSerializer(article_comments, many=True)
             return Response({'messsage': 'Successfully Deleted comment', 'data': serializer.data}, status=status.HTTP_200_OK)
         else:
