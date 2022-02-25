@@ -231,15 +231,15 @@ def add_comment(request):
 def edit_comment(request, pk):
     user = request.user
     data = request.data
-    content = data.get('content')
+    comment = data.get('comment')
     
     try:
         article_comment = ArticleComment.objects.get(id=pk)
         if article_comment.user == user:
             article = article_comment.article
-            article_comment.content = content
+            article_comment.content = comment
             article_comment.save()
-            article_comments = article.comment_set.all()
+            article_comments = article.articlecomment_set.all()
             serializer = ArticleCommentSerializer(article_comments, many=True)
             return Response({'messsage': 'Successfully edited comment', 'data': serializer.data}, status=status.HTTP_200_OK)
         else:
