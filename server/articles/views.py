@@ -213,10 +213,10 @@ def add_comment(request):
             comment = ArticleComment.objects.create(user=user, article=article, content=comment, parent=parent_comment)
         else:
             comment = ArticleComment.objects.create(user=user, article=article, content=comment)
-            article.comment_count = article.comment_set.all().count()
+            article.comment_count = article.articlecomment_set.all().count()
             article.save()
             
-        article_comments = article.comment_set.all()
+        article_comments = article.articlecomment_set.all()
         serializer = ArticleCommentSerializer(article_comments, many=True)
         return Response({'messsage': 'Successfully commented on article', 'data': serializer.data}, status=status.HTTP_200_OK)
     
