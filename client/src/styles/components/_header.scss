@@ -137,29 +137,54 @@
   }
 }
 
-.article-header {
-  max-width: 100%;
-  background-color: transparent;
+.feed-header {
+  padding: 0.5rem 0;
+  width: 100%;
 
-  height: var(--header-height);
+  h1 {
+    font-size: 1.25rem;
+    flex: 1;
+  }
+  nav {
+    a {
+      margin: 0 0.5rem;
+      padding: 0.5rem;
 
-  .article-header-container {
-    width: 50%;
-    max-width: var(--site-width);
-    margin: 0 auto;
-
-    .article-header-container-left {
-      &__logo {
-        color: #000;
-        background-color: #fff;
-        border-radius: 0.5rem;
-        height: 2.5rem;
+      border-radius: 5px;
+      &:hover {
+        background-color: rgba(#3b49df, 0.1);
+        color: var(--main-theme);
       }
 
-      &__head{
-        margin-left: 1.2rem;
+      &:first-child {
+        border: none;
+        position: relative;
+        font-weight: 700;
+
+        &:after {
+          content: "";
+          height: 3px;
+          background-color: var(--main-theme);
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          border-radius: 5px;
+          margin: 0 0.5rem;
+          transition: all 0.2s;
+        }
+
+        &:hover:after {
+          margin: 0;
+          border-top-left-radius: 0;
+          border-top-right-radius: 0;
+        }
       }
     }
+  }
+
+  select {
+    display: none;
   }
 }
 
