@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
     'articles.apps.ArticlesConfig',
     'communities.apps.CommunitiesConfig',
+    'listings.apps.ListingsConfig',
 ]
 
 SWAGGER_SETTINGS = {
