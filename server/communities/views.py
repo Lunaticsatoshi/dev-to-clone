@@ -146,3 +146,34 @@ def get_community(request, slug):
         return Response({'message': 'Community does not exist'}, status=status.HTTP_404_NOT_FOUND)
     except Exception as e:
         return Response({'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+    
+@api_view(['POST'])
+@permission_classes((IsAuthenticated,))
+def join_community(request):
+    user = request.user
+    data = request.data
+    community_id = data.get('community_id')
+    
+    try:
+        community_to_subscribe = Communities.objects.get(pk=community_id)
+        
+        if user == community_to_subscribe.subscribers.filter(username=user.username).first():
+            community_to_subscribe.subscribers.remove(user)
+            community_to_subscribe.subscribers_count = community_to_subscribe.subscribers.count()
+            community_to_subscribe.save()
+            community_serializer = CommunitiesSerializer(community_to_subscribe, many=False)          
+            return Response({'message': 'Successfully unsubscribed from community', 'data': community_serializer.data }, status=status.HTTP_400_BAD_REQUEST)
+        
+        else:
+            community_to_subscribe.subscribers.add(user)
+            community_to_subscribe.subscribers_count = community_to_subscribe.subscribers.count()
+            community_to_subscribe.save()
+            community_serializer = CommunitiesSerializer(community_to_subscribe, many=False)     
+            return Response({'message': 'Successfully joined the community', 'data': community_serializer.data }, status=status.HTTP_200_OK)
+    
+    except Communities.DoesNotExist:
+        return Response({'message': 'Community does not exist'}, status=status.HTTP_404_NOT_FOUND)
+    
+    except Exception as e:
+        return Response({'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
