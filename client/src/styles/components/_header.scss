@@ -188,6 +188,52 @@
   }
 }
 
+.editor-header {
+  max-width: 100%;
+  background-color: transparent;
+
+  height: var(--header-height);
+
+  &__left {
+    .editor-header-logo {
+      color: #000;
+      background-color: #fff;
+      border-radius: 0.5rem;
+      height: 2.5rem;
+      margin-right: 1.2rem;
+    }
+
+    .editor-header-head {
+      font-size: 1rem;
+      font-weight: 700;
+    }
+  }
+
+  &__right {
+    .editor-edit {
+      font-size: 1rem;
+      font-weight: bold;
+      padding: 1.2rem;
+      
+      &:hover {
+        color: var(--hover-color);
+        background-color: var(--hover-background);
+      }
+    }
+
+    .editor-preview {
+      font-size: 1rem;
+      font-weight: bold;
+      padding: 1.2rem;
+      
+      &:hover {
+        color: var(--hover-color);
+        background-color: var(--hover-background);
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 768px) {
   .header {
     .header-container {
