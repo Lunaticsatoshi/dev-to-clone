@@ -7,7 +7,7 @@ import SidebarItem from "./navigation/SidebarItem";
 import ListingBar from "./listing/ListingBar";
 import ListingHeader from "./listing/ListingHeader";
 import ListingCard from "./listing/ListingCard";
-import Feed from "./feed/Feed";
+import FeedHeader from "./feed/FeedHeader";
 import Button from "./ui/Button";
 import SearchBox from "./ui/SearchBox";
 import ThemeToggle from "./ui/ThemeToggle";
@@ -25,7 +25,7 @@ export {
   ListingBar,
   ListingHeader,
   ListingCard,
-  Feed,
+  FeedHeader,
   Button,
   SearchBox,
   ThemeToggle,
