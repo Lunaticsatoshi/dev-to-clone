@@ -50,6 +50,7 @@ class CommunityCreateApiView(GenericAPIView):
     def post(self, request):
         user = request.user
         data = request.data
+        serializer = self.serializer_class(data=data)
         
         community_name = data.get('name')
         community_description = data.get('description')    
@@ -59,11 +60,12 @@ class CommunityCreateApiView(GenericAPIView):
             
             community_slug = Utils.generate_slug(community_name)
             
-            community = Communities.objects.create(name=community_name, slug=community_slug, description=community_description, creator=user)
-            community.save()
+            if serializer.is_valid(raise_exception=True):
+                community = Communities.objects.create(name=community_name, slug=community_slug, description=community_description, creator=user)
+                community.save()
             
-            serializer = CommunitiesSerializer(community, many=False)
-            return Response({ 'message': 'Sucessfully created community', 'data': serializer.data },status=status.HTTP_201_CREATED)
+                community_serializer = CommunitiesSerializer(community, many=False)
+                return Response({ 'message': 'Sucessfully created community', 'data': community_serializer.data },status=status.HTTP_201_CREATED)
         
         except Exception as e:
             return Response({'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -75,6 +77,7 @@ class CommunityUpdateApiView(GenericAPIView):
     def put(self, request, id):
         user = request.user
         data = request.data
+        serializer = self.serializer_class(data=data)
         
         community_name = data.get('name')
         community_description = data.get('description')
@@ -82,15 +85,16 @@ class CommunityUpdateApiView(GenericAPIView):
         try:
             if community_name :
                 community_slug = Utils.generate_slug(community_name)
-            
-            community = Communities.objects.get(pk=id)
-            community.name = community_name
-            community.slug = community_slug
-            community.description = community_description
-            community.save()
-            
-            serializer = CommunitiesSerializer(community, many=False)
-            return Response({ 'message': 'Sucessfully updated community', 'data': serializer.data },status=status.HTTP_200_OK)
+                
+            if serializer.is_valid(raise_exception=True):            
+                community = Communities.objects.get(pk=id)
+                community.name = community_name
+                community.slug = community_slug
+                community.description = community_description
+                community.save()
+                
+                serializer = CommunitiesSerializer(community, many=False)
+                return Response({ 'message': 'Sucessfully updated community', 'data': serializer.data },status=status.HTTP_200_OK)
         
         except Communities.DoesNotExist:
             return Response({'message': 'Community does not exist'}, status=status.HTTP_404_NOT_FOUND)
