@@ -125,3 +125,24 @@ class CommunityDeleteApiView(GenericAPIView):
         except Exception as e:
             return Response({'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
+    
+@api_view(['GET'])
+def get_communities(request):
+    try:
+        communities = Communities.objects.all()
+        serializer = CommunitiesSerializer(communities, many=True)
+        return Response({ 'message': 'Sucessfully retrieved communities', 'data': serializer.data },status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response({'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+    
+@api_view(['GET'])
+def get_community(request, slug):
+    try:
+        community = Communities.objects.get(slug=slug)
+        serializer = CommunitiesSerializer(community, many=False)
+        return Response({ 'message': 'Sucessfully retrieved community', 'data': serializer.data },status=status.HTTP_200_OK)
+    except Communities.DoesNotExist:
+        return Response({'message': 'Community does not exist'}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return Response({'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
