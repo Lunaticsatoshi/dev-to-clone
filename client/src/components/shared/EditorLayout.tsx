@@ -3,8 +3,6 @@ import Head from "next/head";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import EditorHeader from "./EditorHeader";
-
 type EditorLayoutProps = {
   title: string;
   description?: string;
@@ -25,7 +23,6 @@ const EditorLayout: FC<EditorLayoutProps> = ({
         <meta name="description" content={description} />
         <meta name="keywords" content={keywords} />
       </Head>
-      <EditorHeader />
       <ToastContainer
         position="top-right"
         autoClose={5000}
