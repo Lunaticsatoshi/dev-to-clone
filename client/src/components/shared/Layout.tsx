@@ -40,7 +40,7 @@ const Layout: FC<LayoutProps> = ({
           pauseOnHover
           theme="dark"
         />
-        <div className="main-content">{children}</div>
+        <div className="main-content flex justify-between">{children}</div>
       </SidebarContextProvider>
     </>
   );
