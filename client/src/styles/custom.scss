@@ -133,6 +133,21 @@ ul {
   }
 }
 
+.article-editor {
+  width: 100%;
+  height: 100%;
+
+  &__container {
+    height: 100%;
+    margin: 2rem auto;
+    background-color: var(--header-bg);
+    color: var(--font-color);
+    border: 0.5px solid var(--border-color);
+    border-radius: 0.5rem;
+    overflow-wrap: anywhere;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .main-content {
     width: 100%;
