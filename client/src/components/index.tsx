@@ -13,6 +13,7 @@ import SearchBox from "./ui/SearchBox";
 import ThemeToggle from "./ui/ThemeToggle";
 import DropDown from "./dropdown/DropDown";
 import DropDownItem from "./dropdown/DropDownItem";
+import MDEditor from "./editor";
 
 import InputField from "./ui/form/InputField";
 import CheckBox from "./ui/form/Checkbox";
@@ -35,4 +36,5 @@ export {
   SidebarItem,
   InputField,
   CheckBox,
+  MDEditor,
 };
