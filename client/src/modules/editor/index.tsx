@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { FaDev } from "react-icons/fa";
 
+import { MDEditor } from "src/components";
+
 const ArticleEditor = () => {
   return (
     <div className="editor-container flex justify-between items-center gap-2">
@@ -35,6 +37,9 @@ const ArticleEditor = () => {
                 aria-label="Post-Title"
               />
             </div>
+          </div>
+          <div className="article-editor-body">
+            <MDEditor />
           </div>
         </div>
       </div>
