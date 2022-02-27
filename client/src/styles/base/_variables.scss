@@ -24,6 +24,8 @@
     --hover-background: rgb(79 70 229 / 20%);
     --hover-color: rgb(129 140 248);
     --border-color: rgb(222, 222, 222);
+
+    --place-holder-color: rgb(82, 82, 82);
   }
 
   [data-theme='dark'] {
@@ -38,4 +40,6 @@
 
     --main-0: rgb(0, 0, 0);
     --border-color: rgb(47, 47, 47);
+
+    --place-holder-color: rgb(82, 82, 82);
   }
