@@ -35,7 +35,7 @@ const EditorLayout: FC<EditorLayoutProps> = ({
         pauseOnHover
         theme="dark"
       />
-      <div className="main-content">{children}</div>
+      <div className="editor-content">{children}</div>
     </>
   );
 };
