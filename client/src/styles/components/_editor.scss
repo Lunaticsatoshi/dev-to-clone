@@ -1,0 +1,38 @@
+.md-editor {
+  width: 100%;
+  height: 100%;
+
+  &__toolbar {
+    width: 100%;
+    height: var(--header-height);
+    background: var(--toolbar-color);
+  }
+
+  &__title {
+    padding: 2rem 4rem;
+    height: 100%;
+    overflow-y: scroll;
+    .text-field {
+      max-width: 100%;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      border: none;
+      padding: 0;
+      margin: 0;
+      outline: none;
+      box-shadow: none;
+      resize: none;
+      transition: none;
+      font-size: 1.3rem;
+      font-weight: bold;
+      overflow: hidden;
+
+      &::placeholder {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: var(--place-holder-color);
+      }
+    }
+  }
+}
