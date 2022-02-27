@@ -15,8 +15,11 @@ const AuthLayout: FC<AuthLayoutProps> = ({ children }) => {
   useEffect(() => {
     const authTokens = userTokenPersistence.get();
     if (authTokens) {
-      router.push("/");
       currentUser();
+
+      if (router.pathname === "/login" || router.pathname === "/register") {
+        router.push("/");
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
