@@ -1,12 +1,10 @@
 import axios, { AxiosInstance } from "axios";
 import jwt_decode from "jwt-decode";
 import dayjs from "dayjs";
-import { __prod__ } from "src/constants/constants";
+import { API_URL } from "src/config";
 import { userTokenPersistence } from "src/utils";
 
-const baseURL = __prod__
-  ? process.env.NEXT_APP_PRODUCTION_API_ENDPOINT
-  : "http://127.0.0.1:8000/api/v1";
+const baseURL = API_URL;
 
 type authToken = {
   access: string;
