@@ -40,7 +40,9 @@ const ArticleCard: FC<ArticleCardProps> = ({
       )}
       <div className="article__details">
         <div className="u-pic">
-          <img src={user.profile_image_90} alt="" />
+          <a href="#" style={{
+            backgroundImage: `url(${user.profile_image})`,
+          }} />
         </div>
         <div className="u-details">
           <a href={`http://dev.to/${user.username}`}>
