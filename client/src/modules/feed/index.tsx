@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { FeedHeader, ArticleCard } from "src/components";
+import { FeedHeader, ArticleCard, ArticleCardSkeleton } from "src/components";
 
 const ArticleFeed = () => {
   const [articles, setArticles] = useState<Array<any>>([]);
@@ -55,12 +55,12 @@ const ArticleFeed = () => {
     <div className="main-container flex justify-between items-center">
       <FeedHeader />
       <div className="articles">
-        {articles &&
+        {/* {articles &&
           articles.map((article, id) => {
             return <ArticleCard key={id} {...article} />;
-          })}
+          })} */}
 
-        {/* {!articles && [1, 2, 3, 4, 5].map((a) => <ArticleSkeleton key={a} />)} */}
+        {[1, 2, 3, 4, 5].map((a) => <ArticleCardSkeleton key={a} />)}
       </div>
     </div>
   );
