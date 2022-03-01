@@ -8,7 +8,8 @@ import ListingBar from "./listing/ListingBar";
 import ListingHeader from "./listing/ListingHeader";
 import ListingCard from "./listing/ListingCard";
 import FeedHeader from "./feed/FeedHeader";
-import ArticleCard from "./feed/Articlecard";
+import ArticleCard from "./feed/ArticleCard";
+import ArticleCardSkeleton from "./feed/ArticleCardSkeleton";
 import Button from "./ui/Button";
 import SearchBox from "./ui/SearchBox";
 import ThemeToggle from "./ui/ThemeToggle";
@@ -29,6 +30,7 @@ export {
   ListingCard,
   FeedHeader,
   ArticleCard,
+  ArticleCardSkeleton,
   Button,
   SearchBox,
   ThemeToggle,
