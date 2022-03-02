@@ -238,6 +238,23 @@ ul {
   }
 }
 
+.reaction {
+  color: white;
+  .heart-svg {
+    filter: invert(38%) sepia(23%) saturate(3732%) hue-rotate(332deg)
+      brightness(99%) contrast(89%);
+  }
+}
+
+.article-detail-container {
+  flex-grow: 2;
+  width: 100%;
+}
+
+.profile-sidebar {
+  flex-grow: 1;
+}
+
 @media screen and (max-width: 768px) {
   .main-content {
     width: 100%;
