@@ -59,6 +59,10 @@ ul {
   flex-direction: column;
   flex-grow: 2;
   width: 100%;
+
+  .articles {
+    width: 100%;
+  }
 }
 
 .auth-container {
