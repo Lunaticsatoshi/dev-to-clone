@@ -23,12 +23,11 @@
   }
 
   &__details {
-    display: flex;
     padding: 1rem;
     position: relative;
     .u-pic {
       display: block;
-      width: 2rem;
+      width: 3rem;
 
       img {
         border-radius: 50%;
@@ -36,7 +35,7 @@
       }
     }
 
-    .u-details {
+    .user-details {
       display: flex;
       flex-direction: column;
       padding-left: 0.5rem;
@@ -52,6 +51,14 @@
           color: var(--main-8);
         }
       }
+    }
+
+    .article-details {
+      display: flex;
+      flex-direction: column;
+      padding-left: 0.5rem;
+
+      margin-bottom: 0.5rem;
 
       h3,
       .tags,
@@ -61,6 +68,7 @@
 
       h3 {
         font-size: 1.5rem;
+        font-weight: bold;
         &:hover {
           color: var(--main-theme);
         }
@@ -82,22 +90,14 @@
 
       .additional-details {
         font-size: 0.875rem;
-
-        display: flex;
-        align-items: center;
-
         .reactions {
           flex: 1;
 
           a {
-            padding: 0.5rem 1rem;
+            padding: 0.5rem;
 
             color: var(--main-8);
             border-radius: 5px;
-
-            &:first-child {
-              margin-left: -1rem;
-            }
 
             &:hover {
               color: var(--font-color);
@@ -120,12 +120,11 @@
           button {
             padding: 0.3rem 0.8rem;
             border-radius: 5px;
-            color: var(--main-6);
-            background-color: var(--main-2);
+            color: var(--font-color);
+            background-color: rgb(61, 61, 61);
             transition: all 0.2s;
             &:hover {
-              color: var(--main-8);
-              background-color: var(--main-3);
+              background-color: rgb(87, 87, 87);
             }
           }
         }

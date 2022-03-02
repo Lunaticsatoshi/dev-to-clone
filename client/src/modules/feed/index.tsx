@@ -55,12 +55,11 @@ const ArticleFeed = () => {
     <div className="main-container flex justify-between items-center">
       <FeedHeader />
       <div className="articles">
-        {/* {articles &&
-          articles.map((article, id) => {
-            return <ArticleCard key={id} {...article} />;
-          })} */}
-
-        {[1, 2, 3, 4, 5].map((a) => <ArticleCardSkeleton key={a} />)}
+        {articles.length > 0 ? (
+          articles.map((article, id) => <ArticleCard key={id} {...article} />)
+        ) : (
+          <ArticleCardSkeleton />
+        )}
       </div>
     </div>
   );

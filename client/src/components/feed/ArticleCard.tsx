@@ -38,25 +38,26 @@ const ArticleCard: FC<ArticleCardProps> = ({
           &nbsp;
         </a>
       )}
-      <div className="article__details">
-        <div className="u-pic">
-          <a href="#" style={{
-            backgroundImage: `url(${user.profile_image})`,
-          }} />
+      <div className="article__details flex flex-col">
+        <div className="article-user flex justify-start items-center">
+          <div className="u-pic">
+            <img src={user.profile_image} alt="user profile" />
+          </div>
+          <div className="user-details">
+            <a href={`http://dev.to/${user.username}`}>
+              <span className="u-name">{user.username}</span>
+            </a>
+            <a href={url}>
+              <span className="time">
+                {new Date(published_at).toLocaleDateString(undefined, {
+                  day: "numeric",
+                  month: "long",
+                })}
+              </span>
+            </a>
+          </div>
         </div>
-        <div className="u-details">
-          <a href={`http://dev.to/${user.username}`}>
-            <span className="u-name">{user.username}</span>
-          </a>
-          <a href={url}>
-            <span className="time">
-              {new Date(published_at).toLocaleDateString(undefined, {
-                day: "numeric",
-                month: "long",
-              })}
-            </span>
-          </a>
-
+        <div className="article-details">
           <a href={url}>
             <h3>{title}</h3>
           </a>
@@ -71,23 +72,22 @@ const ArticleCard: FC<ArticleCardProps> = ({
             })}
           </div>
 
-          <div className="additional-details">
-            <div className="reactions">
+          <div className="additional-details flex items-center">
+            <div className="reactions flex justify-start items-center">
               {public_reactions_count + positive_reactions_count > 0 && (
                 <a href={url}>
-                  <span>
+                  <span className="flex justify-center items-center">
                     <i>
                       <BiHeart />
                     </i>
                     &nbsp;
                     {public_reactions_count + positive_reactions_count} &nbsp;
-                    <span className="hidden-mobile">reactions</span>
                   </span>
                 </a>
               )}
 
               <a href={url}>
-                <span>
+                <span className="flex justify-center items-center">
                   <i>
                     <FaRegComment />
                   </i>
@@ -95,7 +95,6 @@ const ArticleCard: FC<ArticleCardProps> = ({
                   {comments_count > 0 ? (
                     <span>
                       {comments_count} &nbsp;
-                      <span className="hidden-mobile">comments</span>
                     </span>
                   ) : null}
                   {comments_count === 0 ? (
