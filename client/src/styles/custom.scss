@@ -238,14 +238,48 @@ ul {
   }
 }
 
-.reaction {
-  color: white;
-  .heart-svg {
-    filter: invert(38%) sepia(23%) saturate(3732%) hue-rotate(332deg)
-      brightness(99%) contrast(89%);
+.reactions {
+  width: 50px;
+  .reactions-left {
+    position: fixed;
+    top: 20%;
+    .reaction {
+      color: white;
+      &__group {
+        padding: 0.5rem 1rem;
+        margin: 0.5rem 0;
+        background: transparent;
+        box-shadow: inset 0 0 0 0 transparent;
+        .heart-svg {
+          filter: invert(99%) sepia(0%) saturate(3288%) hue-rotate(285deg)
+            brightness(122%) contrast(99%);
+          &:hover {
+            filter: invert(38%) sepia(23%) saturate(3732%) hue-rotate(332deg)
+              brightness(99%) contrast(89%);
+          }
+        }
+
+        .unicorn-svg {
+          filter: invert(99%) sepia(0%) saturate(3288%) hue-rotate(285deg)
+            brightness(122%) contrast(99%);
+          &:hover {
+            filter: invert(36%) sepia(74%) saturate(1266%) hue-rotate(131deg)
+              brightness(92%) contrast(96%);
+          }
+        }
+
+        .save-svg {
+          filter: invert(99%) sepia(0%) saturate(3288%) hue-rotate(285deg)
+            brightness(122%) contrast(99%);
+          &:hover {
+            filter: invert(32%) sepia(72%) saturate(1347%) hue-rotate(218deg)
+              brightness(106%) contrast(89%);
+          }
+        }
+      }
+    }
   }
 }
-
 .article-detail-container {
   flex-grow: 2;
   width: 100%;

@@ -11,41 +11,46 @@ type ReactionProps = {
 
 const reactions: FC<ReactionProps> = ({}) => {
   return (
-    <Sidebar>
-      <SidebarItem>
-        <div className="reaction">
-          <Image
-            src="/heart.svg"
-            alt="heart image"
-            width={40}
-            height={40}
-            className="heart-svg"
-          />
-        </div>
-      </SidebarItem>
-      <SidebarItem>
-        <div className="reaction">
-          <Image
-            src="/unicorn.svg"
-            alt="heart image"
-            width={40}
-            height={40}
-            className="heart-svg"
-          />
-        </div>
-      </SidebarItem>
-      <SidebarItem>
-        <div className="reaction">
-          <Image
-            src="/save.svg"
-            alt="heart image"
-            width={40}
-            height={40}
-            className="heart-svg"
-          />
-        </div>
-      </SidebarItem>
-    </Sidebar>
+    <div className="reactions">
+      <Sidebar className="reactions-left">
+        <SidebarItem className="reaction">
+          <div className="reaction__group flex justify-center items-center flex-col">
+            <Image
+              src="/heart.svg"
+              alt="heart image"
+              width={30}
+              height={30}
+              className="heart-svg"
+            />
+            <span>12</span>
+          </div>
+        </SidebarItem>
+        <SidebarItem className="reaction">
+          <div className="reaction__group flex justify-center items-center flex-col">
+            <Image
+              src="/unicorn.svg"
+              alt="heart image"
+              width={30}
+              height={30}
+              className="unicorn-svg"
+            />
+            <span>12</span>
+          </div>
+        </SidebarItem>
+        <SidebarItem className="reaction">
+          <div className="reaction__group flex justify-center items-center flex-col">
+            <Image
+              src="/save.svg"
+              alt="heart image"
+              width={30}
+              height={30}
+              className="save-svg"
+            />
+            <span>12</span>
+          </div>
+        </SidebarItem>
+      </Sidebar>
+    </div>
   );
 };
 
