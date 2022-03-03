@@ -149,143 +149,143 @@ ul {
   width: 100%;
   padding: 0 1.2rem 0 1.2rem;
   gap: 1.2rem;
-}
 
-.article-editor {
-  width: 100%;
-  flex-wrap: wrap;
-  flex: 2;
+  .article-editor {
+    width: 100%;
+    flex-wrap: wrap;
+    flex: 2;
 
-  &__container {
-    height: 100%;
-    width: 97%;
-    margin: 0.22rem 0 0.22rem auto;
-    background-color: var(--header-bg);
-    color: var(--font-color);
-    border: 0.5px solid var(--border-color);
-    border-radius: 0.5rem;
-    overflow-wrap: anywhere;
+    &__container {
+      height: 100%;
+      width: 97%;
+      margin: 0.22rem 0 0.22rem auto;
+      background-color: var(--header-bg);
+      color: var(--font-color);
+      border: 0.5px solid var(--border-color);
+      border-radius: 0.5rem;
+      overflow-wrap: anywhere;
 
-    .article-editor-top {
-      padding: 2rem 4rem;
-      width: 100%;
+      .article-editor-top {
+        padding: 2rem 4rem;
+        width: 100%;
 
-      &__cover {
-        padding: 0.5rem 1rem;
-        font-size: 1rem;
-        color: var(--font-color);
-        border: 1px solid var(--border-color);
-        width: 30%;
-        border-radius: 0.5rem;
-        margin-bottom: 1.2rem;
+        &__cover {
+          padding: 0.5rem 1rem;
+          font-size: 1rem;
+          color: var(--font-color);
+          border: 1px solid var(--border-color);
+          width: 30%;
+          border-radius: 0.5rem;
+          margin-bottom: 1.2rem;
 
-        input {
-          display: none;
+          input {
+            display: none;
+          }
         }
-      }
 
-      &__title {
-        .text-field {
-          max-width: 100%;
-          width: 100%;
-          height: 80px;
-          background: transparent;
-          border: none;
-          padding: 0;
-          margin: 0;
-          outline: none;
-          box-shadow: none;
-          resize: none;
-          transition: none;
-          font-size: 3rem;
-          font-weight: bold;
-
-          &::placeholder {
+        &__title {
+          .text-field {
+            max-width: 100%;
+            width: 100%;
+            height: 80px;
+            background: transparent;
+            border: none;
+            padding: 0;
+            margin: 0;
+            outline: none;
+            box-shadow: none;
+            resize: none;
+            transition: none;
             font-size: 3rem;
             font-weight: bold;
-            color: var(--place-holder-color);
+
+            &::placeholder {
+              font-size: 3rem;
+              font-weight: bold;
+              color: var(--place-holder-color);
+            }
           }
         }
       }
+
+      .article-editor-body {
+        height: 100%;
+      }
     }
 
-    .article-editor-body {
-      height: 100%;
+    .article-actions {
+      width: 97%;
+      margin: 1.5rem 0 0.22rem auto;
+
+      .publish-button {
+        background-color: var(--main-theme) !important;
+        color: var(--font-color);
+
+        &:hover {
+          background-color: var(--main-theme-darker);
+        }
+      }
+
+      .draft-button {
+        cursor: pointer;
+        margin-left: 0.7rem;
+        padding: 0.6rem 1rem;
+        border-radius: 5px;
+        &:hover {
+          background-color: var(--hover-background);
+          // background-color: rgba(#3b49df, 0.1);
+          color: var(--hover-color);
+        }
+      }
+
+      .publish-options {
+        cursor: pointer;
+        margin-left: 0.2rem;
+        padding: 0.6rem 1rem;
+        border-radius: 5px;
+        font-size: 1.2rem;
+        &:hover {
+          background-color: var(--hover-background);
+          // background-color: rgba(#3b49df, 0.1);
+          color: var(--hover-color);
+        }
+      }
+
+      .reset-button {
+        cursor: pointer;
+        margin-left: 0.2rem;
+        padding: 0.6rem 1rem;
+        border-radius: 5px;
+        font-size: 0.9rem;
+        &:hover {
+          background-color: var(--hover-background);
+          // background-color: rgba(#3b49df, 0.1);
+          color: var(--hover-color);
+        }
+      }
     }
   }
 
-  .article-actions {
-    width: 97%;
-    margin: 1.5rem 0 0.22rem auto;
+  .tips-container {
+    background-color: transparent;
+    height: 100%;
+    flex-wrap: wrap;
+    flex: 1;
+    color: var(--font-color);
+    padding: 1.2rem;
 
-    .publish-button {
-      background-color: var(--main-theme) !important;
-      color: var(--font-color);
-
-      &:hover {
-        background-color: var(--main-theme-darker);
-      }
+    h1 {
+      font-size: 1rem;
+      font-weight: bold;
     }
 
-    .draft-button {
-      cursor: pointer;
-      margin-left: 0.7rem;
-      padding: 0.6rem 1rem;
-      border-radius: 5px;
-      &:hover {
-        background-color: var(--hover-background);
-        // background-color: rgba(#3b49df, 0.1);
-        color: var(--hover-color);
+    ul {
+      margin-top: 1.2rem;
+      list-style-type: circle;
+      li ::marker {
+        color: red;
+        font-size: 1.5em;
       }
-    }
-
-    .publish-options {
-      cursor: pointer;
-      margin-left: 0.2rem;
-      padding: 0.6rem 1rem;
-      border-radius: 5px;
-      font-size: 1.2rem;
-      &:hover {
-        background-color: var(--hover-background);
-        // background-color: rgba(#3b49df, 0.1);
-        color: var(--hover-color);
-      }
-    }
-
-    .reset-button {
-      cursor: pointer;
-      margin-left: 0.2rem;
-      padding: 0.6rem 1rem;
-      border-radius: 5px;
-      font-size: 0.9rem;
-      &:hover {
-        background-color: var(--hover-background);
-        // background-color: rgba(#3b49df, 0.1);
-        color: var(--hover-color);
-      }
-    }
-  }
-}
-
-.tips-container {
-  background-color: transparent;
-  height: 100%;
-  flex-wrap: wrap;
-  flex: 1;
-  color: var(--font-color);
-  padding: 1.2rem;
-
-  h1 {
-    font-size: 1rem;
-    font-weight: bold;
-  }
-
-  ul {
-    margin-top: 1.2rem;
-    list-style-type: circle;
-    li ::marker {
-      color: red;
-      font-size: 1.5em;
     }
   }
 }
@@ -353,6 +353,12 @@ ul {
       border-radius: 0;
     }
   }
+
+  .editor-container {
+    .tips-container {
+      display: none;
+    }
+  } 
 
   .registration {
     height: 100%;
