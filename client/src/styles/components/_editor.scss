@@ -6,6 +6,24 @@
     width: 100%;
     height: var(--header-height);
     background: var(--toolbar-color);
+    .toolbar-items {
+      width: 85%;
+      margin: 0 auto;
+
+      .item {
+        padding: 0.7rem;
+        font-size: 1.2rem;
+        margin-left: 0.3rem;
+        border-radius: 0.3rem;
+        &:hover {
+          background-color: var(--hover-background);
+        }
+
+        &:first-child {
+          margin-left: 0;
+        }
+      }
+    }
   }
 
   &__title {
@@ -25,8 +43,8 @@
       box-shadow: none;
       resize: none;
       transition: none;
-      font-size: 1.3rem;
-      font-weight: bold;
+      font-size: 1.1rem;
+      // font-weight: bold;
       overflow: hidden;
 
       &::placeholder {
