@@ -83,6 +83,9 @@ const Header = () => {
             </>
           ) : (
             <>
+              <i className="hidden-search">
+                <FiSearch />
+              </i>
               <div className="login-btn">Login</div>
               <Button className="btn post-btn">Create Account</Button>
             </>
