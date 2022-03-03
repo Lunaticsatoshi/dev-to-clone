@@ -360,12 +360,19 @@ ul {
       &__container {
         width: 100%;
         margin: 0;
+        .article-editor-top {
+          padding: 1.2rem;
+
+          &__cover {
+            width: 40%;
+          }
+        }
       }
     }
     .tips-container {
       display: none;
     }
-  } 
+  }
 
   .registration {
     height: 100%;
