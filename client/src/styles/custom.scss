@@ -355,6 +355,13 @@ ul {
   }
 
   .editor-container {
+    padding: 0;
+    .article-editor {
+      &__container {
+        width: 100%;
+        margin: 0;
+      }
+    }
     .tips-container {
       display: none;
     }
