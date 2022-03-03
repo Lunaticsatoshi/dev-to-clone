@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { FaDev } from "react-icons/fa";
 import { RiNotificationLine } from "react-icons/ri";
 import { FiSearch } from "react-icons/fi";
@@ -13,6 +14,7 @@ const Header = () => {
   const [_, sidebarToggle] = useSidebarToggle();
   const { state, logout } = useAuthState();
   const toggle = () => setOpen(!open);
+  const router = useRouter();
   return (
     <header className="flex header">
       <div className="flex justify-between items-center header-container">
@@ -86,8 +88,15 @@ const Header = () => {
               <i className="hidden-search">
                 <FiSearch />
               </i>
-              <div className="login-btn">Login</div>
-              <Button className="btn post-btn">Create Account</Button>
+              <div className="login-btn" onClick={() => router.push("/login")}>
+                Login
+              </div>
+              <Button
+                className="btn post-btn"
+                onClick={() => router.push("/register")}
+              >
+                Create Account
+              </Button>
             </>
           )}
         </div>
