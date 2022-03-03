@@ -213,6 +213,58 @@ ul {
       height: 100%;
     }
   }
+
+  .article-actions {
+    width: 97%;
+    margin: 1.5rem 0 0.22rem auto;
+
+    .publish-button {
+      background-color: var(--main-theme) !important;
+      color: var(--font-color);
+
+      &:hover {
+        background-color: var(--main-theme-darker);
+      }
+    }
+
+    .draft-button {
+      cursor: pointer;
+      margin-left: 0.7rem;
+      padding: 0.6rem 1rem;
+      border-radius: 5px;
+      &:hover {
+        background-color: var(--hover-background);
+        // background-color: rgba(#3b49df, 0.1);
+        color: var(--hover-color);
+      }
+    }
+
+    .publish-options {
+      cursor: pointer;
+      margin-left: 0.2rem;
+      padding: 0.6rem 1rem;
+      border-radius: 5px;
+      font-size: 1.2rem;
+      &:hover {
+        background-color: var(--hover-background);
+        // background-color: rgba(#3b49df, 0.1);
+        color: var(--hover-color);
+      }
+    }
+
+    .reset-button {
+      cursor: pointer;
+      margin-left: 0.2rem;
+      padding: 0.6rem 1rem;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      &:hover {
+        background-color: var(--hover-background);
+        // background-color: rgba(#3b49df, 0.1);
+        color: var(--hover-color);
+      }
+    }
+  }
 }
 
 .tips-container {
