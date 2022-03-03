@@ -10,6 +10,7 @@ const ArticleEditor = () => {
     initialValues: {
       title: "",
       content: "",
+      coverImage: "",
     },
     onSubmit: (values, { resetForm }) => {
       console.log(values);
@@ -58,7 +59,7 @@ const ArticleEditor = () => {
               </div>
             </div>
             <div className="flex justify-start items-center article-actions">
-              <Button className="btn publish-button">Publish</Button>
+              <Button type="submit" className="btn publish-button">Publish</Button>
               <div className="draft-button">Save draft</div>
               <div className="publish-options">
                 <i>
