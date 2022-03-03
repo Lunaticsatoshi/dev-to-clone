@@ -55,3 +55,28 @@
     }
   }
 }
+
+@media screen and (max-width: 768px) {
+  .md-editor {
+    &__toolbar {
+      .toolbar-items {
+        width: 100%;
+        margin: 0;
+
+        .item {
+          padding: 0.7rem;
+          font-size: 1.2rem;
+          margin-left: 0.3rem;
+          border-radius: 0.3rem;
+
+          &:first-child {
+            margin-left: 0;
+          }
+          &:nth-child(10) {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
