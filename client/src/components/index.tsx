@@ -19,6 +19,7 @@ import MDEditor from "./editor";
 
 import InputField from "./ui/form/InputField";
 import CheckBox from "./ui/form/Checkbox";
+import InputTextField from "./ui/form/TextField";
 
 export {
   Layout,
@@ -40,5 +41,6 @@ export {
   SidebarItem,
   InputField,
   CheckBox,
+  InputTextField,
   MDEditor,
 };
