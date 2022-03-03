@@ -58,7 +58,7 @@ const ArticleFeed = () => {
         {articles.length > 0 ? (
           articles.map((article, id) => <ArticleCard key={id} {...article} />)
         ) : (
-          <ArticleCardSkeleton />
+          [1, 2, 3, 4, 5].map((a) => <ArticleCardSkeleton key={a} />)
         )}
       </div>
     </div>
