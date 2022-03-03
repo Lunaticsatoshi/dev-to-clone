@@ -133,6 +133,14 @@
           margin: 0 auto;
         }
       }
+
+      .login-btn {
+        cursor: pointer;
+        &:hover {
+          background-color: rgba(#3b49df, 0.1);
+          color: var(--main-theme);
+        }
+      }
     }
   }
 }
@@ -215,7 +223,7 @@
       font-weight: bold;
       padding: 0.7rem;
       border-radius: 10px;
-      
+
       &:hover {
         color: var(--hover-color);
         background-color: var(--hover-background);
@@ -227,7 +235,7 @@
       font-weight: bold;
       padding: 0.7rem;
       border-radius: 10px;
-      
+
       &:hover {
         color: var(--hover-color);
         background-color: var(--hover-background);
@@ -259,7 +267,7 @@
           display: none;
         }
 
-        .post-btn{
+        .post-btn {
           display: block;
         }
       }
