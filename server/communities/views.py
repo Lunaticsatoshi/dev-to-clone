@@ -174,24 +174,22 @@ def get_community(request, slug):
     
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))
-def join_community(request):
+def join_community(request, slug):
     user = request.user
-    data = request.data
-    community_id = data.get('community_id')
     
     try:
-        community_to_subscribe = Communities.objects.get(pk=community_id)
+        community_to_subscribe = Communities.objects.get(slug=slug)
         
         if user == community_to_subscribe.subscribers.filter(username=user.username).first():
             community_to_subscribe.subscribers.remove(user)
-            community_to_subscribe.subscribers_count = community_to_subscribe.subscribers.count()
+            community_to_subscribe.subscriber_count = community_to_subscribe.subscribers.count()
             community_to_subscribe.save()
             community_serializer = CommunitiesSerializer(community_to_subscribe, many=False)          
             return Response({'message': 'Successfully unsubscribed from community', 'data': community_serializer.data }, status=status.HTTP_400_BAD_REQUEST)
         
         else:
             community_to_subscribe.subscribers.add(user)
-            community_to_subscribe.subscribers_count = community_to_subscribe.subscribers.count()
+            community_to_subscribe.subscriber_count = community_to_subscribe.subscribers.count()
             community_to_subscribe.save()
             community_serializer = CommunitiesSerializer(community_to_subscribe, many=False)     
             return Response({'message': 'Successfully joined the community', 'data': community_serializer.data }, status=status.HTTP_200_OK)
