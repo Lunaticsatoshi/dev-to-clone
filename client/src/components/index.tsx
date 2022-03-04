@@ -11,6 +11,7 @@ import FeedHeader from "./feed/FeedHeader";
 import ArticleCard from "./feed/ArticleCard";
 import ArticleCardSkeleton from "./feed/ArticleCardSkeleton";
 import ArticleDetailCard from "./feed/ArticleDetailCard";
+import ProfileCard from "./profile/ProfileCard";
 import Button from "./ui/Button";
 import SearchBox from "./ui/SearchBox";
 import ThemeToggle from "./ui/ThemeToggle";
@@ -41,6 +42,7 @@ export {
   DropDownItem,
   SidebarResponsive,
   SidebarItem,
+  ProfileCard,
   InputField,
   CheckBox,
   InputTextField,
