@@ -53,21 +53,34 @@ class CommunityCreateApiView(GenericAPIView):
         serializer = self.serializer_class(data=data)
         
         community_name = data.get('name')
-        community_description = data.get('description')    
+        community_description = data.get('description')
+        community_profile_image = data.get('profile_image')
+        community_cover_image = data.get('cover_image')    
         try:
             if not community_name or not community_description:
                 return Response({'message': 'Please provide all the required fields'}, status=status.HTTP_400_BAD_REQUEST)
             
+            if Communities.objects.filter(name=community_name).exists():
+                return Response({ 'message': 'Community with this name already exists' }, status=status.HTTP_400_BAD_REQUEST)
+            
+            if not Utils.validate_name(community_name):
+                return Response({ 'message': "Community name can only contain letters, numbers, spaces and '-'" }, status=status.HTTP_400_BAD_REQUEST)
+            
             community_slug = Utils.generate_slug(community_name)
+            community = Communities.objects.create(name=community_name, slug=community_slug, description=community_description, creator=user)
             
-            if serializer.is_valid(raise_exception=True):
-                community = Communities.objects.create(name=community_name, slug=community_slug, description=community_description, creator=user)
-                community.save()
-            
-                community_serializer = CommunitiesSerializer(community, many=False)
-                return Response({ 'message': 'Sucessfully created community', 'data': community_serializer.data },status=status.HTTP_201_CREATED)
+            if community_profile_image:
+                community.profile_image = community_profile_image
+            if community_cover_image:
+                community.cover_image = community_cover_image
+                
+            community.save()
+        
+            community_serializer = CommunitiesSerializer(community, many=False)
+            return Response({ 'message': 'Sucessfully created community', 'data': community_serializer.data },status=status.HTTP_201_CREATED)
         
         except Exception as e:
+            print(e)
             return Response({'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
 class CommunityUpdateApiView(GenericAPIView):
@@ -81,20 +94,31 @@ class CommunityUpdateApiView(GenericAPIView):
         
         community_name = data.get('name')
         community_description = data.get('description')
+        community_slug = data.get('slug')
+        community_profile_image = data.get('profile_image')
+        community_cover_image = data.get('cover_image')   
         
         try:
             if community_name :
+                if not Utils.validate_name(community_name):
+                    return Response({ 'message': "Community name can only contain letters, numbers, spaces and '-'" }, status=status.HTTP_400_BAD_REQUEST)
+                
                 community_slug = Utils.generate_slug(community_name)
+                         
+            community = Communities.objects.get(pk=id)
+            community.name = community_name
+            community.slug = community_slug
+            community.description = community_description
+            
+            if community_profile_image:
+                community.profile_image = community_profile_image
+            if community_cover_image:
+                community.cover_image = community_cover_image
                 
-            if serializer.is_valid(raise_exception=True):            
-                community = Communities.objects.get(pk=id)
-                community.name = community_name
-                community.slug = community_slug
-                community.description = community_description
-                community.save()
-                
-                serializer = CommunitiesSerializer(community, many=False)
-                return Response({ 'message': 'Sucessfully updated community', 'data': serializer.data },status=status.HTTP_200_OK)
+            community.save()
+            
+            serializer = CommunitiesSerializer(community, many=False)
+            return Response({ 'message': 'Sucessfully updated community', 'data': serializer.data },status=status.HTTP_200_OK)
         
         except Communities.DoesNotExist:
             return Response({'message': 'Community does not exist'}, status=status.HTTP_404_NOT_FOUND)
