@@ -10,6 +10,7 @@ import ListingCard from "./listing/ListingCard";
 import FeedHeader from "./feed/FeedHeader";
 import ArticleCard from "./feed/ArticleCard";
 import ArticleCardSkeleton from "./feed/ArticleCardSkeleton";
+import ArticleDetailCard from "./feed/ArticleDetailCard";
 import Button from "./ui/Button";
 import SearchBox from "./ui/SearchBox";
 import ThemeToggle from "./ui/ThemeToggle";
@@ -32,6 +33,7 @@ export {
   FeedHeader,
   ArticleCard,
   ArticleCardSkeleton,
+  ArticleDetailCard,
   Button,
   SearchBox,
   ThemeToggle,
