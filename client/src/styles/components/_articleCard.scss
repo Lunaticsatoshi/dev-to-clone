@@ -121,10 +121,10 @@
             padding: 0.3rem 0.8rem;
             border-radius: 5px;
             color: var(--font-color);
-            background-color: rgb(61, 61, 61);
+            background-color: var(--save-color);
             transition: all 0.2s;
             &:hover {
-              background-color: rgb(87, 87, 87);
+              background-color: rgb(189, 189, 189);
             }
           }
         }
