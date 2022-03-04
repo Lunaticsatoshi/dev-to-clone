@@ -72,7 +72,9 @@
           &:first-child {
             margin-left: 0;
           }
-          &:nth-child(10) {
+          &:nth-child(10),
+          &:nth-child(9),
+          &:nth-child(8) {
             display: none;
           }
         }
