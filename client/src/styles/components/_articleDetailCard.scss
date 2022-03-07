@@ -1,6 +1,18 @@
 .article-detail-card {
+  width: 100%;
+  height: 100%;
+//   margin: 0 0.5rem;
+  background-color: var(--header-bg);
+  border-radius: 1.2rem;
+  box-shadow: 0 0 0 1px var(--main-a);
+
+  &__image {
+    display: block;
     width: 100%;
-    height: 100%;
-    background-color: var(--header-bg);
-    border-radius: 1.2rem;
+    height: auto;
+    background-size: cover;
+    background-position: center center;
+    padding-bottom: 40%;
+    border-radius: 5px 5px 0 0;
+  }
 }
