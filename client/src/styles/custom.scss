@@ -48,7 +48,7 @@ ul {
 }
 
 .main-content {
-  height: 100vh;
+  height: 100%;
   width: 100%;
   max-width: var(--site-width);
   margin: 1.2rem auto;
@@ -59,6 +59,7 @@ ul {
   flex-direction: column;
   flex-grow: 2;
   width: 100%;
+  height: 100vh;
 
   .articles {
     width: 100%;
