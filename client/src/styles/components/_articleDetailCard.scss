@@ -25,7 +25,6 @@
 
     &__profile {
       width: 100%;
-      padding: 0.5rem 1rem;
 
       .profile-image-container {
         width: 50px;
@@ -54,6 +53,38 @@
           color: var(--profile-card-font-color);
         }
       }
+    }
+
+    &__header {
+      margin-top: 1.2rem;
+      font-size: 3rem;
+      font-weight: bold;
+    }
+
+    &__tags {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--profile-card-font-color);
+
+      .tag {
+        padding: 0.2rem 0.5rem;
+        border-radius: 0.2rem;
+
+        &:hover {
+          background: transparent;
+          border: 0.1px green solid;
+          opacity: 0.5;
+        }
+        span {
+          color: green;
+        }
+      }
+    }
+
+    &__content {
+      margin-top: 1.2rem;
+      font-size: 1.2rem;
+      color: var(--font-color);
     }
   }
 }
