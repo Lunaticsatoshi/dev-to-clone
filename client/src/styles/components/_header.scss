@@ -1,6 +1,11 @@
 .header {
   max-width: 100%;
   background-color: var(--header-bg);
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 999999;
 
   height: var(--header-height);
 
