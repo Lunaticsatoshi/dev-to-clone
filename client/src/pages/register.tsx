@@ -8,7 +8,7 @@ const RegisterPage: NextPage = () => {
     <Layout title="Register">
       <div className="auth-container flex flex-wrap">
         <div className="auth-container__content registration flex flex-col justify-between items-center">
-          <div className="header flex flex-col justify-center items-center text-center">
+          <div className="auth-container-header flex flex-col justify-center items-center text-center">
             <h1 className="title text-3xl font-bold">
               Welcome to Dev community
             </h1>
