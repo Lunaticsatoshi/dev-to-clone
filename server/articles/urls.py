@@ -4,7 +4,7 @@ from .views import UserArticleListApiView, UserArticleCreateApiView, UserArticle
 urlpatterns = [
     path('user/all', UserArticleListApiView.as_view(), name='user-article-list'),
     path('user/<str:id>', UserArticleDetailApiView.as_view(), name='user-article-detail'),
-    path('create', UserArticleCreateApiView.as_view(), name='user-article-create'),
+    path('create/', UserArticleCreateApiView.as_view(), name='user-article-create'),
     path('<str:id>/update/', UserArticleUpdateApiView.as_view(), name='user-article-update'),
     path('<str:id>/delete/', UserArticleDeleteApiView.as_view(), name='user-article-delete'),
     path('all/', get_articles, name='all-articles'),
