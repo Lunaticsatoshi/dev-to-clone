@@ -68,6 +68,7 @@ const buildApi = (
     delete: (...args: any[]) => callAxiosMethod("delete", args[0], ...args),
   };
 
+  // User urls
   const userLogin = (data: any) => requests.post("user/auth/login/", data);
   const userRegister = (data: any) =>
     requests.post("user/auth/register/", data);
@@ -75,12 +76,36 @@ const buildApi = (
   const getAllUsers = () => requests.get("user/all/");
   const getCurrentUser = () => requests.get("user/profile/current/");
 
+  // Article urls
+  const getAllArticles = () => requests.get("articles/all/");
+  const getAllUserArticles = () => requests.get("articles/user/all");
+  const getArticleById = (id: string) => requests.get(`articles/${id}/`);
+  const getArticleBySlug = (slug: string) => requests.get(`articles/${slug}/`);
+  const createArticle = (data: any) => requests.post("articles/create/", data);
+  const updateArticle = (id: string, data: any) => requests.put(`articles/${id}/update/`, data);
+  const deleteArticle = (id: string) => requests.delete(`articles/${id}/delete/`);
+  const clapArticle = (data: any) => requests.post("articles/clap/", data);
+  const commentArticle = (data: any) => requests.post("articles/comment/", data);
+  const updateComment = (id: string, data: any) => requests.put(`articles/comment/${id}/update/`, data);
+  const deleteComment = (id: string) => requests.delete(`articles/comment/${id}/delete/`);
+
   return {
     userLogin,
     userRegister,
     getAllUsers,
     getCurrentUser,
     userLogout,
+    getAllArticles,
+    getAllUserArticles,
+    getArticleById,
+    getArticleBySlug,
+    createArticle,
+    updateArticle,
+    deleteArticle,
+    clapArticle,
+    commentArticle,
+    updateComment,
+    deleteComment,
   };
 };
 
