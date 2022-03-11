@@ -2,7 +2,7 @@ from django.urls import path
 from .views import UserArticleListApiView, UserArticleCreateApiView, UserArticleUpdateApiView, UserArticleDetailApiView, UserArticleDeleteApiView, get_article, get_articles, add_clap, add_comment, edit_comment, delete_comment
 
 urlpatterns = [
-    path('user/all', UserArticleListApiView.as_view(), name='user-article-list'),
+    path('user/all/', UserArticleListApiView.as_view(), name='user-article-list'),
     path('user/<str:id>', UserArticleDetailApiView.as_view(), name='user-article-detail'),
     path('create/', UserArticleCreateApiView.as_view(), name='user-article-create'),
     path('<str:id>/update/', UserArticleUpdateApiView.as_view(), name='user-article-update'),
