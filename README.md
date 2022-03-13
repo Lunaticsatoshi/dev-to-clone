@@ -12,7 +12,7 @@
 
 ## Features
 
-* [ ] Register as a User
+* [x] Register as a User
 * [ ] Create Communities
 * [ ] Create Articles
 * [ ] Clap for Articles
@@ -34,11 +34,11 @@
 
 [<img src="https://img.shields.io/badge/-Python-306998?style=for-the-badge&labelColor=black&logo=python&logoColor=4b8bbe" >](https://www.python.org/)
 
+[<img src="https://img.shields.io/badge/-Typescript-007acc?style=for-the-badge&labelColor=black&logo=typescript&logoColor=007acc">](https://www.typescriptlang.org/)
+
 [<img src="https://img.shields.io/badge/-Django-092e20?style=for-the-badge&labelColor=black&logo=Django&logoColor=092e20" >](https://www.djangoproject.com/)
 
-[<img src="https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&labelColor=black&logo=sqlite&logoColor=white" >](https://www.sqlite.org/index.html)
-
-[<img src="https://img.shields.io/badge/-Typescript-007acc?style=for-the-badge&labelColor=black&logo=typescript&logoColor=007acc">](https://www.typescriptlang.org/)
+[<img src="https://img.shields.io/badge/-PostgresQL-00758f?style=for-the-badge&labelColor=black&logo=postgresql&logoColor=00758f" >](https://www.postgresql.org/)
 
 </div>
 
@@ -150,6 +150,10 @@ python manage.py runserver
       ```
 
 5. Open <http://localhost:3000> to view it in the browser.
+
+## 📸 Image
+
+<img src="./assets/dev-to/dev-to.png" >
 
 ## 🔐 License
 
