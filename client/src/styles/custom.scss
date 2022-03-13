@@ -83,6 +83,18 @@ ul {
     }
 
     .actions {
+      .actions-oauth {
+        width: 100%;
+
+        .google-auth {
+          background-color: rgb(5, 49, 59);
+          width: 100%;
+          padding: 0.5rem 1rem;
+          border-radius: 0.5rem;
+          font-size: 1rem;
+          font-weight: bold;
+        }
+      }
       .actions-email {
         .actions-hr {
           &__label {

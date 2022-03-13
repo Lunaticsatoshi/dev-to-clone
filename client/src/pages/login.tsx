@@ -17,6 +17,11 @@ const LoginPage: NextPage = () => {
             </div>
           </div>
           <div className="w-full actions mt-2">
+            <div className="actions-oauth flex justify-center items-center flex-col">
+              <div className="google-auth flex justify-center items-center">Continue with Google</div>
+              <div className="google-auth flex justify-center items-center">Continue with Google</div>
+              <div className="google-auth flex justify-center items-center">Continue with Google</div>
+            </div>
             <div className="w-full actions-email mt-2">
               <LoginForm message="Have a password? Login with your email address" />
             </div>
