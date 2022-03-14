@@ -44,7 +44,7 @@ const InputField: FC<InputFieldProps> = ({
   className,
   ...props
 }) => {
-  const [field, { error }] = useField(props);
+  const [field, { error, touched }] = useField(props);
   return (
     <div className="mb-2">
       {label && <Label {...labelProps}>{label}</Label>}
@@ -59,7 +59,7 @@ const InputField: FC<InputFieldProps> = ({
         {...field}
         {...props}
       />
-      {error && <div className="text-red-500 text-xs italic mt-2">{error}</div>}
+      {touched && error && <div className="text-red-500 text-xs italic mt-2">{error}</div>}
     </div>
   );
 };
