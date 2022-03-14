@@ -3,6 +3,9 @@ import type { NextPage } from "next";
 import { RegisterForm } from "src/modules";
 import { Layout } from "src/components";
 
+import { FcGoogle } from "react-icons/fc";
+import { FaTwitter, FaGithub } from "react-icons/fa";
+
 const RegisterPage: NextPage = () => {
   return (
     <Layout title="Register">
@@ -17,6 +20,23 @@ const RegisterPage: NextPage = () => {
             </div>
           </div>
           <div className="w-full actions mt-2">
+          <div className="actions-oauth flex justify-center items-center flex-col">
+              <div className="oauth google-auth flex justify-center items-center">
+                <div className="flex justify-center items-center">
+                  <FcGoogle size="1.3rem"/> <div className="oauth__label">Continue with Google</div>
+                </div>
+              </div>
+              <div className="oauth github-auth flex justify-center items-center">
+                <div className="flex justify-center items-center">
+                  <FaGithub size="1.3rem"/> <div className="oauth__label">Continue with Github</div>
+                </div>
+              </div>
+              <div className="oauth twitter-auth flex justify-center items-center">
+                <div className="flex justify-center items-center">
+                  <FaTwitter size="1.3rem"/> <div className="oauth__label">Continue with Twitter</div>
+                </div>
+              </div>
+            </div>
             <div className="w-full actions-email mt-2">
               <RegisterForm message="Already have an account?" />
             </div>
