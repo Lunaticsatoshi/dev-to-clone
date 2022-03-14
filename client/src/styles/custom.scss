@@ -86,8 +86,34 @@ ul {
       .actions-oauth {
         width: 100%;
 
+        .oauth {
+          margin: 0.3rem 0;
+
+          &__label {
+            margin-left: 0.5rem;
+          }
+        }
+
         .google-auth {
           background-color: rgb(5, 49, 59);
+          width: 100%;
+          padding: 0.5rem 1rem;
+          border-radius: 0.5rem;
+          font-size: 1rem;
+          font-weight: bold;
+        }
+
+        .github-auth {
+          background-color: hsl(0, 0%, 0%);
+          width: 100%;
+          padding: 0.5rem 1rem;
+          border-radius: 0.5rem;
+          font-size: 1rem;
+          font-weight: bold;
+        }
+
+        .twitter-auth {
+          background-color: rgb(0, 172, 237);
           width: 100%;
           padding: 0.5rem 1rem;
           border-radius: 0.5rem;
@@ -145,7 +171,6 @@ ul {
 
   .registration {
     width: 640px;
-    height: 785px;
     padding: 3rem;
   }
 }
