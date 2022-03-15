@@ -28,19 +28,21 @@ const Layout: FC<LayoutProps> = ({
       </Head>
       <SidebarContextProvider>
         <Header />
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="dark"
-        />
-        <div className="main-content flex justify-between">{children}</div>
+        <div className="main-content flex justify-between">
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+          />
+          {children}
+        </div>
       </SidebarContextProvider>
     </>
   );
