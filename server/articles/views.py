@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 
 from rest_framework.response import Response
 from rest_framework.generics import GenericAPIView
@@ -17,6 +19,7 @@ class UserArticleListApiView(GenericAPIView):
     queryset = Article.objects.all()
     permission_classes = (IsAuthenticated, IsOwner)
     
+    @method_decorator(cache_page(60*60*2))
     def get(self, request):
         user = request.user
         try:
@@ -98,6 +101,7 @@ class UserArticleDetailApiView(GenericAPIView):
     queryset = Article.objects.all()
     permission_classes = (IsAuthenticated, IsOwner)
     
+    @method_decorator(cache_page(60*60*2))
     def get(self, request, id):
         user = request.user
         try:
@@ -130,6 +134,7 @@ class UserArticleDeleteApiView(GenericAPIView):
     
     
 @api_view(['GET'])
+@cache_page(60*60*2)
 def get_articles(request):
     try:
         articles = Article.objects.all()
@@ -139,6 +144,7 @@ def get_articles(request):
         return Response({'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
 @api_view(['GET'])
+@cache_page(60*60*2)
 def get_article(request, slug):
     try:
         article = Article.objects.get(slug=slug)
@@ -148,6 +154,7 @@ def get_article(request, slug):
         return Response({'message': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
 @api_view(['GET'])
+@cache_page(60*60*2)
 def get_comments(request, slug):
     try:
         article = Article.objects.get(slug=slug)
