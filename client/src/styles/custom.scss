@@ -380,6 +380,43 @@ ul {
   width: 40%;
 }
 
+
+.user-profile-container {
+  width: 100%;
+  height: 100%;
+  margin-top: 2rem;
+
+  .user-profile-card {
+    width: 80%;
+    height: 500px;
+    margin: 0 auto;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+    background-color: var(--header-bg);
+    position: relative;
+
+    .user-avatar-container{
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background-color: var(--theme-background);
+      position: absolute;
+      top: -50px;
+
+      &__image{
+        border-radius: 50%;
+        display: block;
+        width: 90%;
+        height: 90%;
+        background-size: cover;
+        background-position: center center;
+        object-fit: cover;
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 768px) {
   .main-content {
     width: 100%;
