@@ -392,6 +392,7 @@ ul {
     border-radius: 0.5rem;
     border: 1px solid var(--border-color);
     background-color: var(--header-bg);
+    align-items: center;
     position: relative;
 
     .user-avatar-container {
@@ -412,61 +413,65 @@ ul {
         object-fit: cover;
       }
     }
-  }
 
-  .user-profile-actions {
-    width: 100%;
-    padding: 2rem 2rem 0 2rem;
-    .edit-profile-btn {
-      background-color: var(--main-theme);
-      color: var(--font-color);
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-      &:hover {
-        background-color: var(--main-theme-darker);
+    .user-profile-actions {
+      width: 100%;
+      padding: 2rem 2rem 0 2rem;
+      .edit-profile-btn {
+        background-color: var(--main-theme);
+        color: var(--font-color);
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        &:hover {
+          background-color: var(--main-theme-darker);
+        }
       }
     }
-  }
 
-  .user-profile-body {
-    margin: 1.5rem 0;
-    &__name {
-      h1 {
-        font-size: 2rem;
-        font-weight: bold;
-        margin: 0;
+    .user-profile-body {
+      margin: 1.5rem 0;
+      align-items: center;
+      &__name {
+        h1 {
+          font-size: 2rem;
+          font-weight: bold;
+          margin: 0;
+        }
       }
-    }
-    &__bio {
-      margin: 1rem 0;
-      font-size: 1.2rem;
-    }
-    &__data {
-      color: var(--profile-card-font-color);
-      .date-joined {
-        gap: 0.5rem;
-        font-size: 0.9rem;
+      &__bio {
+        margin: 1rem 0;
+        font-size: 1.2rem;
       }
-      gap: 1rem;
-    }
-  }
-
-  .user-profile-border{
-    width: 100%;
-    height: 1px;
-    background: var(--border-color);
-  }
-
-  .user-profile-info{
-    width: 50%;
-    margin: 1.5rem auto;
-
-    .info {
-      font-size: 1rem;
-
-      h5 {
-        font-size: 0.9rem;
+      &__data {
         color: var(--profile-card-font-color);
+        .date-joined {
+          gap: 0.5rem;
+          font-size: 0.9rem;
+        }
+        gap: 1rem;
+      }
+    }
+
+    .user-profile-border {
+      width: 100%;
+      height: 1px;
+      background: var(--border-color);
+    }
+
+    .user-profile-info {
+      width: 50%;
+      margin: 1.5rem auto;
+      align-items: center;
+      gap: 1rem;
+
+      .info {
+        font-size: 1rem;
+        align-items: center;
+
+        h5 {
+          font-size: 0.9rem;
+          color: var(--profile-card-font-color);
+        }
       }
     }
   }
@@ -520,5 +525,86 @@ ul {
 
   .profile-sidebar {
     display: none;
+  }
+
+  .user-profile-container {
+    margin-top: 2rem;
+    .user-profile-card {
+      width: 100%;
+      margin: 0;
+      align-items: flex-start;
+
+      .user-avatar-container {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background-color: var(--theme-background);
+        margin: 0 0.8rem;
+        position: absolute;
+        top: -30px;
+
+        &__image {
+          border-radius: 50%;
+          display: block;
+          width: 90%;
+          height: 90%;
+          background-size: cover;
+          background-position: center center;
+          object-fit: cover;
+        }
+      }
+
+      .user-profile-actions {
+        width: 100%;
+        padding: 1rem 1rem 0 1rem;
+        .edit-profile-btn {
+          background-color: var(--main-theme);
+          color: var(--font-color);
+          padding: 0.5rem 1rem;
+          border-radius: 5px;
+          &:hover {
+            background-color: var(--main-theme-darker);
+          }
+        }
+      }
+
+      .user-profile-body {
+        margin: 0.8rem;
+        align-items: start;
+        &__name {
+          h1 {
+            font-size: 1.5rem;
+            margin: 0;
+          }
+        }
+        &__bio {
+          margin: 0.5rem 0;
+          font-size: 0.9rem;
+        }
+      }
+
+      .user-profile-border {
+        width: 100%;
+        height: 1px;
+        background: var(--border-color);
+      }
+
+      .user-profile-info {
+        width: 50%;
+        margin: 0.8rem;
+        align-items: start;
+        flex-direction: column;
+
+        .info {
+          font-size: 1rem;
+          align-items: start;
+
+          h5 {
+            font-size: 0.9rem;
+            color: var(--profile-card-font-color);
+          }
+        }
+      }
+    }
   }
 }
