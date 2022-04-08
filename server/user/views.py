@@ -24,6 +24,14 @@ from .utils import Utils
 # Create your views here.
 
 class RegisterView(CreateAPIView):
+                        
+    """
+    @desc     Register user via api
+    @route    Post /api/v1/user/auth/register/
+    @access   Public
+    @return   Json
+    """
+    
     serializer_class = RegisterSerializer
     permission_classes = (AllowAny,)
     
@@ -50,6 +58,14 @@ class RegisterView(CreateAPIView):
             return Response({'message': 'User created successfully', 'data': user_data}, status=status.HTTP_201_CREATED)
         
 class LoginView(TokenObtainPairView):
+                            
+    """
+    @desc     Login user via api
+    @route    Post /api/v1/user/auth/login/
+    @access   Public
+    @return   Json
+    """
+    
     serializer_class = LoginSerializerWithToken
     
     def post(self, request):
@@ -66,6 +82,14 @@ class LoginView(TokenObtainPairView):
             return Response({'message': 'Invalid email or password'}, status=status.HTTP_400_BAD_REQUEST)
         
 class VerifyEmailView(APIView):
+                            
+    """
+    @desc     Verify user email via api
+    @route    Get /api/v1/user/email-verify/
+    @access   Public
+    @return   Json
+    """
+    
     permission_classes = (AllowAny,)
     serializer_class = EmailVerificationSerializer
     
@@ -100,6 +124,14 @@ class VerifyEmailView(APIView):
         
         
 class ProfileUpdateView(APIView):
+                            
+    """
+    @desc     User profile update via api
+    @route    Patch /api/v1/user/profile/update/
+    @access   Private
+    @return   Json
+    """
+    
     permission_classes = (AllowAny, IsAuthenticated,)
     serializer_class = UserProfileSerializer
     
@@ -126,6 +158,14 @@ class ProfileUpdateView(APIView):
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))
 def logout(request):
+                            
+    """
+    @desc     Logout user via api
+    @route    Post /api/v1/user/auth/logout/
+    @access   Private
+    @return   Json
+    """
+    
     data = request.data
     refresh_token = data.get('refresh')
     try:
@@ -141,6 +181,14 @@ def logout(request):
 
 @api_view(['GET'])
 def get_users(request):
+                            
+    """
+    @desc     Get all users via api
+    @route    Get /api/v1/user/all/
+    @access   Public
+    @return   Json
+    """
+    
     query = request.query_params.get('q') or ''
     try:
         users = CustomUser.objects.filter(username__icontains=query)
@@ -156,6 +204,14 @@ def get_users(request):
     
 @api_view(['GET'])
 def get_users_by_interest(request, interest):
+                                
+    """
+    @desc     Get all users by interests via api
+    @route    Get /api/v1/user/interest/{interest}/
+    @access   Public
+    @return   Json
+    """
+    
     try:
         interest = Interests.objects.get(interest=interest)
         users = CustomUser.objects.filter(Q(userprofile__interests__in=[interest])).order_by('-userprofile__follower_count')
@@ -171,6 +227,14 @@ def get_users_by_interest(request, interest):
 
 @api_view(['GET'])
 def get_user(request, username):
+                                
+    """
+    @desc     Get user by username via api
+    @route    Get /api/v1/user/{username}/
+    @access   Public
+    @return   Json
+    """
+    
     try:
         user = CustomUser.objects.get(username=username)
         
@@ -193,6 +257,14 @@ def get_user(request, username):
 @api_view(['GET'])
 @permission_classes((IsAuthenticated,))
 def get_current_user(request):
+                            
+    """
+    @desc     Get current user via api
+    @route    GET /api/v1/user/profile/current
+    @access   Private
+    @return   Json
+    """
+    
     user = request.user
     print(user)
     try:
@@ -206,6 +278,14 @@ def get_current_user(request):
 @api_view(['Post'])
 @permission_classes((IsAuthenticated,))
 def add_interests(request):
+                                
+    """
+    @desc     Add user interests via api
+    @route    POST /api/v1/user/profile/interests/add/
+    @access   Private
+    @return   Json
+    """
+    
     user_profile = request.user.userprofile
     interests = request.data.get('interests')
     try:
@@ -224,6 +304,14 @@ def add_interests(request):
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))
 def follow_user(request, username):
+                                
+    """
+    @desc     Follow user by username via api
+    @route    POST /api/v1/user/profile/{username}/follow/
+    @access   Private
+    @return   Json
+    """
+    
     user = request.user
     try:
         user_to_follow = CustomUser.objects.get(username=username)
