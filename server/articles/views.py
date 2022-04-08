@@ -15,6 +15,14 @@ from .permissions import IsOwner
 
 # Create your views here.
 class UserArticleListApiView(GenericAPIView):
+                                
+    """
+    @desc     Get current user articles via api
+    @route    GET /api/v1/articles/user/all/
+    @access   Private
+    @return   Json
+    """
+    
     serializer_class = ArticleSerializer
     queryset = Article.objects.all()
     permission_classes = (IsAuthenticated, IsOwner)
@@ -30,6 +38,14 @@ class UserArticleListApiView(GenericAPIView):
             return Response({'message': 'Something went wrong'}, status=status.HTTP_400_BAD_REQUEST)
 
 class UserArticleCreateApiView(GenericAPIView):
+                                    
+    """
+    @desc     Create current user articles via api
+    @route    POST /api/v1/articles/create/
+    @access   Private
+    @return   Json
+    """
+    
     serializer_class = ArticleSerializer
     permission_classes = (IsAuthenticated, IsOwner)
     
@@ -61,6 +77,14 @@ class UserArticleCreateApiView(GenericAPIView):
             return Response({ 'message': 'Something went wrong' }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
 class UserArticleUpdateApiView(GenericAPIView):
+                                    
+    """
+    @desc     Update current user articles via api
+    @route    PUT /api/v1/articles/:id/update/
+    @access   Private
+    @return   Json
+    """
+    
     permission_classes = (IsAuthenticated, IsOwner)
     serializer_class = ArticleSerializer
 
@@ -97,6 +121,14 @@ class UserArticleUpdateApiView(GenericAPIView):
     
     
 class UserArticleDetailApiView(GenericAPIView):
+                                    
+    """
+    @desc     Get current user article detail via api
+    @route    DELETE /api/v1/articles/user/:id/
+    @access   Private
+    @return   Json
+    """
+    
     serializer_class = ArticleSerializer
     queryset = Article.objects.all()
     permission_classes = (IsAuthenticated, IsOwner)
@@ -114,6 +146,14 @@ class UserArticleDetailApiView(GenericAPIView):
             return Response({ 'message': 'Something went wrong' }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
 class UserArticleDeleteApiView(GenericAPIView):
+                                        
+    """
+    @desc     Delete current user articles via api
+    @route    DELETE /api/v1/articles/:id/delete/
+    @access   Private
+    @return   Json
+    """
+    
     serializer_class = ArticleSerializer
     permission_classes = (IsAuthenticated, IsOwner)
     def delete(self, request, id):
@@ -136,6 +176,14 @@ class UserArticleDeleteApiView(GenericAPIView):
 @api_view(['GET'])
 @cache_page(60*60*2)
 def get_articles(request):
+                                        
+    """
+    @desc     Get articles via api
+    @route    GET /api/v1/articles/all/
+    @access   Public
+    @return   Json
+    """
+    
     try:
         articles = Article.objects.all()
         serializer = ArticleSerializer(articles, many=True)
@@ -146,6 +194,14 @@ def get_articles(request):
 @api_view(['GET'])
 @cache_page(60*60*2)
 def get_article(request, slug):
+                                            
+    """
+    @desc     Get article by slug via api
+    @route    GET /api/v1/articles/:slug/
+    @access   Public
+    @return   Json
+    """
+    
     try:
         article = Article.objects.get(slug=slug)
         serializer = ArticleSerializer(article, many=False)
@@ -156,6 +212,14 @@ def get_article(request, slug):
 @api_view(['GET'])
 @cache_page(60*60*2)
 def get_comments(request, slug):
+                                                
+    """
+    @desc     Get article comments via api
+    @route    GET /api/v1/articles/comments/
+    @access   Public
+    @return   Json
+    """
+    
     try:
         article = Article.objects.get(slug=slug)
         comments = ArticleComment.objects.filter(article=article)
@@ -167,6 +231,14 @@ def get_comments(request, slug):
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))
 def add_clap(request):
+                                                
+    """
+    @desc     Add article clap via api
+    @route    POST /api/v1/articles/clap/
+    @access   Private
+    @return   Json
+    """
+    
     user = request.user
     data = request.data
     article_id = data.get('article_id')
@@ -216,6 +288,14 @@ def add_clap(request):
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))
 def add_comment(request):
+                                                    
+    """
+    @desc     Add article comment via api
+    @route    POST /api/v1/articles/comment/
+    @access   Private
+    @return   Json
+    """
+    
     user = request.user
     data = request.data
     article_id = data.get('article_id')
@@ -245,6 +325,14 @@ def add_comment(request):
 @api_view(['PUT'])
 @permission_classes((IsAuthenticated,))
 def edit_comment(request, id):
+                                                    
+    """
+    @desc     Update article comment via api
+    @route    PUT /api/v1/articles/comment/:id/update/
+    @access   Private
+    @return   Json
+    """
+    
     user = request.user
     data = request.data
     comment = data.get('comment')
@@ -271,6 +359,14 @@ def edit_comment(request, id):
 @api_view(['DELETE'])
 @permission_classes((IsAuthenticated,))
 def delete_comment(request, id):
+                                                        
+    """
+    @desc     Delete article comment via api
+    @route    DELETE /api/v1/articles/comment/:id/delete/
+    @access   Private
+    @return   Json
+    """
+    
     user = request.user
     
     try:
