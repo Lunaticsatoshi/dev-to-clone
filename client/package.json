@@ -8,6 +8,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tanstack/react-query": "^4.0.10",
     "axios": "^0.26.0",
     "dayjs": "^1.10.7",
     "formik": "^2.2.9",
