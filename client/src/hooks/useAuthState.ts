@@ -14,18 +14,12 @@ import {
 
 const useAuthState = () => {
   const { state, dispatch } = useContext(AuthContext);
-  const { userLogin, userRegister, userLogout, getCurrentUser } = useAxios();
+  const { userRegister, userLogout, getCurrentUser } = useAxios();
   const router = useRouter();
 
-  const login = async (email: string, password: string) => {
-    const response = await userLogin({ email, password });
-    const { data } = response;
-    const user = [data].map(
-      ({ access, refresh, profile, ...rest }: any) => rest,
-    )[0];
-    const { access, refresh, profile } = data;
+  const login = (data: any) => {
+    const { access, refresh } = data;
     userTokenPersistence.set(JSON.stringify({ access, refresh }));
-    dispatch({ type: LOGIN_SUCCESS, payload: { user, profile } });
     router.push("/");
   };
 

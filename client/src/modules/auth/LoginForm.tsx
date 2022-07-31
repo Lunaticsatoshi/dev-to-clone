@@ -2,9 +2,11 @@ import { FC } from "react";
 import Link from "next/link";
 import * as Yup from "yup";
 import { Form, useFormik, FormikProvider } from "formik";
+import { useMutation } from "@tanstack/react-query";
 
 import { InputField, Button, CheckBox } from "src/components";
 import { useAuthState } from "src/hooks";
+import { userLogin } from "src/lib/api";
 
 interface InnerLoginFormProps {
   message: string;
@@ -67,6 +69,9 @@ interface LoginFormProps {
 
 const LoginForm: FC<LoginFormProps> = ({ initialEmail, message }) => {
   const { login } = useAuthState();
+  const { mutateAsync } = useMutation(userLogin, {
+    onSuccess: ({ data }) => login(data),
+  });
   const formik = useFormik({
     initialValues: {
       email: initialEmail || "",
@@ -75,7 +80,7 @@ const LoginForm: FC<LoginFormProps> = ({ initialEmail, message }) => {
     validationSchema: inputValidationSchema,
     onSubmit: async (values, { resetForm }) => {
       console.log(values);
-      await login(values.email, values.password);
+      await mutateAsync({ ...values });
       resetForm();
     },
   });
