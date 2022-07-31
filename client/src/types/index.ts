@@ -6,5 +6,5 @@ export interface ILoginData {
 export interface IregisterData {
   email: string;
   password: string;
-  userName: string;
+  username: string;
 }
