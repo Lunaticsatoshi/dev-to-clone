@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useQuery } from "@tanstack/react-query";
 import { FaDev } from "react-icons/fa";
 import { RiNotificationLine } from "react-icons/ri";
 import { FiSearch } from "react-icons/fi";
@@ -8,12 +9,16 @@ import { FiSearch } from "react-icons/fi";
 import { SearchBox, Button, ThemeToggle, DropDown, DropDownItem } from "..";
 
 import { useSidebarToggle, useAuthState } from "src/hooks";
+import { getCurrentUser } from "src/lib/api";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
   const [_, sidebarToggle] = useSidebarToggle();
   const { state, logout } = useAuthState();
   const toggle = () => setOpen(!open);
+  const { data } = useQuery(["currentUser"], getCurrentUser, {});
+
+  console.log(data);
   const router = useRouter();
   return (
     <header className="flex header">
@@ -41,7 +46,7 @@ const Header = () => {
         </div>
 
         <div className="flex items-center header-container-right">
-          {state.isAuthenticated ? (
+          {data?.data?.username ? (
             <>
               <Button className="btn post-btn">Write a post</Button>
               <i className="hidden-search">
@@ -57,7 +62,10 @@ const Header = () => {
               </i>
 
               <span onClick={toggle}>
-                <img src={state.profile?.profile_pic} alt="Profile Picture" />
+                <img
+                  src={data?.data?.profile?.profile_pic}
+                  alt="Profile Picture"
+                />
 
                 <DropDown open={open} className="header-dropdown">
                   <DropDownItem onClick={toggle}>
