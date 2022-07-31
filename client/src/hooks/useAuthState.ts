@@ -23,14 +23,8 @@ const useAuthState = () => {
     router.push("/");
   };
 
-  const register = async (
-    username: string,
-    email: string,
-    password: string,
-  ) => {
-    const user = await userRegister({ username, email, password });
-    const profile = user.profile;
-    dispatch({ type: REGISTER_SUCCESS, payload: { user, profile } });
+  const register = () => {
+    router.push("/login");
   };
 
   const logout = async () => {

@@ -2,9 +2,11 @@ import { FC } from "react";
 import Link from "next/link";
 import * as Yup from "yup";
 import { Form, useFormik, FormikProvider } from "formik";
+import { useMutation } from "@tanstack/react-query";
 
 import { InputField, Button } from "src/components";
 import { useAuthState } from "src/hooks";
+import { userRegister } from "src/lib/api";
 
 interface InnerRegisterFormProps {
   message: string;
@@ -67,6 +69,12 @@ interface RegisterFormProps {
 
 const RegisterForm: FC<RegisterFormProps> = ({ initialEmail, message }) => {
   const { register } = useAuthState();
+  const { mutateAsync } = useMutation(userRegister, {
+    onSuccess: ({ data }) => {
+      console.log(data);
+      register();
+    },
+  });
   const formik = useFormik({
     initialValues: {
       username: initialEmail || "",
@@ -76,7 +84,7 @@ const RegisterForm: FC<RegisterFormProps> = ({ initialEmail, message }) => {
     validationSchema: inputValidationSchema,
     onSubmit: async (values, { resetForm }) => {
       console.log(values);
-      await register(values.username, values.email, values.password);
+      await mutateAsync({ ...values });
       resetForm();
     },
   });
